@@ -1,0 +1,2857 @@
+{
+ "source": "USDA National Nutrient Database for Standard Reference, Release 28 (2015), archivo ABBREV.txt",
+ "license": "Dominio público (obra del Gobierno de EE.UU.). Cita sugerida: US Department of Agriculture, Agricultural Research Service, Nutrient Data Laboratory. USDA National Nutrient Database for Standard Reference, Release 28. Version Current: September 2015.",
+ "obtained_from": "Paquete npm fda-nutrient-database@1.0.2 (redistribución de ABBREV.txt y FOOD_DES.txt); md5 ABBREV.txt 30fd99e3fb88f919b199e7684e58aa96",
+ "notes": "Valores por 100 g de porción comestible. Carbohidratos = totales por diferencia (incluyen fibra). Campo vacío en USDA = dato faltante (null).",
+ "items": [
+  {
+   "ndb": "01077",
+   "usda_description": "Milk, whole, 3.25% milkfat, with added vitamin D",
+   "name": "Leche entera (3,25 % grasa)",
+   "category": "Lácteos y huevos",
+   "state": "listo_para_consumir",
+   "allergens": [
+    "lactosa",
+    "leche"
+   ],
+   "energy_kcal": 61.0,
+   "protein_g": 3.15,
+   "fat_g": 3.25,
+   "carbs_g": 4.8,
+   "fiber_g": 0.0,
+   "sodium_mg": 43.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": 1.0313,
+   "density_from": "1 cup",
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU. (237 ml)",
+     "amount": 244.0,
+     "unit": "g",
+     "usda_desc": "1 cup"
+    }
+   ]
+  },
+  {
+   "ndb": "01079",
+   "usda_description": "Milk, reduced fat, fluid, 2% milkfat, with added vitamin A and vitamin D",
+   "name": "Leche parcialmente descremada (2 % grasa)",
+   "category": "Lácteos y huevos",
+   "state": "listo_para_consumir",
+   "allergens": [
+    "lactosa",
+    "leche"
+   ],
+   "energy_kcal": 50.0,
+   "protein_g": 3.3,
+   "fat_g": 1.98,
+   "carbs_g": 4.8,
+   "fiber_g": 0.0,
+   "sodium_mg": 47.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": 1.0313,
+   "density_from": "1 cup",
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU. (237 ml)",
+     "amount": 244.0,
+     "unit": "g",
+     "usda_desc": "1 cup"
+    }
+   ]
+  },
+  {
+   "ndb": "01085",
+   "usda_description": "Milk, nonfat, fluid, with added vitamin A and vitamin D (fat free or skim)",
+   "name": "Leche descremada",
+   "category": "Lácteos y huevos",
+   "state": "listo_para_consumir",
+   "allergens": [
+    "lactosa",
+    "leche"
+   ],
+   "energy_kcal": 34.0,
+   "protein_g": 3.37,
+   "fat_g": 0.08,
+   "carbs_g": 4.96,
+   "fiber_g": 0.0,
+   "sodium_mg": 42.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": 1.0356,
+   "density_from": "1 cup",
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU. (237 ml)",
+     "amount": 245.0,
+     "unit": "g",
+     "usda_desc": "1 cup"
+    }
+   ]
+  },
+  {
+   "ndb": "01154",
+   "usda_description": "Milk, dry, nonfat, regular, with added vitamin A and vitamin D",
+   "name": "Leche en polvo descremada",
+   "category": "Lácteos y huevos",
+   "state": "listo_para_consumir",
+   "allergens": [
+    "lactosa",
+    "leche"
+   ],
+   "energy_kcal": 362.0,
+   "protein_g": 36.16,
+   "fat_g": 0.77,
+   "carbs_g": 51.98,
+   "fiber_g": 0.0,
+   "sodium_mg": 535.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1/4 taza medidora EE.UU.",
+     "amount": 30.0,
+     "unit": "g",
+     "usda_desc": ".25 cup"
+    }
+   ]
+  },
+  {
+   "ndb": "01116",
+   "usda_description": "Yogurt, plain, whole milk, 8 grams protein per 8 ounce",
+   "name": "Yogur natural entero (sin azúcar)",
+   "category": "Lácteos y huevos",
+   "state": "listo_para_consumir",
+   "allergens": [
+    "lactosa",
+    "leche"
+   ],
+   "energy_kcal": 61.0,
+   "protein_g": 3.47,
+   "fat_g": 3.25,
+   "carbs_g": 4.66,
+   "fiber_g": 0.0,
+   "sodium_mg": 46.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 pote de 170 g",
+     "amount": 170.0,
+     "unit": "g",
+     "usda_desc": "1 container,  (6 oz)"
+    }
+   ]
+  },
+  {
+   "ndb": "01118",
+   "usda_description": "Yogurt, plain, skim milk, 13 grams protein per 8 ounce",
+   "name": "Yogur natural descremado (sin azúcar)",
+   "category": "Lácteos y huevos",
+   "state": "listo_para_consumir",
+   "allergens": [
+    "lactosa",
+    "leche"
+   ],
+   "energy_kcal": 56.0,
+   "protein_g": 5.73,
+   "fat_g": 0.18,
+   "carbs_g": 7.68,
+   "fiber_g": 0.0,
+   "sodium_mg": 77.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 pote de 170 g",
+     "amount": 170.0,
+     "unit": "g",
+     "usda_desc": "1 container,  (6 oz)"
+    }
+   ]
+  },
+  {
+   "ndb": "01026",
+   "usda_description": "Cheese, mozzarella, whole milk",
+   "name": "Queso mozzarella (leche entera)",
+   "category": "Lácteos y huevos",
+   "state": "listo_para_consumir",
+   "allergens": [
+    "lactosa",
+    "leche"
+   ],
+   "energy_kcal": 300.0,
+   "protein_g": 22.17,
+   "fat_g": 22.35,
+   "carbs_g": 2.19,
+   "fiber_g": 0.0,
+   "sodium_mg": 627.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU., rallado",
+     "amount": 112.0,
+     "unit": "g",
+     "usda_desc": "1 cup, shredded"
+    }
+   ]
+  },
+  {
+   "ndb": "01032",
+   "usda_description": "Cheese, parmesan, grated",
+   "name": "Queso parmesano rallado",
+   "category": "Lácteos y huevos",
+   "state": "listo_para_consumir",
+   "allergens": [
+    "leche"
+   ],
+   "energy_kcal": 420.0,
+   "protein_g": 28.42,
+   "fat_g": 27.84,
+   "carbs_g": 13.91,
+   "fiber_g": 0.0,
+   "sodium_mg": 1804.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 cucharada (medida USDA)",
+     "amount": 5.0,
+     "unit": "g",
+     "usda_desc": "1 tbsp"
+    }
+   ]
+  },
+  {
+   "ndb": "01035",
+   "usda_description": "Cheese, provolone",
+   "name": "Queso provolone",
+   "category": "Lácteos y huevos",
+   "state": "listo_para_consumir",
+   "allergens": [
+    "leche"
+   ],
+   "energy_kcal": 351.0,
+   "protein_g": 25.58,
+   "fat_g": 26.62,
+   "carbs_g": 2.14,
+   "fiber_g": 0.0,
+   "sodium_mg": 876.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": []
+  },
+  {
+   "ndb": "01036",
+   "usda_description": "Cheese, ricotta, whole milk",
+   "name": "Ricota (leche entera)",
+   "category": "Lácteos y huevos",
+   "state": "listo_para_consumir",
+   "allergens": [
+    "lactosa",
+    "leche"
+   ],
+   "energy_kcal": 174.0,
+   "protein_g": 11.26,
+   "fat_g": 12.98,
+   "carbs_g": 3.04,
+   "fiber_g": 0.0,
+   "sodium_mg": 84.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1/2 taza medidora EE.UU.",
+     "amount": 124.0,
+     "unit": "g",
+     "usda_desc": ".5 cup"
+    }
+   ]
+  },
+  {
+   "ndb": "01037",
+   "usda_description": "Cheese, ricotta, part skim milk",
+   "name": "Ricota (leche parcialmente descremada)",
+   "category": "Lácteos y huevos",
+   "state": "listo_para_consumir",
+   "allergens": [
+    "lactosa",
+    "leche"
+   ],
+   "energy_kcal": 138.0,
+   "protein_g": 11.39,
+   "fat_g": 7.91,
+   "carbs_g": 5.14,
+   "fiber_g": 0.0,
+   "sodium_mg": 99.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1/2 taza medidora EE.UU.",
+     "amount": 124.0,
+     "unit": "g",
+     "usda_desc": ".5 cup"
+    }
+   ]
+  },
+  {
+   "ndb": "01017",
+   "usda_description": "Cheese, cream",
+   "name": "Queso crema",
+   "category": "Lácteos y huevos",
+   "state": "listo_para_consumir",
+   "allergens": [
+    "lactosa",
+    "leche"
+   ],
+   "energy_kcal": 350.0,
+   "protein_g": 6.15,
+   "fat_g": 34.44,
+   "carbs_g": 5.52,
+   "fiber_g": 0.0,
+   "sodium_mg": 314.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 cucharada (medida USDA)",
+     "amount": 14.5,
+     "unit": "g",
+     "usda_desc": "1 tbsp"
+    }
+   ]
+  },
+  {
+   "ndb": "01016",
+   "usda_description": "Cheese, cottage, lowfat, 1% milkfat",
+   "name": "Queso cottage (1 % grasa)",
+   "category": "Lácteos y huevos",
+   "state": "listo_para_consumir",
+   "allergens": [
+    "lactosa",
+    "leche"
+   ],
+   "energy_kcal": 72.0,
+   "protein_g": 12.39,
+   "fat_g": 1.02,
+   "carbs_g": 2.72,
+   "fiber_g": 0.0,
+   "sodium_mg": 406.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": []
+  },
+  {
+   "ndb": "01228",
+   "usda_description": "Cheese, fresh, queso fresco",
+   "name": "Queso fresco (tipo latinoamericano, referencia USDA)",
+   "category": "Lácteos y huevos",
+   "state": "listo_para_consumir",
+   "allergens": [
+    "lactosa",
+    "leche"
+   ],
+   "energy_kcal": 299.0,
+   "protein_g": 18.09,
+   "fat_g": 23.82,
+   "carbs_g": 2.98,
+   "fiber_g": 0.0,
+   "sodium_mg": 751.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU., desmenuzado",
+     "amount": 122.0,
+     "unit": "g",
+     "usda_desc": "1 cup, crumbled"
+    }
+   ]
+  },
+  {
+   "ndb": "01123",
+   "usda_description": "Egg, whole, raw, fresh",
+   "name": "Huevo entero crudo",
+   "category": "Lácteos y huevos",
+   "state": "crudo",
+   "allergens": [
+    "huevo"
+   ],
+   "energy_kcal": 143.0,
+   "protein_g": 12.56,
+   "fat_g": 9.51,
+   "carbs_g": 0.72,
+   "fiber_g": 0.0,
+   "sodium_mg": 142.0,
+   "edible_portion_pct": 88.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 huevo grande (sin cáscara)",
+     "amount": 50.0,
+     "unit": "g",
+     "usda_desc": "1 large"
+    }
+   ]
+  },
+  {
+   "ndb": "01129",
+   "usda_description": "Egg, whole, cooked, hard-boiled",
+   "name": "Huevo duro",
+   "category": "Lácteos y huevos",
+   "state": "cocido",
+   "allergens": [
+    "huevo"
+   ],
+   "energy_kcal": 155.0,
+   "protein_g": 12.58,
+   "fat_g": 10.61,
+   "carbs_g": 1.12,
+   "fiber_g": 0.0,
+   "sodium_mg": 124.0,
+   "edible_portion_pct": 88.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": []
+  },
+  {
+   "ndb": "01124",
+   "usda_description": "Egg, white, raw, fresh",
+   "name": "Clara de huevo cruda",
+   "category": "Lácteos y huevos",
+   "state": "crudo",
+   "allergens": [
+    "huevo"
+   ],
+   "energy_kcal": 52.0,
+   "protein_g": 10.9,
+   "fat_g": 0.17,
+   "carbs_g": 0.73,
+   "fiber_g": 0.0,
+   "sodium_mg": 166.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 clara de huevo grande",
+     "amount": 33.0,
+     "unit": "g",
+     "usda_desc": "1 large"
+    }
+   ]
+  },
+  {
+   "ndb": "01145",
+   "usda_description": "Butter, without salt",
+   "name": "Manteca sin sal",
+   "category": "Aceites y grasas",
+   "state": "listo_para_consumir",
+   "allergens": [
+    "leche"
+   ],
+   "energy_kcal": 717.0,
+   "protein_g": 0.85,
+   "fat_g": 81.11,
+   "carbs_g": 0.06,
+   "fiber_g": 0.0,
+   "sodium_mg": 11.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 cucharada (medida USDA)",
+     "amount": 14.2,
+     "unit": "g",
+     "usda_desc": "1 tbsp"
+    }
+   ]
+  },
+  {
+   "ndb": "01053",
+   "usda_description": "Cream, fluid, heavy whipping",
+   "name": "Crema de leche (para batir)",
+   "category": "Lácteos y huevos",
+   "state": "listo_para_consumir",
+   "allergens": [
+    "lactosa",
+    "leche"
+   ],
+   "energy_kcal": 340.0,
+   "protein_g": 2.84,
+   "fat_g": 36.08,
+   "carbs_g": 2.74,
+   "fiber_g": 0.0,
+   "sodium_mg": 27.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": []
+  },
+  {
+   "ndb": "01225",
+   "usda_description": "Dulce de Leche",
+   "name": "Dulce de leche",
+   "category": "Azúcares y dulces",
+   "state": "listo_para_consumir",
+   "allergens": [
+    "lactosa",
+    "leche"
+   ],
+   "energy_kcal": 315.0,
+   "protein_g": 6.84,
+   "fat_g": 7.35,
+   "carbs_g": 55.35,
+   "fiber_g": 0.0,
+   "sodium_mg": 129.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 cucharada (medida USDA)",
+     "amount": 19.0,
+     "unit": "g",
+     "usda_desc": "1 tbsp"
+    }
+   ]
+  },
+  {
+   "ndb": "23562",
+   "usda_description": "Beef, ground, 90% lean meat / 10% fat, raw",
+   "name": "Carne vacuna picada magra (90/10), cruda",
+   "category": "Carnes",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 176.0,
+   "protein_g": 20.0,
+   "fat_g": 10.0,
+   "carbs_g": 0.0,
+   "fiber_g": 0.0,
+   "sodium_mg": 66.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": []
+  },
+  {
+   "ndb": "23564",
+   "usda_description": "Beef, ground, 90% lean meat / 10% fat, patty, cooked, pan-broiled",
+   "name": "Carne vacuna picada magra (90/10), cocida a la plancha",
+   "category": "Carnes",
+   "state": "cocido",
+   "allergens": [],
+   "energy_kcal": 204.0,
+   "protein_g": 25.21,
+   "fat_g": 10.68,
+   "carbs_g": 0.0,
+   "fiber_g": 0.0,
+   "sodium_mg": 75.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": []
+  },
+  {
+   "ndb": "23601",
+   "usda_description": "Beef, tenderloin, steak, separable lean only, trimmed to 1/8\" fat, all grades, raw",
+   "name": "Lomo vacuno, solo magro, crudo (corte EE.UU. \"tenderloin\")",
+   "category": "Carnes",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 153.0,
+   "protein_g": 22.12,
+   "fat_g": 6.52,
+   "carbs_g": 0.0,
+   "fiber_g": 0.0,
+   "sodium_mg": 56.0,
+   "edible_portion_pct": 80.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": []
+  },
+  {
+   "ndb": "23363",
+   "usda_description": "Beef, round, eye of round steak, boneless, separable lean only, trimmed to 0\" fat, all grades, raw",
+   "name": "Peceto, solo magro, crudo (corte EE.UU. \"eye of round\")",
+   "category": "Carnes",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 121.0,
+   "protein_g": 23.37,
+   "fat_g": 3.04,
+   "carbs_g": 0.0,
+   "fiber_g": 0.0,
+   "sodium_mg": 53.0,
+   "edible_portion_pct": 98.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": []
+  },
+  {
+   "ndb": "23354",
+   "usda_description": "Beef, round, top round steak, boneless, separable lean only, trimmed to 0\" fat, all grades, raw",
+   "name": "Nalga, solo magro, cruda (corte EE.UU. \"top round\")",
+   "category": "Carnes",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 121.0,
+   "protein_g": 23.59,
+   "fat_g": 2.94,
+   "carbs_g": 0.0,
+   "fiber_g": 0.0,
+   "sodium_mg": 54.0,
+   "edible_portion_pct": 99.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": []
+  },
+  {
+   "ndb": "13325",
+   "usda_description": "Beef, variety meats and by-products, liver, raw",
+   "name": "Hígado vacuno crudo",
+   "category": "Carnes",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 135.0,
+   "protein_g": 20.36,
+   "fat_g": 3.63,
+   "carbs_g": 3.89,
+   "fiber_g": 0.0,
+   "sodium_mg": 69.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": []
+  },
+  {
+   "ndb": "05062",
+   "usda_description": "Chicken, broiler or fryers, breast, skinless, boneless, meat only, raw",
+   "name": "Pechuga de pollo sin piel, cruda",
+   "category": "Carnes",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 120.0,
+   "protein_g": 22.5,
+   "fat_g": 2.62,
+   "carbs_g": 0.0,
+   "fiber_g": 0.0,
+   "sodium_mg": 45.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": []
+  },
+  {
+   "ndb": "05064",
+   "usda_description": "Chicken, broilers or fryers, breast, meat only, cooked, roasted",
+   "name": "Pechuga de pollo sin piel, asada",
+   "category": "Carnes",
+   "state": "cocido",
+   "allergens": [],
+   "energy_kcal": 165.0,
+   "protein_g": 31.02,
+   "fat_g": 3.57,
+   "carbs_g": 0.0,
+   "fiber_g": 0.0,
+   "sodium_mg": 74.0,
+   "edible_portion_pct": 72.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU., en cubos",
+     "amount": 140.0,
+     "unit": "g",
+     "usda_desc": "1 cup, chopped or diced"
+    }
+   ]
+  },
+  {
+   "ndb": "05096",
+   "usda_description": "Chicken, broilers or fryers, dark meat, thigh, meat only, raw",
+   "name": "Muslo de pollo sin piel, crudo",
+   "category": "Carnes",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 121.0,
+   "protein_g": 19.66,
+   "fat_g": 4.12,
+   "carbs_g": 0.0,
+   "fiber_g": 0.0,
+   "sodium_mg": 95.0,
+   "edible_portion_pct": 75.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": []
+  },
+  {
+   "ndb": "05098",
+   "usda_description": "Chicken, broilers or fryers, thigh, meat only, cooked, roasted",
+   "name": "Muslo de pollo sin piel, asado",
+   "category": "Carnes",
+   "state": "cocido",
+   "allergens": [],
+   "energy_kcal": 179.0,
+   "protein_g": 24.76,
+   "fat_g": 8.15,
+   "carbs_g": 0.0,
+   "fiber_g": 0.0,
+   "sodium_mg": 106.0,
+   "edible_portion_pct": 52.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": []
+  },
+  {
+   "ndb": "10060",
+   "usda_description": "Pork, fresh, loin, tenderloin, separable lean only, raw",
+   "name": "Solomillo de cerdo, solo magro, crudo",
+   "category": "Carnes",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 109.0,
+   "protein_g": 20.95,
+   "fat_g": 2.17,
+   "carbs_g": 0.0,
+   "fiber_g": 0.0,
+   "sodium_mg": 53.0,
+   "edible_portion_pct": 95.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": []
+  },
+  {
+   "ndb": "07029",
+   "usda_description": "Ham, sliced, regular (approximately 11% fat)",
+   "name": "Jamón cocido en fetas (aprox. 11 % grasa, referencia USDA)",
+   "category": "Carnes",
+   "state": "listo_para_consumir",
+   "allergens": [],
+   "energy_kcal": 163.0,
+   "protein_g": 16.6,
+   "fat_g": 8.6,
+   "carbs_g": 3.83,
+   "fiber_g": 1.3,
+   "sodium_mg": 1143.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 feta (28 g)",
+     "amount": 28.0,
+     "unit": "g",
+     "usda_desc": "1 slice"
+    }
+   ]
+  },
+  {
+   "ndb": "15121",
+   "usda_description": "Fish, tuna, light, canned in water, drained solids",
+   "name": "Atún al natural en lata, escurrido",
+   "category": "Pescados y mariscos",
+   "state": "listo_para_consumir",
+   "allergens": [
+    "pescado"
+   ],
+   "energy_kcal": 86.0,
+   "protein_g": 19.44,
+   "fat_g": 0.96,
+   "carbs_g": 0.0,
+   "fiber_g": 0.0,
+   "sodium_mg": 247.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": []
+  },
+  {
+   "ndb": "15236",
+   "usda_description": "Fish, salmon, Atlantic, farmed, raw",
+   "name": "Salmón rosado (del Atlántico, de criadero), crudo",
+   "category": "Pescados y mariscos",
+   "state": "crudo",
+   "allergens": [
+    "pescado"
+   ],
+   "energy_kcal": 208.0,
+   "protein_g": 20.42,
+   "fat_g": 13.42,
+   "carbs_g": 0.0,
+   "fiber_g": 0.0,
+   "sodium_mg": 59.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": []
+  },
+  {
+   "ndb": "15088",
+   "usda_description": "Fish, sardine, Atlantic, canned in oil, drained solids with bone",
+   "name": "Sardinas en aceite, escurridas, con espinas",
+   "category": "Pescados y mariscos",
+   "state": "listo_para_consumir",
+   "allergens": [
+    "pescado"
+   ],
+   "energy_kcal": 208.0,
+   "protein_g": 24.62,
+   "fat_g": 11.45,
+   "carbs_g": 0.0,
+   "fiber_g": 0.0,
+   "sodium_mg": 307.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": []
+  },
+  {
+   "ndb": "16069",
+   "usda_description": "Lentils, raw",
+   "name": "Lentejas secas, crudas",
+   "category": "Legumbres",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 352.0,
+   "protein_g": 24.63,
+   "fat_g": 1.06,
+   "carbs_g": 63.35,
+   "fiber_g": 10.7,
+   "sodium_mg": 6.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 cucharada (medida USDA)",
+     "amount": 12.0,
+     "unit": "g",
+     "usda_desc": "1 tablespoon"
+    },
+    {
+     "name": "1 taza medidora EE.UU.",
+     "amount": 192.0,
+     "unit": "g",
+     "usda_desc": "1 cup"
+    }
+   ]
+  },
+  {
+   "ndb": "16070",
+   "usda_description": "Lentils, mature seeds, cooked, boiled, without salt",
+   "name": "Lentejas hervidas, sin sal",
+   "category": "Legumbres",
+   "state": "cocido",
+   "allergens": [],
+   "energy_kcal": 116.0,
+   "protein_g": 9.02,
+   "fat_g": 0.38,
+   "carbs_g": 20.13,
+   "fiber_g": 7.9,
+   "sodium_mg": 2.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU.",
+     "amount": 198.0,
+     "unit": "g",
+     "usda_desc": "1 cup"
+    }
+   ]
+  },
+  {
+   "ndb": "16056",
+   "usda_description": "Chickpeas (garbanzo beans, bengal gram), mature seeds, raw",
+   "name": "Garbanzos secos, crudos",
+   "category": "Legumbres",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 378.0,
+   "protein_g": 20.47,
+   "fat_g": 6.04,
+   "carbs_g": 62.95,
+   "fiber_g": 12.2,
+   "sodium_mg": 24.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU.",
+     "amount": 200.0,
+     "unit": "g",
+     "usda_desc": "1 cup"
+    }
+   ]
+  },
+  {
+   "ndb": "16057",
+   "usda_description": "Chickpeas (garbanzo beans, bengal gram), mature seeds, cooked, boiled, without salt",
+   "name": "Garbanzos hervidos, sin sal",
+   "category": "Legumbres",
+   "state": "cocido",
+   "allergens": [],
+   "energy_kcal": 164.0,
+   "protein_g": 8.86,
+   "fat_g": 2.59,
+   "carbs_g": 27.42,
+   "fiber_g": 7.6,
+   "sodium_mg": 7.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU.",
+     "amount": 164.0,
+     "unit": "g",
+     "usda_desc": "1 cup"
+    }
+   ]
+  },
+  {
+   "ndb": "16014",
+   "usda_description": "Beans, black, mature seeds, raw",
+   "name": "Porotos negros secos, crudos",
+   "category": "Legumbres",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 341.0,
+   "protein_g": 21.6,
+   "fat_g": 1.42,
+   "carbs_g": 62.36,
+   "fiber_g": 15.5,
+   "sodium_mg": 5.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU.",
+     "amount": 194.0,
+     "unit": "g",
+     "usda_desc": "1 cup"
+    }
+   ]
+  },
+  {
+   "ndb": "16015",
+   "usda_description": "Beans, black, mature seeds, cooked, boiled, without salt",
+   "name": "Porotos negros hervidos, sin sal",
+   "category": "Legumbres",
+   "state": "cocido",
+   "allergens": [],
+   "energy_kcal": 132.0,
+   "protein_g": 8.86,
+   "fat_g": 0.54,
+   "carbs_g": 23.71,
+   "fiber_g": 8.7,
+   "sodium_mg": 1.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU.",
+     "amount": 172.0,
+     "unit": "g",
+     "usda_desc": "1 cup"
+    }
+   ]
+  },
+  {
+   "ndb": "16049",
+   "usda_description": "Beans, white, mature seeds, raw",
+   "name": "Porotos blancos (alubias) secos, crudos",
+   "category": "Legumbres",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 333.0,
+   "protein_g": 23.36,
+   "fat_g": 0.85,
+   "carbs_g": 60.27,
+   "fiber_g": 15.2,
+   "sodium_mg": 16.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU.",
+     "amount": 202.0,
+     "unit": "g",
+     "usda_desc": "1 cup"
+    }
+   ]
+  },
+  {
+   "ndb": "16050",
+   "usda_description": "Beans, white, mature seeds, cooked, boiled, without salt",
+   "name": "Porotos blancos (alubias) hervidos, sin sal",
+   "category": "Legumbres",
+   "state": "cocido",
+   "allergens": [],
+   "energy_kcal": 139.0,
+   "protein_g": 9.73,
+   "fat_g": 0.35,
+   "carbs_g": 25.09,
+   "fiber_g": 6.3,
+   "sodium_mg": 6.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU.",
+     "amount": 179.0,
+     "unit": "g",
+     "usda_desc": "1 cup"
+    }
+   ]
+  },
+  {
+   "ndb": "16086",
+   "usda_description": "Peas, split, mature seeds, cooked, boiled, without salt",
+   "name": "Arvejas partidas hervidas, sin sal",
+   "category": "Legumbres",
+   "state": "cocido",
+   "allergens": [],
+   "energy_kcal": 118.0,
+   "protein_g": 8.34,
+   "fat_g": 0.39,
+   "carbs_g": 21.1,
+   "fiber_g": 8.3,
+   "sodium_mg": 2.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU.",
+     "amount": 196.0,
+     "unit": "g",
+     "usda_desc": "1 cup"
+    }
+   ]
+  },
+  {
+   "ndb": "16108",
+   "usda_description": "Soybeans, mature seeds, raw",
+   "name": "Porotos de soja secos, crudos",
+   "category": "Legumbres",
+   "state": "crudo",
+   "allergens": [
+    "soja"
+   ],
+   "energy_kcal": 446.0,
+   "protein_g": 36.49,
+   "fat_g": 19.94,
+   "carbs_g": 30.16,
+   "fiber_g": 9.3,
+   "sodium_mg": 2.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": []
+  },
+  {
+   "ndb": "16087",
+   "usda_description": "Peanuts, all types, raw",
+   "name": "Maní crudo",
+   "category": "Frutos secos y semillas",
+   "state": "crudo",
+   "allergens": [
+    "mani"
+   ],
+   "energy_kcal": 567.0,
+   "protein_g": 25.8,
+   "fat_g": 49.24,
+   "carbs_g": 16.13,
+   "fiber_g": 8.5,
+   "sodium_mg": 18.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": []
+  },
+  {
+   "ndb": "16398",
+   "usda_description": "Peanut butter, smooth style, without salt",
+   "name": "Pasta de maní sin sal",
+   "category": "Frutos secos y semillas",
+   "state": "listo_para_consumir",
+   "allergens": [
+    "mani"
+   ],
+   "energy_kcal": 598.0,
+   "protein_g": 22.21,
+   "fat_g": 51.36,
+   "carbs_g": 22.31,
+   "fiber_g": 5.0,
+   "sodium_mg": 17.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "2 cucharadas (medida USDA)",
+     "amount": 32.0,
+     "unit": "g",
+     "usda_desc": "2 tbsp"
+    }
+   ]
+  },
+  {
+   "ndb": "20044",
+   "usda_description": "Rice, white, long-grain, regular, raw, enriched",
+   "name": "Arroz blanco largo fino, crudo",
+   "category": "Cereales y derivados",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 365.0,
+   "protein_g": 7.13,
+   "fat_g": 0.66,
+   "carbs_g": 79.95,
+   "fiber_g": 1.3,
+   "sodium_mg": 5.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU.",
+     "amount": 185.0,
+     "unit": "g",
+     "usda_desc": "1 cup"
+    }
+   ]
+  },
+  {
+   "ndb": "20045",
+   "usda_description": "Rice, white, long-grain, regular, enriched, cooked",
+   "name": "Arroz blanco largo fino, hervido",
+   "category": "Cereales y derivados",
+   "state": "cocido",
+   "allergens": [],
+   "energy_kcal": 130.0,
+   "protein_g": 2.69,
+   "fat_g": 0.28,
+   "carbs_g": 28.17,
+   "fiber_g": 0.4,
+   "sodium_mg": 1.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU.",
+     "amount": 158.0,
+     "unit": "g",
+     "usda_desc": "1 cup"
+    }
+   ]
+  },
+  {
+   "ndb": "20036",
+   "usda_description": "Rice, brown, long-grain, raw",
+   "name": "Arroz integral largo, crudo",
+   "category": "Cereales y derivados",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 367.0,
+   "protein_g": 7.54,
+   "fat_g": 3.2,
+   "carbs_g": 76.25,
+   "fiber_g": 3.6,
+   "sodium_mg": 5.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU.",
+     "amount": 185.0,
+     "unit": "g",
+     "usda_desc": "1 cup"
+    }
+   ]
+  },
+  {
+   "ndb": "20037",
+   "usda_description": "Rice, brown, long-grain, cooked",
+   "name": "Arroz integral largo, hervido",
+   "category": "Cereales y derivados",
+   "state": "cocido",
+   "allergens": [],
+   "energy_kcal": 123.0,
+   "protein_g": 2.74,
+   "fat_g": 0.97,
+   "carbs_g": 25.58,
+   "fiber_g": 1.6,
+   "sodium_mg": 4.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU.",
+     "amount": 202.0,
+     "unit": "g",
+     "usda_desc": "1 cup"
+    }
+   ]
+  },
+  {
+   "ndb": "20120",
+   "usda_description": "Pasta, dry, enriched",
+   "name": "Fideos secos de trigo (sin huevo), crudos",
+   "category": "Cereales y derivados",
+   "state": "crudo",
+   "allergens": [
+    "gluten"
+   ],
+   "energy_kcal": 371.0,
+   "protein_g": 13.04,
+   "fat_g": 1.51,
+   "carbs_g": 74.67,
+   "fiber_g": 3.2,
+   "sodium_mg": 6.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": []
+  },
+  {
+   "ndb": "20121",
+   "usda_description": "Pasta, cooked, enriched, without added salt",
+   "name": "Fideos secos de trigo, hervidos, sin sal",
+   "category": "Cereales y derivados",
+   "state": "cocido",
+   "allergens": [
+    "gluten"
+   ],
+   "energy_kcal": 158.0,
+   "protein_g": 5.8,
+   "fat_g": 0.93,
+   "carbs_g": 30.86,
+   "fiber_g": 1.8,
+   "sodium_mg": 1.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU. de spaghetti (sin apretar)",
+     "amount": 124.0,
+     "unit": "g",
+     "usda_desc": "1 cup, spaghetti not packed"
+    }
+   ]
+  },
+  {
+   "ndb": "08120",
+   "usda_description": "Cereals, oats, regular and quick, not fortified, dry",
+   "name": "Avena arrollada (tradicional o instantánea), cruda",
+   "category": "Cereales y derivados",
+   "state": "crudo",
+   "allergens": [
+    "gluten"
+   ],
+   "energy_kcal": 379.0,
+   "protein_g": 13.15,
+   "fat_g": 6.52,
+   "carbs_g": 67.7,
+   "fiber_g": 10.1,
+   "sodium_mg": 6.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU.",
+     "amount": 81.0,
+     "unit": "g",
+     "usda_desc": "1 cup"
+    }
+   ]
+  },
+  {
+   "ndb": "20081",
+   "usda_description": "Wheat flour, white, all-purpose, enriched, bleached",
+   "name": "Harina de trigo común",
+   "category": "Cereales y derivados",
+   "state": "crudo",
+   "allergens": [
+    "gluten"
+   ],
+   "energy_kcal": 364.0,
+   "protein_g": 10.33,
+   "fat_g": 0.98,
+   "carbs_g": 76.31,
+   "fiber_g": 2.7,
+   "sodium_mg": 2.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU.",
+     "amount": 125.0,
+     "unit": "g",
+     "usda_desc": "1 cup"
+    }
+   ]
+  },
+  {
+   "ndb": "20022",
+   "usda_description": "Cornmeal, degermed, enriched, yellow",
+   "name": "Harina de maíz amarilla (polenta), cruda",
+   "category": "Cereales y derivados",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 370.0,
+   "protein_g": 7.11,
+   "fat_g": 1.75,
+   "carbs_g": 79.45,
+   "fiber_g": 3.9,
+   "sodium_mg": 7.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU.",
+     "amount": 157.0,
+     "unit": "g",
+     "usda_desc": "1 cup"
+    }
+   ]
+  },
+  {
+   "ndb": "20035",
+   "usda_description": "Quinoa, uncooked",
+   "name": "Quinoa cruda",
+   "category": "Cereales y derivados",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 368.0,
+   "protein_g": 14.12,
+   "fat_g": 6.07,
+   "carbs_g": 64.16,
+   "fiber_g": 7.0,
+   "sodium_mg": 5.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU.",
+     "amount": 170.0,
+     "unit": "g",
+     "usda_desc": "1 cup"
+    }
+   ]
+  },
+  {
+   "ndb": "20137",
+   "usda_description": "Quinoa, cooked",
+   "name": "Quinoa cocida",
+   "category": "Cereales y derivados",
+   "state": "cocido",
+   "allergens": [],
+   "energy_kcal": 120.0,
+   "protein_g": 4.4,
+   "fat_g": 1.92,
+   "carbs_g": 21.3,
+   "fiber_g": 2.8,
+   "sodium_mg": 7.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU.",
+     "amount": 185.0,
+     "unit": "g",
+     "usda_desc": "1 cup"
+    }
+   ]
+  },
+  {
+   "ndb": "18069",
+   "usda_description": "Bread, white, commercially prepared (includes soft bread crumbs)",
+   "name": "Pan de molde blanco",
+   "category": "Panificados",
+   "state": "listo_para_consumir",
+   "allergens": [
+    "gluten"
+   ],
+   "energy_kcal": 266.0,
+   "protein_g": 8.85,
+   "fat_g": 3.33,
+   "carbs_g": 49.42,
+   "fiber_g": 2.7,
+   "sodium_mg": 490.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 rebanada (29 g)",
+     "amount": 29.0,
+     "unit": "g",
+     "usda_desc": "1 slice"
+    }
+   ]
+  },
+  {
+   "ndb": "18075",
+   "usda_description": "Bread, whole-wheat, commercially prepared",
+   "name": "Pan de molde integral",
+   "category": "Panificados",
+   "state": "listo_para_consumir",
+   "allergens": [
+    "gluten"
+   ],
+   "energy_kcal": 252.0,
+   "protein_g": 12.45,
+   "fat_g": 3.5,
+   "carbs_g": 42.71,
+   "fiber_g": 6.0,
+   "sodium_mg": 455.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 rebanada (32 g)",
+     "amount": 32.0,
+     "unit": "g",
+     "usda_desc": "1 slice"
+    }
+   ]
+  },
+  {
+   "ndb": "11352",
+   "usda_description": "Potatoes, flesh and skin, raw",
+   "name": "Papa cruda, con cáscara",
+   "category": "Verduras",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 77.0,
+   "protein_g": 2.05,
+   "fat_g": 0.09,
+   "carbs_g": 17.49,
+   "fiber_g": 2.1,
+   "sodium_mg": 6.0,
+   "edible_portion_pct": 75.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": []
+  },
+  {
+   "ndb": "11367",
+   "usda_description": "Potatoes, boiled, cooked without skin, flesh, without salt",
+   "name": "Papa hervida sin cáscara, sin sal",
+   "category": "Verduras",
+   "state": "cocido",
+   "allergens": [],
+   "energy_kcal": 86.0,
+   "protein_g": 1.71,
+   "fat_g": 0.1,
+   "carbs_g": 20.01,
+   "fiber_g": 1.8,
+   "sodium_mg": 5.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1/2 taza medidora EE.UU.",
+     "amount": 78.0,
+     "unit": "g",
+     "usda_desc": ".5 cup"
+    }
+   ]
+  },
+  {
+   "ndb": "11507",
+   "usda_description": "Sweet potato, raw, unprepared",
+   "name": "Batata cruda",
+   "category": "Verduras",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 86.0,
+   "protein_g": 1.57,
+   "fat_g": 0.05,
+   "carbs_g": 20.12,
+   "fiber_g": 3.0,
+   "sodium_mg": 55.0,
+   "edible_portion_pct": 72.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": []
+  },
+  {
+   "ndb": "11508",
+   "usda_description": "Sweet potato, cooked, baked in skin, flesh, without salt",
+   "name": "Batata asada (pulpa), sin sal",
+   "category": "Verduras",
+   "state": "cocido",
+   "allergens": [],
+   "energy_kcal": 90.0,
+   "protein_g": 2.01,
+   "fat_g": 0.15,
+   "carbs_g": 20.71,
+   "fiber_g": 3.3,
+   "sodium_mg": 36.0,
+   "edible_portion_pct": 78.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU.",
+     "amount": 200.0,
+     "unit": "g",
+     "usda_desc": "1 cup"
+    }
+   ]
+  },
+  {
+   "ndb": "11124",
+   "usda_description": "Carrots, raw",
+   "name": "Zanahoria cruda",
+   "category": "Verduras",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 41.0,
+   "protein_g": 0.93,
+   "fat_g": 0.24,
+   "carbs_g": 9.58,
+   "fiber_g": 2.8,
+   "sodium_mg": 69.0,
+   "edible_portion_pct": 89.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU., rallada",
+     "amount": 110.0,
+     "unit": "g",
+     "usda_desc": "1 cup, grated"
+    }
+   ]
+  },
+  {
+   "ndb": "11529",
+   "usda_description": "Tomatoes, red, ripe, raw, year round average",
+   "name": "Tomate rojo crudo",
+   "category": "Verduras",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 18.0,
+   "protein_g": 0.88,
+   "fat_g": 0.2,
+   "carbs_g": 3.89,
+   "fiber_g": 1.2,
+   "sodium_mg": 5.0,
+   "edible_portion_pct": 91.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU., picado",
+     "amount": 180.0,
+     "unit": "g",
+     "usda_desc": "1 cup, chopped or sliced"
+    }
+   ]
+  },
+  {
+   "ndb": "11251",
+   "usda_description": "Lettuce, cos or romaine, raw",
+   "name": "Lechuga romana",
+   "category": "Verduras",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 17.0,
+   "protein_g": 1.23,
+   "fat_g": 0.3,
+   "carbs_g": 3.29,
+   "fiber_g": 2.1,
+   "sodium_mg": 8.0,
+   "edible_portion_pct": 94.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU., cortada",
+     "amount": 47.0,
+     "unit": "g",
+     "usda_desc": "1 cup, shredded"
+    }
+   ]
+  },
+  {
+   "ndb": "11253",
+   "usda_description": "Lettuce, green leaf, raw",
+   "name": "Lechuga de hoja verde",
+   "category": "Verduras",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 15.0,
+   "protein_g": 1.36,
+   "fat_g": 0.15,
+   "carbs_g": 2.87,
+   "fiber_g": 1.3,
+   "sodium_mg": 28.0,
+   "edible_portion_pct": 64.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU., cortada",
+     "amount": 36.0,
+     "unit": "g",
+     "usda_desc": "1 cup, shredded"
+    }
+   ]
+  },
+  {
+   "ndb": "11282",
+   "usda_description": "Onions, raw",
+   "name": "Cebolla cruda",
+   "category": "Verduras",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 40.0,
+   "protein_g": 1.1,
+   "fat_g": 0.1,
+   "carbs_g": 9.34,
+   "fiber_g": 1.7,
+   "sodium_mg": 4.0,
+   "edible_portion_pct": 90.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU., picada",
+     "amount": 160.0,
+     "unit": "g",
+     "usda_desc": "1 cup, chopped"
+    }
+   ]
+  },
+  {
+   "ndb": "11422",
+   "usda_description": "Pumpkin, raw",
+   "name": "Zapallo crudo",
+   "category": "Verduras",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 26.0,
+   "protein_g": 1.0,
+   "fat_g": 0.1,
+   "carbs_g": 6.5,
+   "fiber_g": 0.5,
+   "sodium_mg": 1.0,
+   "edible_portion_pct": 70.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": []
+  },
+  {
+   "ndb": "11485",
+   "usda_description": "Squash, winter, butternut, raw",
+   "name": "Calabaza (anco / butternut) cruda",
+   "category": "Verduras",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 45.0,
+   "protein_g": 1.0,
+   "fat_g": 0.1,
+   "carbs_g": 11.69,
+   "fiber_g": 2.0,
+   "sodium_mg": 4.0,
+   "edible_portion_pct": 84.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU., en cubos",
+     "amount": 140.0,
+     "unit": "g",
+     "usda_desc": "1 cup, cubes"
+    }
+   ]
+  },
+  {
+   "ndb": "11477",
+   "usda_description": "Squash, summer, zucchini, includes skin, raw",
+   "name": "Zucchini crudo, con piel",
+   "category": "Verduras",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 17.0,
+   "protein_g": 1.21,
+   "fat_g": 0.32,
+   "carbs_g": 3.11,
+   "fiber_g": 1.0,
+   "sodium_mg": 8.0,
+   "edible_portion_pct": 95.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU., picado",
+     "amount": 124.0,
+     "unit": "g",
+     "usda_desc": "1 cup, chopped"
+    }
+   ]
+  },
+  {
+   "ndb": "11147",
+   "usda_description": "Chard, swiss, raw",
+   "name": "Acelga cruda",
+   "category": "Verduras",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 19.0,
+   "protein_g": 1.8,
+   "fat_g": 0.2,
+   "carbs_g": 3.74,
+   "fiber_g": 1.6,
+   "sodium_mg": 213.0,
+   "edible_portion_pct": 92.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU.",
+     "amount": 36.0,
+     "unit": "g",
+     "usda_desc": "1 cup"
+    }
+   ]
+  },
+  {
+   "ndb": "11457",
+   "usda_description": "Spinach, raw",
+   "name": "Espinaca cruda",
+   "category": "Verduras",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 23.0,
+   "protein_g": 2.86,
+   "fat_g": 0.39,
+   "carbs_g": 3.63,
+   "fiber_g": 2.2,
+   "sodium_mg": 79.0,
+   "edible_portion_pct": 72.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU.",
+     "amount": 30.0,
+     "unit": "g",
+     "usda_desc": "1 cup"
+    }
+   ]
+  },
+  {
+   "ndb": "11090",
+   "usda_description": "Broccoli, raw",
+   "name": "Brócoli crudo",
+   "category": "Verduras",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 34.0,
+   "protein_g": 2.82,
+   "fat_g": 0.37,
+   "carbs_g": 6.64,
+   "fiber_g": 2.6,
+   "sodium_mg": 33.0,
+   "edible_portion_pct": 61.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU., picado",
+     "amount": 91.0,
+     "unit": "g",
+     "usda_desc": "1 cup, chopped"
+    }
+   ]
+  },
+  {
+   "ndb": "11167",
+   "usda_description": "Corn, sweet, yellow, raw",
+   "name": "Choclo amarillo crudo (granos)",
+   "category": "Verduras",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 86.0,
+   "protein_g": 3.27,
+   "fat_g": 1.35,
+   "carbs_g": 18.7,
+   "fiber_g": 2.0,
+   "sodium_mg": 15.0,
+   "edible_portion_pct": 36.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU., granos",
+     "amount": 145.0,
+     "unit": "g",
+     "usda_desc": "1 cup"
+    }
+   ]
+  },
+  {
+   "ndb": "11821",
+   "usda_description": "Peppers, sweet, red, raw",
+   "name": "Morrón rojo crudo",
+   "category": "Verduras",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 31.0,
+   "protein_g": 0.99,
+   "fat_g": 0.3,
+   "carbs_g": 6.03,
+   "fiber_g": 2.1,
+   "sodium_mg": 4.0,
+   "edible_portion_pct": 82.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU., picado",
+     "amount": 149.0,
+     "unit": "g",
+     "usda_desc": "1 cup, chopped"
+    }
+   ]
+  },
+  {
+   "ndb": "11209",
+   "usda_description": "Eggplant, raw",
+   "name": "Berenjena cruda",
+   "category": "Verduras",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 25.0,
+   "protein_g": 0.98,
+   "fat_g": 0.18,
+   "carbs_g": 5.88,
+   "fiber_g": 3.0,
+   "sodium_mg": 2.0,
+   "edible_portion_pct": 81.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU., en cubos",
+     "amount": 82.0,
+     "unit": "g",
+     "usda_desc": "1 cup, cubes"
+    }
+   ]
+  },
+  {
+   "ndb": "11080",
+   "usda_description": "Beets, raw",
+   "name": "Remolacha cruda",
+   "category": "Verduras",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 43.0,
+   "protein_g": 1.61,
+   "fat_g": 0.17,
+   "carbs_g": 9.56,
+   "fiber_g": 2.8,
+   "sodium_mg": 78.0,
+   "edible_portion_pct": 67.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": []
+  },
+  {
+   "ndb": "11109",
+   "usda_description": "Cabbage, raw",
+   "name": "Repollo crudo",
+   "category": "Verduras",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 25.0,
+   "protein_g": 1.28,
+   "fat_g": 0.1,
+   "carbs_g": 5.8,
+   "fiber_g": 2.5,
+   "sodium_mg": 18.0,
+   "edible_portion_pct": 80.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU., cortado fino",
+     "amount": 70.0,
+     "unit": "g",
+     "usda_desc": "1 cup, shredded"
+    }
+   ]
+  },
+  {
+   "ndb": "11205",
+   "usda_description": "Cucumber, with peel, raw",
+   "name": "Pepino crudo, con piel",
+   "category": "Verduras",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 15.0,
+   "protein_g": 0.65,
+   "fat_g": 0.11,
+   "carbs_g": 3.63,
+   "fiber_g": 0.5,
+   "sodium_mg": 2.0,
+   "edible_portion_pct": 97.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1/2 taza medidora EE.UU., en rodajas",
+     "amount": 52.0,
+     "unit": "g",
+     "usda_desc": ".5 cup, slices"
+    }
+   ]
+  },
+  {
+   "ndb": "11260",
+   "usda_description": "Mushrooms, white, raw",
+   "name": "Champiñones crudos",
+   "category": "Verduras",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 22.0,
+   "protein_g": 3.09,
+   "fat_g": 0.34,
+   "carbs_g": 3.26,
+   "fiber_g": 1.0,
+   "sodium_mg": 5.0,
+   "edible_portion_pct": 97.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU., fileteados",
+     "amount": 70.0,
+     "unit": "g",
+     "usda_desc": "1 cup, pieces or slices"
+    }
+   ]
+  },
+  {
+   "ndb": "11215",
+   "usda_description": "Garlic, raw",
+   "name": "Ajo crudo",
+   "category": "Verduras",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 149.0,
+   "protein_g": 6.36,
+   "fat_g": 0.5,
+   "carbs_g": 33.06,
+   "fiber_g": 2.1,
+   "sodium_mg": 17.0,
+   "edible_portion_pct": 87.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 cucharadita (medida USDA)",
+     "amount": 2.8,
+     "unit": "g",
+     "usda_desc": "1 tsp"
+    }
+   ]
+  },
+  {
+   "ndb": "11052",
+   "usda_description": "Beans, snap, green, raw",
+   "name": "Chauchas crudas",
+   "category": "Verduras",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 31.0,
+   "protein_g": 1.83,
+   "fat_g": 0.22,
+   "carbs_g": 6.97,
+   "fiber_g": 2.7,
+   "sodium_mg": 6.0,
+   "edible_portion_pct": 88.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": []
+  },
+  {
+   "ndb": "09040",
+   "usda_description": "Bananas, raw",
+   "name": "Banana",
+   "category": "Frutas",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 89.0,
+   "protein_g": 1.09,
+   "fat_g": 0.33,
+   "carbs_g": 22.84,
+   "fiber_g": 2.6,
+   "sodium_mg": 1.0,
+   "edible_portion_pct": 64.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU., en rodajas",
+     "amount": 150.0,
+     "unit": "g",
+     "usda_desc": "1 cup, sliced"
+    }
+   ]
+  },
+  {
+   "ndb": "09003",
+   "usda_description": "Apples, raw, with skin",
+   "name": "Manzana con cáscara",
+   "category": "Frutas",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 52.0,
+   "protein_g": 0.26,
+   "fat_g": 0.17,
+   "carbs_g": 13.81,
+   "fiber_g": 2.4,
+   "sodium_mg": 1.0,
+   "edible_portion_pct": 90.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU., en gajos",
+     "amount": 109.0,
+     "unit": "g",
+     "usda_desc": "1 cup, slices"
+    }
+   ]
+  },
+  {
+   "ndb": "09200",
+   "usda_description": "Oranges, raw, all commercial varieties",
+   "name": "Naranja",
+   "category": "Frutas",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 47.0,
+   "protein_g": 0.94,
+   "fat_g": 0.12,
+   "carbs_g": 11.75,
+   "fiber_g": 2.4,
+   "sodium_mg": 0.0,
+   "edible_portion_pct": 73.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU., en gajos",
+     "amount": 180.0,
+     "unit": "g",
+     "usda_desc": "1 cup, sections"
+    }
+   ]
+  },
+  {
+   "ndb": "09218",
+   "usda_description": "Tangerines, (mandarin oranges), raw",
+   "name": "Mandarina",
+   "category": "Frutas",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 53.0,
+   "protein_g": 0.81,
+   "fat_g": 0.31,
+   "carbs_g": 13.34,
+   "fiber_g": 1.8,
+   "sodium_mg": 2.0,
+   "edible_portion_pct": 74.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU., en gajos",
+     "amount": 195.0,
+     "unit": "g",
+     "usda_desc": "1 cup, sections"
+    }
+   ]
+  },
+  {
+   "ndb": "09252",
+   "usda_description": "Pears, raw",
+   "name": "Pera",
+   "category": "Frutas",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 57.0,
+   "protein_g": 0.36,
+   "fat_g": 0.14,
+   "carbs_g": 15.23,
+   "fiber_g": 3.1,
+   "sodium_mg": 1.0,
+   "edible_portion_pct": 90.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU., en gajos",
+     "amount": 140.0,
+     "unit": "g",
+     "usda_desc": "1 cup, slices"
+    }
+   ]
+  },
+  {
+   "ndb": "09236",
+   "usda_description": "Peaches, yellow, raw",
+   "name": "Durazno amarillo",
+   "category": "Frutas",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 39.0,
+   "protein_g": 0.91,
+   "fat_g": 0.25,
+   "carbs_g": 9.54,
+   "fiber_g": 1.5,
+   "sodium_mg": 0.0,
+   "edible_portion_pct": 96.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU., en gajos",
+     "amount": 154.0,
+     "unit": "g",
+     "usda_desc": "1 cup, slices"
+    }
+   ]
+  },
+  {
+   "ndb": "09316",
+   "usda_description": "Strawberries, raw",
+   "name": "Frutillas",
+   "category": "Frutas",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 32.0,
+   "protein_g": 0.67,
+   "fat_g": 0.3,
+   "carbs_g": 7.68,
+   "fiber_g": 2.0,
+   "sodium_mg": 1.0,
+   "edible_portion_pct": 94.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU., en mitades",
+     "amount": 152.0,
+     "unit": "g",
+     "usda_desc": "1 cup,  halves"
+    }
+   ]
+  },
+  {
+   "ndb": "09132",
+   "usda_description": "Grapes, red or green (European type, such as Thompson seedless), raw",
+   "name": "Uvas (sin semilla)",
+   "category": "Frutas",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 69.0,
+   "protein_g": 0.72,
+   "fat_g": 0.16,
+   "carbs_g": 18.1,
+   "fiber_g": 0.9,
+   "sodium_mg": 2.0,
+   "edible_portion_pct": 96.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU.",
+     "amount": 151.0,
+     "unit": "g",
+     "usda_desc": "1 cup"
+    }
+   ]
+  },
+  {
+   "ndb": "09148",
+   "usda_description": "Kiwifruit, green, raw",
+   "name": "Kiwi",
+   "category": "Frutas",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 61.0,
+   "protein_g": 1.14,
+   "fat_g": 0.52,
+   "carbs_g": 14.66,
+   "fiber_g": 3.0,
+   "sodium_mg": 3.0,
+   "edible_portion_pct": 76.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": []
+  },
+  {
+   "ndb": "09150",
+   "usda_description": "Lemons, raw, without peel",
+   "name": "Limón (pulpa, sin cáscara)",
+   "category": "Frutas",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 29.0,
+   "protein_g": 1.1,
+   "fat_g": 0.3,
+   "carbs_g": 9.32,
+   "fiber_g": 2.8,
+   "sodium_mg": 2.0,
+   "edible_portion_pct": 53.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": []
+  },
+  {
+   "ndb": "09037",
+   "usda_description": "Avocados, raw, all commercial varieties",
+   "name": "Palta",
+   "category": "Frutas",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 160.0,
+   "protein_g": 2.0,
+   "fat_g": 14.66,
+   "carbs_g": 8.53,
+   "fiber_g": 6.7,
+   "sodium_mg": 7.0,
+   "edible_portion_pct": 74.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU., en cubos",
+     "amount": 150.0,
+     "unit": "g",
+     "usda_desc": "1 cup, cubes"
+    }
+   ]
+  },
+  {
+   "ndb": "09266",
+   "usda_description": "Pineapple, raw, all varieties",
+   "name": "Ananá",
+   "category": "Frutas",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 50.0,
+   "protein_g": 0.54,
+   "fat_g": 0.12,
+   "carbs_g": 13.12,
+   "fiber_g": 1.4,
+   "sodium_mg": 1.0,
+   "edible_portion_pct": 51.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU., en trozos",
+     "amount": 165.0,
+     "unit": "g",
+     "usda_desc": "1 cup, chunks"
+    }
+   ]
+  },
+  {
+   "ndb": "09326",
+   "usda_description": "Watermelon, raw",
+   "name": "Sandía",
+   "category": "Frutas",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 30.0,
+   "protein_g": 0.61,
+   "fat_g": 0.15,
+   "carbs_g": 7.55,
+   "fiber_g": 0.4,
+   "sodium_mg": 1.0,
+   "edible_portion_pct": 52.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU., en cubos",
+     "amount": 152.0,
+     "unit": "g",
+     "usda_desc": "1 cup, diced"
+    }
+   ]
+  },
+  {
+   "ndb": "09181",
+   "usda_description": "Melons, cantaloupe, raw",
+   "name": "Melón cantalupo",
+   "category": "Frutas",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 34.0,
+   "protein_g": 0.84,
+   "fat_g": 0.19,
+   "carbs_g": 8.16,
+   "fiber_g": 0.9,
+   "sodium_mg": 16.0,
+   "edible_portion_pct": 51.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU., en cubos",
+     "amount": 160.0,
+     "unit": "g",
+     "usda_desc": "1 cup, cubes"
+    }
+   ]
+  },
+  {
+   "ndb": "09279",
+   "usda_description": "Plums, raw",
+   "name": "Ciruela",
+   "category": "Frutas",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 46.0,
+   "protein_g": 0.7,
+   "fat_g": 0.28,
+   "carbs_g": 11.42,
+   "fiber_g": 1.4,
+   "sodium_mg": 0.0,
+   "edible_portion_pct": 94.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": []
+  },
+  {
+   "ndb": "09112",
+   "usda_description": "Grapefruit, raw, pink and red, all areas",
+   "name": "Pomelo rosado",
+   "category": "Frutas",
+   "state": "crudo",
+   "allergens": [],
+   "energy_kcal": 42.0,
+   "protein_g": 0.77,
+   "fat_g": 0.14,
+   "carbs_g": 10.66,
+   "fiber_g": 1.6,
+   "sodium_mg": 0.0,
+   "edible_portion_pct": 51.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": []
+  },
+  {
+   "ndb": "09206",
+   "usda_description": "Orange juice, raw",
+   "name": "Jugo de naranja exprimido",
+   "category": "Bebidas",
+   "state": "listo_para_consumir",
+   "allergens": [],
+   "energy_kcal": 45.0,
+   "protein_g": 0.7,
+   "fat_g": 0.2,
+   "carbs_g": 10.4,
+   "fiber_g": 0.2,
+   "sodium_mg": 1.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": 1.0482,
+   "density_from": "1 cup",
+   "measures": [
+    {
+     "name": "1 taza medidora EE.UU. (237 ml)",
+     "amount": 248.0,
+     "unit": "g",
+     "usda_desc": "1 cup"
+    }
+   ]
+  },
+  {
+   "ndb": "12155",
+   "usda_description": "Nuts, walnuts, english",
+   "name": "Nueces (mariposa)",
+   "category": "Frutos secos y semillas",
+   "state": "listo_para_consumir",
+   "allergens": [
+    "frutos_secos"
+   ],
+   "energy_kcal": 654.0,
+   "protein_g": 15.23,
+   "fat_g": 65.21,
+   "carbs_g": 13.71,
+   "fiber_g": 6.7,
+   "sodium_mg": 2.0,
+   "edible_portion_pct": 45.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": []
+  },
+  {
+   "ndb": "12061",
+   "usda_description": "Nuts, almonds",
+   "name": "Almendras",
+   "category": "Frutos secos y semillas",
+   "state": "listo_para_consumir",
+   "allergens": [
+    "frutos_secos"
+   ],
+   "energy_kcal": 579.0,
+   "protein_g": 21.15,
+   "fat_g": 49.93,
+   "carbs_g": 21.55,
+   "fiber_g": 12.5,
+   "sodium_mg": 1.0,
+   "edible_portion_pct": 40.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": []
+  },
+  {
+   "ndb": "12006",
+   "usda_description": "Seeds, chia seeds, dried",
+   "name": "Semillas de chía",
+   "category": "Frutos secos y semillas",
+   "state": "listo_para_consumir",
+   "allergens": [],
+   "energy_kcal": 486.0,
+   "protein_g": 16.54,
+   "fat_g": 30.74,
+   "carbs_g": 42.12,
+   "fiber_g": 34.4,
+   "sodium_mg": 16.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": []
+  },
+  {
+   "ndb": "12220",
+   "usda_description": "Seeds, flaxseed",
+   "name": "Semillas de lino",
+   "category": "Frutos secos y semillas",
+   "state": "listo_para_consumir",
+   "allergens": [],
+   "energy_kcal": 534.0,
+   "protein_g": 18.29,
+   "fat_g": 42.16,
+   "carbs_g": 28.88,
+   "fiber_g": 27.3,
+   "sodium_mg": 30.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 cucharada (medida USDA), enteras",
+     "amount": 10.3,
+     "unit": "g",
+     "usda_desc": "1 tbsp, whole"
+    }
+   ]
+  },
+  {
+   "ndb": "12036",
+   "usda_description": "Seeds, sunflower seed kernels, dried",
+   "name": "Semillas de girasol peladas",
+   "category": "Frutos secos y semillas",
+   "state": "listo_para_consumir",
+   "allergens": [],
+   "energy_kcal": 584.0,
+   "protein_g": 20.78,
+   "fat_g": 51.46,
+   "carbs_g": 20.0,
+   "fiber_g": 8.6,
+   "sodium_mg": 9.0,
+   "edible_portion_pct": 54.0,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": []
+  },
+  {
+   "ndb": "04060",
+   "usda_description": "Oil, sunflower, linoleic (less than 60%)",
+   "name": "Aceite de girasol",
+   "category": "Aceites y grasas",
+   "state": "listo_para_consumir",
+   "allergens": [],
+   "energy_kcal": 884.0,
+   "protein_g": 0.0,
+   "fat_g": 100.0,
+   "carbs_g": 0.0,
+   "fiber_g": 0.0,
+   "sodium_mg": 0.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": 0.9214,
+   "density_from": "1 cup",
+   "measures": [
+    {
+     "name": "1 cucharada (medida USDA)",
+     "amount": 13.6,
+     "unit": "g",
+     "usda_desc": "1 tbsp"
+    }
+   ]
+  },
+  {
+   "ndb": "04053",
+   "usda_description": "Oil, olive, salad or cooking",
+   "name": "Aceite de oliva",
+   "category": "Aceites y grasas",
+   "state": "listo_para_consumir",
+   "allergens": [],
+   "energy_kcal": 884.0,
+   "protein_g": 0.0,
+   "fat_g": 100.0,
+   "carbs_g": 0.0,
+   "fiber_g": 0.0,
+   "sodium_mg": 2.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": 0.913,
+   "density_from": "1 cup",
+   "measures": [
+    {
+     "name": "1 cucharada (medida USDA)",
+     "amount": 13.5,
+     "unit": "g",
+     "usda_desc": "1 tablespoon"
+    }
+   ]
+  },
+  {
+   "ndb": "04582",
+   "usda_description": "Oil, canola",
+   "name": "Aceite de canola",
+   "category": "Aceites y grasas",
+   "state": "listo_para_consumir",
+   "allergens": [],
+   "energy_kcal": 884.0,
+   "protein_g": 0.0,
+   "fat_g": 100.0,
+   "carbs_g": 0.0,
+   "fiber_g": 0.0,
+   "sodium_mg": 0.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": 0.9214,
+   "density_from": "1 cup",
+   "measures": [
+    {
+     "name": "1 cucharada (medida USDA)",
+     "amount": 14.0,
+     "unit": "g",
+     "usda_desc": "1 tbsp"
+    }
+   ]
+  },
+  {
+   "ndb": "04518",
+   "usda_description": "Oil, corn, industrial and retail, all purpose salad or cooking",
+   "name": "Aceite de maíz",
+   "category": "Aceites y grasas",
+   "state": "listo_para_consumir",
+   "allergens": [],
+   "energy_kcal": 900.0,
+   "protein_g": 0.0,
+   "fat_g": 100.0,
+   "carbs_g": 0.0,
+   "fiber_g": 0.0,
+   "sodium_mg": 0.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": 0.9214,
+   "density_from": "1 cup",
+   "measures": [
+    {
+     "name": "1 cucharada (medida USDA)",
+     "amount": 13.6,
+     "unit": "g",
+     "usda_desc": "1 tbsp"
+    }
+   ]
+  },
+  {
+   "ndb": "19335",
+   "usda_description": "Sugars, granulated",
+   "name": "Azúcar común",
+   "category": "Azúcares y dulces",
+   "state": "listo_para_consumir",
+   "allergens": [],
+   "energy_kcal": 387.0,
+   "protein_g": 0.0,
+   "fat_g": 0.0,
+   "carbs_g": 99.98,
+   "fiber_g": 0.0,
+   "sodium_mg": 1.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 cucharadita (medida USDA)",
+     "amount": 4.2,
+     "unit": "g",
+     "usda_desc": "1 tsp"
+    }
+   ]
+  },
+  {
+   "ndb": "19296",
+   "usda_description": "Honey",
+   "name": "Miel",
+   "category": "Azúcares y dulces",
+   "state": "listo_para_consumir",
+   "allergens": [],
+   "energy_kcal": 304.0,
+   "protein_g": 0.3,
+   "fat_g": 0.0,
+   "carbs_g": 82.4,
+   "fiber_g": 0.2,
+   "sodium_mg": 4.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": []
+  },
+  {
+   "ndb": "19297",
+   "usda_description": "Jams and preserves",
+   "name": "Mermelada (con azúcar)",
+   "category": "Azúcares y dulces",
+   "state": "listo_para_consumir",
+   "allergens": [],
+   "energy_kcal": 278.0,
+   "protein_g": 0.37,
+   "fat_g": 0.07,
+   "carbs_g": 68.86,
+   "fiber_g": 1.1,
+   "sodium_mg": 32.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 cucharada (medida USDA)",
+     "amount": 20.0,
+     "unit": "g",
+     "usda_desc": "1 tbsp"
+    }
+   ]
+  },
+  {
+   "ndb": "19165",
+   "usda_description": "Cocoa, dry powder, unsweetened",
+   "name": "Cacao amargo en polvo",
+   "category": "Azúcares y dulces",
+   "state": "listo_para_consumir",
+   "allergens": [],
+   "energy_kcal": 228.0,
+   "protein_g": 19.6,
+   "fat_g": 13.7,
+   "carbs_g": 57.9,
+   "fiber_g": 37.0,
+   "sodium_mg": 21.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 cucharada (medida USDA)",
+     "amount": 5.4,
+     "unit": "g",
+     "usda_desc": "1 tbsp"
+    }
+   ]
+  },
+  {
+   "ndb": "14209",
+   "usda_description": "Beverages, coffee, brewed, prepared with tap water",
+   "name": "Café de filtro (infusión)",
+   "category": "Infusiones",
+   "state": "listo_para_consumir",
+   "allergens": [],
+   "energy_kcal": 1.0,
+   "protein_g": 0.12,
+   "fat_g": 0.02,
+   "carbs_g": 0.0,
+   "fiber_g": 0.0,
+   "sodium_mg": 2.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": 1.0009,
+   "density_from": "1 fl oz",
+   "measures": []
+  },
+  {
+   "ndb": "14355",
+   "usda_description": "Beverages, tea, black, brewed, prepared with tap water",
+   "name": "Té negro (infusión)",
+   "category": "Infusiones",
+   "state": "listo_para_consumir",
+   "allergens": [],
+   "energy_kcal": 1.0,
+   "protein_g": 0.0,
+   "fat_g": 0.0,
+   "carbs_g": 0.3,
+   "fiber_g": 0.0,
+   "sodium_mg": 3.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": 1.0009,
+   "density_from": "1 fl oz",
+   "measures": []
+  },
+  {
+   "ndb": "14411",
+   "usda_description": "Beverages, water, tap, drinking",
+   "name": "Agua de red",
+   "category": "Bebidas",
+   "state": "listo_para_consumir",
+   "allergens": [],
+   "energy_kcal": 0.0,
+   "protein_g": 0.0,
+   "fat_g": 0.0,
+   "carbs_g": 0.0,
+   "fiber_g": 0.0,
+   "sodium_mg": 4.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": 1.0009,
+   "density_from": "1 fl oz",
+   "measures": []
+  },
+  {
+   "ndb": "02047",
+   "usda_description": "Salt, table",
+   "name": "Sal fina de mesa",
+   "category": "Condimentos y salsas",
+   "state": "listo_para_consumir",
+   "allergens": [],
+   "energy_kcal": 0.0,
+   "protein_g": 0.0,
+   "fat_g": 0.0,
+   "carbs_g": 0.0,
+   "fiber_g": 0.0,
+   "sodium_mg": 38758.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 cucharadita (medida USDA)",
+     "amount": 6.0,
+     "unit": "g",
+     "usda_desc": "1 tsp"
+    }
+   ]
+  },
+  {
+   "ndb": "04025",
+   "usda_description": "Salad dressing, mayonnaise, regular",
+   "name": "Mayonesa común",
+   "category": "Condimentos y salsas",
+   "state": "listo_para_consumir",
+   "allergens": [
+    "huevo"
+   ],
+   "energy_kcal": 680.0,
+   "protein_g": 0.96,
+   "fat_g": 74.85,
+   "carbs_g": 0.57,
+   "fiber_g": 0.0,
+   "sodium_mg": 635.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 cucharada (medida USDA)",
+     "amount": 13.8,
+     "unit": "g",
+     "usda_desc": "1 tbsp"
+    }
+   ]
+  },
+  {
+   "ndb": "11935",
+   "usda_description": "Catsup",
+   "name": "Kétchup",
+   "category": "Condimentos y salsas",
+   "state": "listo_para_consumir",
+   "allergens": [],
+   "energy_kcal": 101.0,
+   "protein_g": 1.04,
+   "fat_g": 0.1,
+   "carbs_g": 27.4,
+   "fiber_g": 0.3,
+   "sodium_mg": 907.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": [
+    {
+     "name": "1 cucharada (medida USDA)",
+     "amount": 17.0,
+     "unit": "g",
+     "usda_desc": "1 tbsp"
+    }
+   ]
+  },
+  {
+   "ndb": "02046",
+   "usda_description": "Mustard, prepared, yellow",
+   "name": "Mostaza",
+   "category": "Condimentos y salsas",
+   "state": "listo_para_consumir",
+   "allergens": [],
+   "energy_kcal": 60.0,
+   "protein_g": 3.74,
+   "fat_g": 3.34,
+   "carbs_g": 5.83,
+   "fiber_g": 4.0,
+   "sodium_mg": 1104.0,
+   "edible_portion_pct": null,
+   "density_g_per_ml": null,
+   "density_from": null,
+   "measures": []
+  }
+ ]
+}

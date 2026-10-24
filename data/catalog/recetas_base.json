@@ -1,0 +1,47 @@
+{
+  "note": "Recetas sin cocción: el rendimiento declarado es la suma de los pesos de los ingredientes (no hay pérdida ni ganancia de agua). Preparaciones redactadas para NutriAR. Valores calculados a partir de los ingredientes del catálogo USDA SR28.",
+  "recipes": [
+    {
+      "name": "Ensalada de garbanzos, tomate y cebolla",
+      "servings": 2,
+      "preparation": "1. Enjuagá y escurrí los garbanzos ya hervidos.\n2. Cortá el tomate en cubos y la cebolla en pluma fina.\n3. Mezclá todo en un bol y condimentá con el aceite de oliva y el jugo de limón.",
+      "minutes": 10,
+      "ingredients": [["16057", 240], ["11529", 150], ["11282", 60], ["04053", 10], ["09150", 15]]
+    },
+    {
+      "name": "Ensalada de lentejas con zanahoria y huevo duro",
+      "servings": 2,
+      "preparation": "1. Escurrí las lentejas ya hervidas.\n2. Rallá la zanahoria y picá el huevo duro.\n3. Mezclá y condimentá con aceite de girasol.",
+      "minutes": 10,
+      "ingredients": [["16070", 240], ["11124", 100], ["01129", 100], ["04060", 10]]
+    },
+    {
+      "name": "Licuado de banana con leche",
+      "servings": 1,
+      "preparation": "1. Pelá la banana y cortala en rodajas.\n2. Licuá con la leche fría hasta que quede homogéneo.",
+      "minutes": 5,
+      "ingredients": [["09040", 120], ["01085", 250]]
+    },
+    {
+      "name": "Yogur con avena y frutillas",
+      "servings": 1,
+      "preparation": "1. Serví el yogur en un bol.\n2. Agregá la avena y las frutillas cortadas al medio.\n3. Si querés, dejalo reposar 5 minutos para que la avena se hidrate.",
+      "minutes": 5,
+      "ingredients": [["01118", 170], ["08120", 30], ["09316", 100]]
+    },
+    {
+      "name": "Ensalada de frutas de estación",
+      "servings": 3,
+      "preparation": "1. Lavá y pelá las frutas que corresponda.\n2. Cortalas en cubos y mezclalas con el jugo de naranja.\n3. Servila fría.",
+      "minutes": 15,
+      "ingredients": [["09003", 150], ["09040", 120], ["09200", 150], ["09316", 100], ["09206", 100]]
+    },
+    {
+      "name": "Tostada de pan integral con queso crema y tomate",
+      "servings": 1,
+      "preparation": "1. Untá las rebanadas de pan con el queso crema.\n2. Agregá el tomate en rodajas finas.\n(Si tostás el pan, el peso final cambia levemente; los valores por porción se mantienen.)",
+      "minutes": 5,
+      "ingredients": [["18075", 64], ["01017", 30], ["11529", 60]]
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+node_modules/
+web/dist/
+storage/
+storage-test/
+test-results/
+.env
+*.log
