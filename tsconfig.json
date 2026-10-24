@@ -9,7 +9,29 @@
     "jsx": "react-jsx",
     "noEmit": true,
     "resolveJsonModule": true,
-    "types": ["node"]
+    "types": [
+      "node",
+      "vite/client"
+    ],
+    "paths": {
+      "@shared/*": [
+        "./shared/*"
+      ]
+    },
+    "lib": [
+      "ES2023",
+      "DOM",
+      "DOM.Iterable"
+    ]
   },
-  "include": ["server", "web/src", "tests", "scripts"]
+  "include": [
+    "server",
+    "web/src",
+    "shared",
+    "tests",
+    "scripts"
+  ],
+  "exclude": [
+    "web/dist"
+  ]
 }

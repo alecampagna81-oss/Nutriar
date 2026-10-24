@@ -26,7 +26,8 @@ describe('cálculos nutricionales', () => {
   it('medida casera documentada: 1 taza en rodajas (150 g) = 133,5 kcal', () => {
     const it1 = item(banana, 1, 'medida', { measure_id: 'rodajas' });
     expect(itemNutrients(it1, banana).energy_kcal).toBeCloseTo(133.5, 5);
-    expect(describeQuantity(it1, banana)).toBe('1 × 1 taza en rodajas (150 g)');
+    expect(describeQuantity(it1, banana)).toBe('1 taza en rodajas (150 g)');
+    expect(describeQuantity({ ...it1, quantity: 2 }, banana)).toBe('2 × 1 taza en rodajas = 300 g');
   });
 
   it('mililitros con densidad documentada: 250 ml de leche = 258,9 g = 88,0 kcal', () => {

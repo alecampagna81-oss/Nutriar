@@ -5,12 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test": "vitest run",
-    "dev": "tsx watch server/index.ts",
-    "start": "NODE_ENV=production tsx server/index.ts",
+    "dev": "node --import tsx --watch server/index.ts",
+    "start": "NODE_ENV=production node --import tsx server/index.ts",
     "migrate": "tsx server/migrate.ts",
     "seed:catalog": "tsx scripts/seed-catalog.ts",
     "seed:demo": "tsx scripts/seed-demo.ts",
-    "typecheck": "tsc -p ."
+    "typecheck": "tsc -p .",
+    "build": "vite build --config web/vite.config.ts",
+    "dev:web": "vite --config web/vite.config.ts",
+    "test:e2e": "node tests/e2e/run.mjs"
   },
   "keywords": [],
   "author": "",

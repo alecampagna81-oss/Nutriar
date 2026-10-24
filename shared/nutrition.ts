@@ -173,7 +173,9 @@ export function describeQuantity(item: PlanItemBase, food: FoodSnap): string {
   if (item.unit === 'medida') {
     const m = food.measures.find((x) => x.id === item.measure_id);
     if (!m) return `${q} (medida no disponible)`;
-    return `${q} × ${m.name} (${round(Number(item.quantity) * m.amount, 0).toLocaleString('es-AR')} ${m.unit})`;
+    const total = `${round(Number(item.quantity) * m.amount, 0).toLocaleString('es-AR')} ${m.unit}`;
+    if (Number(item.quantity) === 1) return m.name.includes('(') ? m.name : `${m.name} (${total})`;
+    return `${q} × ${m.name} = ${total}`;
   }
   if (item.unit === 'porcion' && food.recipe) {
     const g = (Number(item.quantity) * food.recipe.yield_grams) / food.recipe.servings;

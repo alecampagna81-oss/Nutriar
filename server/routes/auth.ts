@@ -34,7 +34,8 @@ async function startSession(req: any, userId: string) {
 }
 
 authRouter.get('/me', async (req, res) => {
-  if (!req.user) return res.json({ user: null, appName: config.appName, signupEnabled: signupEnabled() });
+  const demoMode = process.env.DEMO_MODE === '1';
+  if (!req.user) return res.json({ user: null, appName: config.appName, signupEnabled: signupEnabled(), emailConfigured: mailConfigured(), demoMode });
   const extra: any = {};
   if (req.user.role === 'professional') {
     Object.assign(extra, await one('select license_number, timezone, response_hours, default_appointment_minutes from professionals where user_id=$1', [req.user.id]));
@@ -42,7 +43,7 @@ authRouter.get('/me', async (req, res) => {
     const p = await one('select p.id as patient_id, p.first_name, p.show_nutrients, p.allow_self_measurements, p.allow_body_photos, p.habits, pr.timezone, pr.response_hours, u.name as professional_name from patients p join professionals pr on pr.user_id=p.professional_id join users u on u.id=p.professional_id where p.user_id=$1', [req.user.id]);
     Object.assign(extra, p);
   }
-  res.json({ user: { ...req.user, ...extra }, appName: config.appName, emailConfigured: mailConfigured() });
+  res.json({ user: { ...req.user, ...extra }, appName: config.appName, emailConfigured: mailConfigured(), demoMode });
 });
 
 const signupEnabled = () => (process.env.ALLOW_PROFESSIONAL_SIGNUP ?? (config.isProd ? '0' : '1')) === '1';
