@@ -99,6 +99,18 @@ export function createApp() {
     }
   });
 
+  // Límite de cargas de archivos por usuario (fotos, documentos, imágenes de mensajes).
+  const uploadLimiter = rateLimit({
+    windowMs: 60 * 60 * 1000,
+    limit: 60,
+    standardHeaders: 'draft-7',
+    legacyHeaders: false,
+    skip: (req) => config.disableRateLimit || !(req.headers['content-type'] ?? '').startsWith('multipart/'),
+    keyGenerator: (req) => req.user?.id ?? 'anon',
+    message: { error: 'Alcanzaste el máximo de 60 archivos por hora. Volvé a intentar más tarde.' },
+  });
+  app.use('/api', uploadLimiter);
+
   app.get('/api/health', async (_req, res) => {
     await pool.query('select 1');
     res.json({ ok: true });

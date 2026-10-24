@@ -1,0 +1,9 @@
+node_modules
+web/dist
+storage
+storage-test
+storage-e2e
+test-results
+backups
+.env
+.git

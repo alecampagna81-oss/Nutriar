@@ -1,0 +1,26 @@
+# Despliegue mínimo en un único servidor (VPS): base PostgreSQL + aplicación.
+# Requiere un archivo .env (ver .env.example). Poné un proxy con HTTPS (Caddy/Nginx) delante.
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: nutriar
+      POSTGRES_USER: nutriar
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?definí POSTGRES_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  app:
+    build: .
+    restart: unless-stopped
+    depends_on: [db]
+    env_file: .env
+    environment:
+      DATABASE_URL: postgres://nutriar:${POSTGRES_PASSWORD}@db:5432/nutriar
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - storage:/data/storage
+volumes:
+  pgdata:
+  storage:

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useApi } from '../../../lib/hooks';
 import { useNavigate } from 'react-router-dom';
 import { api, download } from '../../../lib/api';
 import { useAuth } from '../../../lib/auth';
@@ -113,6 +114,7 @@ export function Access({ patient: p, reload }: { patient: any; reload: () => voi
         </div>
         <p className="small muted" style={{ marginTop: '0.6rem' }}>Archivar oculta al paciente del listado y desactiva su acceso, conservando toda la información. La eliminación definitiva solo está disponible para pacientes archivados y no se puede deshacer.</p>
       </Card>
+      <AuditLog patientId={p.id} />
       {link ? (
         <Modal title={`Enlace de ${link.kind}`} onClose={() => setLink(null)} footer={<Button onClick={() => setLink(null)}>Listo</Button>}>
           <Alert tone="warn">Este enlace se muestra una sola vez y da acceso a la cuenta. Compartilo solo con el paciente.</Alert>
@@ -134,5 +136,32 @@ export function Access({ patient: p, reload }: { patient: any; reload: () => voi
         </Confirm>
       ) : null}
     </>
+  );
+}
+
+const ACTIONS: Record<string, string> = {
+  paciente_creado: 'Alta del paciente', paciente_editado: 'Datos o configuración editados', invitacion_creada: 'Invitación generada', invitacion_aceptada: 'El paciente activó su cuenta',
+  invitacion_anulada: 'Invitación anulada', historia_clinica_editada: 'Historia clínica editada', cuestionario_solicitado: 'Cuestionario solicitado', cuestionario_enviado: 'Cuestionario enviado por el paciente',
+  cuestionario_revisado: 'Cuestionario revisado', consulta_creada: 'Consulta registrada', consulta_editada: 'Consulta editada', medicion_creada: 'Medición registrada', medicion_informada: 'Medición informada por el paciente',
+  medicion_anulada: 'Medición anulada', objetivo_creado: 'Objetivo creado', objetivo_editado: 'Objetivo editado', archivo_subido: 'Archivo subido', archivo_editado: 'Archivo modificado', archivo_dado_de_baja: 'Archivo dado de baja',
+  plan_creado: 'Plan creado', plan_borrador_guardado: 'Borrador de plan guardado', plan_version_creada: 'Nueva versión de plan', plan_publicado: 'Plan publicado', plan_archivado: 'Plan archivado',
+  registro_comida: 'Registro de comida', turno_creado: 'Turno creado', turno_editado: 'Turno modificado', turno_confirmado: 'Turno confirmado por el paciente', turno_cambio_solicitado: 'Pedido de cambio de turno',
+  turno_cancelado: 'Turno cancelado', turno_realizado: 'Turno realizado', exportacion: 'Exportación de datos', exportacion_paciente: 'Exportación hecha por el paciente', paciente_archivado: 'Paciente archivado',
+  paciente_reactivado: 'Paciente reactivado', enlace_restablecimiento: 'Enlace de restablecimiento generado',
+};
+
+function AuditLog({ patientId }: { patientId: string }) {
+  const { data } = useApi<any[]>(`/api/pro/patients/${patientId}/audit`);
+  return (
+    <Card title="Registro de cambios (auditoría)">
+      <p className="small muted">Quién hizo cada modificación relevante y cuándo. No incluye el contenido clínico.</p>
+      {data?.length ? (
+        <div className="table-wrap" style={{ maxHeight: 320, overflowY: 'auto' }}>
+          <table className="table">
+            <tbody>{data.map((a, i) => <tr key={i}><td className="small nowrap">{dt(a.created_at)}</td><td>{ACTIONS[a.action] ?? a.action}</td><td className="small muted">{a.actor ?? '—'}</td></tr>)}</tbody>
+          </table>
+        </div>
+      ) : <p className="muted">Sin registros.</p>}
+    </Card>
   );
 }
