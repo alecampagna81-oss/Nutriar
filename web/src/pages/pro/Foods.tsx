@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { api } from '../../lib/api';
 import { useApi } from '../../lib/hooks';
-import { formatDate, num, VERIFICATION } from '../../lib/format';
+import { formatDate, num, ORIGIN, VERIFICATION } from '../../lib/format';
 import { Alert, Badge, Button, Card, Empty, ErrorBox, Field, FormError, Input, Loading, Modal, PageHeader, Select, Textarea, Toggle, useAction } from '../../components/ui';
 import { FoodBadges, FoodPicker } from '../../components/FoodPicker';
 import { ALLERGENS } from '@shared/nutrition';
@@ -12,11 +12,12 @@ export function Foods() {
   const [kind, setKind] = useState('');
   const [mine, setMine] = useState(false);
   const [demo, setDemo] = useState(false);
+  const [origin, setOrigin] = useState('');
   useEffect(() => {
     const t = setTimeout(() => setQ(search), 250);
     return () => clearTimeout(t);
   }, [search]);
-  const { data, error, loading, reload } = useApi<any[]>(`/api/foods?search=${encodeURIComponent(q)}&kind=${kind}&mine=${mine ? 1 : 0}&include_demo=${demo ? 1 : 0}`);
+  const { data, error, loading, reload } = useApi<any[]>(`/api/foods?search=${encodeURIComponent(q)}&kind=${kind}&mine=${mine ? 1 : 0}&include_demo=${demo ? 1 : 0}&origin=${origin}`);
   const [detail, setDetail] = useState<string | null>(null);
   const [editFood, setEditFood] = useState<any>(null);
   const [editRecipe, setEditRecipe] = useState<any>(null);
@@ -40,7 +41,7 @@ export function Foods() {
         }
       />
       <Alert tone="info">
-        Catálogo inicial: 121 alimentos genéricos de la tabla USDA SR28 (dominio público) seleccionados y traducidos, y 6 recetas base sin cocción. No incluye productos de marca argentinos verificados: cargalos desde la etiqueta. Los alimentos que crees son privados.
+        Cada alimento indica el origen de sus datos. Los 121 genéricos iniciales provienen de la tabla de EE.UU. (USDA SR28) y están marcados “Datos de EE.UU.”: pueden diferir del alimento argentino. Las fuentes argentinas se incorporan a medida que se habilitan (ver Estado del proyecto). Los alimentos que crees son privados.
       </Alert>
       <Card>
         <div className="row" style={{ marginBottom: '0.6rem' }}>
@@ -50,6 +51,12 @@ export function Foods() {
             <option value="generico">Genéricos</option>
             <option value="producto">Productos de marca</option>
             <option value="receta">Recetas</option>
+          </Select>
+          <Select value={origin} onChange={(e) => setOrigin(e.target.value)} style={{ maxWidth: 240 }} aria-label="Origen">
+            <option value="">Todos los orígenes</option>
+            <option value="AR">Datos argentinos</option>
+            <option value="US">Datos de EE.UU. (USDA)</option>
+            <option value="sin">Sin origen informado</option>
           </Select>
           <Toggle label="Solo los míos" checked={mine} onChange={setMine} />
           <Toggle label="Mostrar datos DEMO" checked={demo} onChange={setDemo} />
@@ -133,6 +140,15 @@ function FoodDetail({ id, onClose, onEdit, onChanged }: { id: string; onClose: (
           <h3>Fuente y trazabilidad</h3>
           <p className="small">{f.source}{f.source_ref ? ` · ${f.source_ref}` : ''}{f.source_date ? ` · ${formatDate(f.source_date)}` : ''}</p>
           <p className="small muted">Estado de verificación: {VERIFICATION[f.verification]?.label} — {VERIFICATION[f.verification]?.help}</p>
+          <p className="small muted">
+            Conjunto de datos: {f.dataset ?? '—'} · Origen: {f.origin_country ? ORIGIN[f.origin_country]?.label ?? f.origin_country : 'no informado'} · Carbohidratos: {f.carbs_basis === 'totales' ? 'totales (incluyen fibra)' : f.carbs_basis === 'disponibles' ? 'disponibles (sin fibra, como en las etiquetas argentinas)' : 'criterio no informado'}
+          </p>
+          {f.dataset === 'Open Food Facts' ? (
+            <p className="small">
+              Datos de <a href={f.label_data?.url} target="_blank" rel="noreferrer">Open Food Facts</a>, base colaborativa con licencia ODbL. Si encontrás un error, no edites este registro: creá un producto propio con los datos de la etiqueta.
+            </p>
+          ) : null}
+          {f.label_data?.license ? <p className="small muted">Licencia/condiciones: {f.label_data.license}</p> : null}
           {f.label_data?.usda_description ? <p className="small muted">Descripción original: {f.label_data.usda_description}. {f.label_data.carbs_note}. {f.label_data.density_from ?? ''}</p> : null}
           {f.recipe ? (
             <>
@@ -169,6 +185,7 @@ function FoodForm({ initial, onClose, onSaved }: { initial: any; onClose: () => 
     state: initial.state ?? '', edible_portion_pct: str(initial.edible_portion_pct), basis_amount: str(initial.basis_amount ?? 100), basis_unit: initial.basis_unit ?? 'g',
     energy_kcal: str(initial.energy_kcal), protein_g: str(initial.protein_g), carbs_g: str(initial.carbs_g), fat_g: str(initial.fat_g), fiber_g: str(initial.fiber_g), sodium_mg: str(initial.sodium_mg),
     density_g_per_ml: str(initial.density_g_per_ml), allergens: initial.allergens ?? [], serving_size: initial.label_data?.serving_size ?? '', ean: initial.label_data?.ean ?? '',
+    origin_country: initial.origin_country ?? 'AR', carbs_basis: initial.carbs_basis ?? (initial.kind === 'generico' ? '' : 'disponibles'),
     source: initial.source ?? 'Etiqueta del envase', source_ref: initial.source_ref ?? '', source_date: initial.source_date ?? new Date().toISOString().slice(0, 10),
   });
   const [error, setError] = useState<unknown>(null);
@@ -182,6 +199,7 @@ function FoodForm({ initial, onClose, onSaved }: { initial: any; onClose: () => 
       energy_kcal: nOrNull(f.energy_kcal), protein_g: nOrNull(f.protein_g), carbs_g: nOrNull(f.carbs_g), fat_g: nOrNull(f.fat_g), fiber_g: nOrNull(f.fiber_g), sodium_mg: nOrNull(f.sodium_mg),
       density_g_per_ml: nOrNull(f.density_g_per_ml), allergens: f.allergens, label_data: f.kind === 'producto' ? { serving_size: f.serving_size || undefined, ean: f.ean || undefined } : null,
       source: f.source, source_ref: f.source_ref || null, source_date: f.source_date || null,
+      origin_country: f.origin_country || null, carbs_basis: f.carbs_basis || null,
     };
     try {
       if (initial.id) await api.put(`/api/foods/${initial.id}`, body);
@@ -233,6 +251,8 @@ function FoodForm({ initial, onClose, onSaved }: { initial: any; onClose: () => 
         <Field label="Fuente de los datos" required>{(id) => <Input id={id} value={f.source} onChange={set('source')} />}</Field>
         <Field label="Referencia" hint="Lote, URL, edición de la tabla">{(id) => <Input id={id} value={f.source_ref} onChange={set('source_ref')} />}</Field>
         <Field label="Fecha de la fuente">{(id) => <Input id={id} type="date" value={f.source_date} onChange={set('source_date')} />}</Field>
+        <Field label="Origen de los datos">{(id) => <Select id={id} value={f.origin_country} onChange={set('origin_country')}><option value="AR">Argentina (etiqueta o fuente local)</option><option value="">No informado</option><option value="US">Estados Unidos</option></Select>}</Field>
+        <Field label="Criterio de carbohidratos">{(id) => <Select id={id} value={f.carbs_basis} onChange={set('carbs_basis')}><option value="disponibles">Disponibles (etiqueta argentina)</option><option value="totales">Totales (incluyen fibra)</option><option value="">No informado</option></Select>}</Field>
       </div>
     </Modal>
   );

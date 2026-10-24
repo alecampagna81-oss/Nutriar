@@ -7,3 +7,4 @@ test-results/
 *.log
 storage-e2e/
 backups/
+videos-demo/

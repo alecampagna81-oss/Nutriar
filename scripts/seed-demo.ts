@@ -62,8 +62,8 @@ export async function seedDemo() {
     ['[DEMO] Yogur bebible descremado frutilla', 'Marca Demo (ficticia)', 'Lácteos y huevos', 'Botella 1 l', 100, 45, 3, 7.4, null],
   ] as const) {
     await q(
-      `insert into foods(kind, name, brand, category, presentation, state, basis_amount, basis_unit, energy_kcal, protein_g, carbs_g, fat_g, source, verification, is_demo, owner_id, visibility, label_data)
-       select 'producto',$1,$2,$3,$4,'listo_para_consumir',$5,'g',$6,$7,$8,$9,'Datos FICTICIOS para demostración. No usar clínicamente.','demo',true,null,'catalogo','{"serving_size":"ficticio"}'
+      `insert into foods(kind, name, brand, category, presentation, state, basis_amount, basis_unit, energy_kcal, protein_g, carbs_g, fat_g, source, verification, is_demo, owner_id, visibility, label_data, dataset)
+       select 'producto',$1,$2,$3,$4,'listo_para_consumir',$5,'g',$6,$7,$8,$9,'Datos FICTICIOS para demostración. No usar clínicamente.','demo',true,null,'catalogo','{"serving_size":"ficticio"}','Demo'
        where not exists (select 1 from foods where name=$1 and is_demo)`,
       [...p],
     );

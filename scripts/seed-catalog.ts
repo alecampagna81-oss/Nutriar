@@ -18,12 +18,13 @@ export async function seedCatalog(log = true) {
     for (const it of sr.items) {
       const row = await one(
         `insert into foods(kind, name, category, state, edible_portion_pct, basis_amount, basis_unit, energy_kcal, protein_g, carbs_g, fat_g, fiber_g, sodium_mg,
-                           density_g_per_ml, allergens, label_data, source, source_ref, source_date, verification, owner_id, visibility)
-         values ('generico',$1,$2,$3,$4,100,'g',$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,'2015-09-01','fuente_secundaria',null,'catalogo')
+                           density_g_per_ml, allergens, label_data, source, source_ref, source_date, verification, owner_id, visibility, origin_country, dataset, carbs_basis)
+         values ('generico',$1,$2,$3,$4,100,'g',$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,'2015-09-01','fuente_secundaria',null,'catalogo','US','USDA SR28','totales')
          on conflict (source, source_ref) where source_ref is not null and owner_id is null
          do update set name=excluded.name, category=excluded.category, state=excluded.state, edible_portion_pct=excluded.edible_portion_pct,
                        energy_kcal=excluded.energy_kcal, protein_g=excluded.protein_g, carbs_g=excluded.carbs_g, fat_g=excluded.fat_g, fiber_g=excluded.fiber_g,
-                       sodium_mg=excluded.sodium_mg, density_g_per_ml=excluded.density_g_per_ml, allergens=excluded.allergens, label_data=excluded.label_data, updated_at=now()
+                       sodium_mg=excluded.sodium_mg, density_g_per_ml=excluded.density_g_per_ml, allergens=excluded.allergens, label_data=excluded.label_data,
+                       origin_country='US', dataset='USDA SR28', carbs_basis='totales', updated_at=now()
          returning id`,
         [it.name, it.category, it.state, it.edible_portion_pct, it.energy_kcal, it.protein_g, it.carbs_g, it.fat_g, it.fiber_g, it.sodium_mg, it.density_g_per_ml, it.allergens,
          { usda_description: it.usda_description, carbs_note: 'Carbohidratos totales por diferencia (incluyen fibra)', density_from: it.density_from ? `Densidad derivada de la medida USDA "${it.density_from}"` : undefined },
@@ -46,7 +47,7 @@ export async function seedCatalog(log = true) {
       const yieldG = r.ingredients.reduce((s: number, [, g]: [string, number]) => s + g, 0);
       if (!f) {
         f = await one(
-          "insert into foods(kind, name, category, state, basis_amount, basis_unit, source, source_ref, verification, owner_id, visibility) values ('receta',$1,'Preparaciones','listo_para_consumir',100,'g',$2,$3,'calculado',null,'catalogo') returning id",
+          "insert into foods(kind, name, category, state, basis_amount, basis_unit, source, source_ref, verification, owner_id, visibility, dataset) values ('receta',$1,'Preparaciones','listo_para_consumir',100,'g',$2,$3,'calculado',null,'catalogo','Recetas base NutriAR') returning id",
           [r.name, `Receta base NutriAR. ${rec.note}`, ref],
           c,
         );

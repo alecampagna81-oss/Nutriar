@@ -359,7 +359,11 @@ export function PlanEditor() {
               ))}
             </div>
             {totals.total.errors.length ? <p className="small" style={{ color: 'var(--danger)' }}>{totals.total.errors.join('. ')}</p> : null}
-            <p className="small muted" style={{ marginTop: '0.5rem' }}>Calculado con los datos de cada alimento. “Faltan datos” indica valores no disponibles (no se toman como cero). Carbohidratos de USDA = totales (incluyen fibra).</p>
+            <p className="small muted" style={{ marginTop: '0.5rem' }}>Calculado con los datos de cada alimento. “Faltan datos” indica valores no disponibles (no se toman como cero).</p>
+            {(() => {
+              const bases = new Set(Object.values(day.meals).flat().map((it) => it.snapshot?.carbs_basis).filter(Boolean));
+              return bases.size > 1 ? <Alert tone="warn">Este día combina carbohidratos totales (tabla de EE.UU., incluyen fibra) y disponibles (etiquetas argentinas, sin fibra): el total de carbohidratos no es homogéneo.</Alert> : null;
+            })()}
           </Card>
           <Card title="Acciones">
             <div className="stack" style={{ gap: '0.4rem' }}>

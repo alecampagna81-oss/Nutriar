@@ -46,6 +46,9 @@ export interface FoodSnap {
   measures: MeasureSnap[];
   verification: string;
   is_demo: boolean;
+  origin_country?: string | null; // 'AR', 'US'… (instantáneas antiguas pueden no tenerlo)
+  dataset?: string | null;
+  carbs_basis?: 'totales' | 'disponibles' | null;
   recipe?: { servings: number; yield_grams: number; preparation: string; ingredients: IngredientSnap[] };
 }
 

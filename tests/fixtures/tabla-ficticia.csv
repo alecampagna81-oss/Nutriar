@@ -1,0 +1,4 @@
+codigo;nombre;categoria;estado;energia_kcal;proteinas_g;carbohidratos_g;grasas_g;fibra_g;sodio_mg;porcion_comestible_pct;fuente_original
+T001;Alimento ficticio A;Cereales y derivados;crudo;350;10,5;70;2;;5;;Tabla ficticia
+T002;Alimento ficticio B;Verduras;crudo;25;1;4;0;2;10;85;Tabla ficticia
+T003;Fila con error;Categoría rara;crudo;abc;1;1;1;;;;

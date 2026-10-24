@@ -25,6 +25,9 @@ function toSnap(f: any, measures: any[]): FoodSnap {
     measures: measures.filter((m) => m.food_id === f.id).map((m) => ({ id: m.id, name: m.name, amount: m.amount, unit: m.unit })),
     verification: f.verification,
     is_demo: f.is_demo,
+    origin_country: f.origin_country ?? null,
+    dataset: f.dataset ?? null,
+    carbs_basis: f.carbs_basis ?? null,
   };
 }
 
@@ -82,10 +85,14 @@ export async function recomputeRecipe(recipeId: string, client?: any) {
   const r = computeRecipe(parts, det.yield_grams, det.servings);
   const allergens = [...new Set(parts.flatMap((p) => p.food.allergens))];
   const anyDemo = parts.some((p) => p.food.is_demo);
+  // Origen y criterio de carbohidratos de la receta: solo si todos los ingredientes coinciden.
+  const same = <T,>(vals: T[]) => (vals.length && vals.every((v) => v === vals[0]) ? vals[0] : null);
+  const origin = same(parts.map((p) => p.food.origin_country ?? null));
+  const carbsBasis = same(parts.map((p) => p.food.carbs_basis ?? null));
   await q(
     `update foods set energy_kcal=$2, protein_g=$3, carbs_g=$4, fat_g=$5, basis_amount=100, basis_unit='g', allergens=$6,
-       verification = case when $7 then 'demo' else 'calculado' end, is_demo = $7, updated_at=now() where id=$1`,
-    [recipeId, r.per100.energy_kcal, r.per100.protein_g, r.per100.carbs_g, r.per100.fat_g, allergens, anyDemo],
+       verification = case when $7 then 'demo' else 'calculado' end, is_demo = $7, origin_country=$8, carbs_basis=$9, updated_at=now() where id=$1`,
+    [recipeId, r.per100.energy_kcal, r.per100.protein_g, r.per100.carbs_g, r.per100.fat_g, allergens, anyDemo, origin, carbsBasis],
     client,
   );
   await q("delete from food_measures where food_id=$1 and source='Rendimiento declarado de la receta'", [recipeId], client);

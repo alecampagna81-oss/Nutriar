@@ -1,6 +1,8 @@
 # ESTADO DEL PROYECTO — NutriAR
 
-Archivo de continuidad. Leelo primero al retomar el trabajo. Última actualización: 24/10/2026.
+Archivo de continuidad. Leelo primero al retomar el trabajo. Última actualización: 24/10/2026 (2.ª sesión: alojamiento y catálogo argentino).
+
+Repositorio privado: https://github.com/alecampagna81-oss/nutriar (rama `main`).
 
 **Estado general:** versión integrada **para demostración** con datos ficticios. **No está lista para uso clínico real** (ver “Condiciones antes de usar datos reales”).
 
@@ -48,7 +50,9 @@ migrations/    SQL versionado
 data/catalog/  catálogo inicial (USDA SR28 curado) y recetas base
 scripts/       seed-catalog, seed-demo, create-professional, backup.sh, restore.sh, build_catalog.py
 tests/         nutrition.test.ts, flows.test.ts (API), e2e/run.mjs (navegador)
-docs/          CATALOGO.md, SEGURIDAD_Y_DATOS.md, DESPLIEGUE.md
+docs/          CATALOGO.md, ALOJAMIENTO.md, SEGURIDAD_Y_DATOS.md, DESPLIEGUE.md
+server/importers/  off.ts (Open Food Facts), table.ts (tablas oficiales normalizadas)
+render.yaml    configuración de Render (aplicación + base + disco), sin claves
 ```
 
 ## 3. Cómo ejecutar (desarrollo)
@@ -72,7 +76,7 @@ Frontend con recarga en caliente (opcional): `npm run dev:web` (puerto 5173, red
 
 ## 4. Variables de entorno (sin secretos; ver `.env.example`)
 
-`DATABASE_URL`, `SESSION_SECRET` (≥32 caracteres, obligatorio en producción), `APP_URL`, `APP_NAME`, `PORT`, `STORAGE_DIR`, `MAX_UPLOAD_MB` (10), `TRUST_PROXY`, `SECURE_COOKIES`, `ALLOW_PROFESSIONAL_SIGNUP` (1 en desarrollo, 0 por defecto en producción), `DEMO_MODE`, `SMTP_URL`, `MAIL_FROM`.
+`DATABASE_URL`, `SESSION_SECRET` (≥32 caracteres, obligatorio en producción), `APP_URL`, `APP_NAME`, `PORT`, `STORAGE_DIR`, `MAX_UPLOAD_MB` (10), `TRUST_PROXY`, `SECURE_COOKIES`, `ALLOW_PROFESSIONAL_SIGNUP` (1 en desarrollo, 0 por defecto en producción), `DEMO_MODE`, `SMTP_URL`, `MAIL_FROM`, `SEED_CATALOG_ON_START` (1 por defecto: carga idempotente del catálogo al arrancar), `SEED_DEMO_IF_EMPTY` (con `DEMO_MODE=1`, crea la demo si no existe), `RENDER_EXTERNAL_URL` (la define Render; se usa si falta `APP_URL`).
 
 ## 5. Migraciones y base
 
@@ -116,8 +120,8 @@ Frontend con recarga en caliente (opcional): `npm run dev:web` (puerto 5173, red
 
 - **Notificaciones push**: no implementadas. Con la app cerrada solo llegan correos (si se configura SMTP). Recordatorios de comidas y agua: **no implementados** (requieren Web Push; ver próxima acción).
 - **Correo**: integración lista (`SMTP_URL`, `MAIL_FROM`) pero **no probada contra un servidor SMTP real**; sin SMTP la app informa “no configurado” y no simula envíos.
-- **Catálogo**: 121 genéricos (USDA SR28) + 6 recetas base. **No hay productos de marca argentinos verificados** ni alimentos típicos ausentes en SR28 (yerba mate/mate cebado, harinas y panificados locales, cortes argentinos exactos, merluza). Detalle en `docs/CATALOGO.md`.
-- Carbohidratos de USDA = totales por diferencia (incluyen fibra); en etiquetas argentinas se informan carbohidratos disponibles. Se advierte en la interfaz; mezclar ambas fuentes introduce diferencias del orden de la fibra.
+- **Catálogo**: hoy solo 121 genéricos de EE.UU. (USDA SR28, marcados “Datos de EE.UU.”) + 6 recetas base. **Todavía no hay datos argentinos cargados**: las fuentes están bloqueadas desde el entorno y/o requieren permiso. Importadores listos y probados (Open Food Facts y tablas oficiales). Detalle completo en `docs/CATALOGO.md`.
+- Carbohidratos: cada alimento guarda su criterio (`totales` USDA / `disponibles` etiquetas argentinas); el editor avisa si un día mezcla ambos.
 - Alérgenos de los alimentos: etiquetas orientativas cargadas manualmente; no reemplazan la revisión profesional.
 - Recetas no pueden contener otras recetas.
 - Metadatos internos de PDFs subidos no se eliminan (las imágenes sí).
@@ -128,22 +132,23 @@ Frontend con recarga en caliente (opcional): `npm run dev:web` (puerto 5173, red
 
 ## 8. Pruebas ejecutadas y resultados (24/10/2026)
 
-- `npm test` (Vitest, PostgreSQL real, base `nutriar_test` recreada en cada corrida): **52/52 OK**.
+- `npm test` (Vitest, PostgreSQL real, base `nutriar_test` recreada en cada corrida): **57/57 OK** (incluye `tests/importers.test.ts`: importadores de Open Food Facts y de tablas oficiales con datos ficticios — validaciones, rechazos con motivo, vacío ≠ cero, conversión kJ→kcal y sodio, reimportación sin duplicar ni borrar).
   - `tests/nutrition.test.ts`: cálculos verificables a mano (USDA SR28), medidas, densidad, peso bruto, faltante ≠ cero, recetas por rendimiento, lista de compras, IMC, zonas horarias, ciclo de semanas.
   - `tests/flows.test.ts`: las 13 comprobaciones obligatorias vía API, incluidas solicitudes directas de otra profesional y otro paciente a recursos y archivos ajenos, eliminación de EXIF, PDF (texto extraído) vs. lista de compras, versiones e historial, persistencia tras cerrar sesión, errores (archivo inválido, tamaño, validaciones, plan vacío, CSRF, borrado con confirmación) y auditoría.
 - `npm run test:e2e` (Chromium real, base `nutriar_e2e`): **17/17 pasos OK** — profesional en 1366×900 y paciente en celular 390×844: registro, alta con error de validación, invitación, historia clínica, aceptación en celular, cuestionario, editor de plan con medida casera y alerta de alérgeno, publicación con confirmación, plan/lista de compras/PDF del paciente, registro con foto, archivo inválido sin pérdida de texto, mensajes con “Leído”, foto visible para la profesional, mediciones y gráfico compartido, turnos con superposición y confirmación, persistencia tras cerrar sesión, aislamiento por URL directa. Sin errores de consola.
 - Revisión visual por capturas: computadora, tablet (820 px) y celular (390 px) de las pantallas principales; sin desbordes horizontales.
 - Respaldo/restauración: `scripts/backup.sh` + `scripts/restore.sh` probados sobre una base con archivos → mismos conteos y archivos idénticos.
 - Imagen Docker: construida y ejecutada contra PostgreSQL (migra, sirve la app, registro abierto bloqueado en producción, alta de profesional por consola). En este entorno se construyó con una variante que solo agrega el proxy del sandbox.
-- **No verificado**: envío real de correos; despliegue en un proveedor; HTTPS real; navegadores Safari/iOS y Firefox (solo Chromium); lectores de pantalla.
+- Arranque simulado como en Render (base vacía, modo producción, `RENDER_EXTERNAL_URL`): migra, carga el catálogo, crea la demo una sola vez y no la duplica al reiniciar. E2E repetido tras los cambios: 17/17 OK.
+- **No verificado**: despliegue real en Render (no contratado); importación con datos reales de Open Food Facts o SARA 2 (fuentes bloqueadas); envío real de correos; HTTPS real; Safari/iOS y Firefox; lectores de pantalla.
 
-## 9. Despliegue y costos
+## 9. Alojamiento y costos
 
-Ver `docs/DESPLIEGUE.md`. Resumen (estimaciones, **precios no verificados en las páginas oficiales** — verificar antes de contratar):
-- Opción A, un VPS con Docker Compose (app + PostgreSQL + Caddy para HTTPS): del orden de **4–10 € / mes** (fuentes secundarias de 2026 citan ~4 €/mes para el VPS más chico de Hetzner tras su aumento de abril 2026) + dominio (~USD 10–20/año) + espacio de respaldo externo (pocos USD/mes).
-- Opción B, PaaS (p. ej. Render): servicio web Starter ~USD 7/mes + PostgreSQL Basic-256mb ~USD 6/mes según su página de precios, **más un disco persistente** para los archivos (o adaptar el almacenamiento a S3), ≈ USD 15–20/mes.
-- Correo transaccional: hay planes gratuitos con límites diarios (p. ej. Brevo cita 300/día); suficiente para invitaciones y recordatorios de una consulta.
-- Sin costos de IA ni licencias: todas las bibliotecas son de código abierto; USDA SR28 es de dominio público.
+Recomendación: **Render** (aplicación + PostgreSQL gestionado + disco privado) — detalle, fuentes y pasos en `docs/ALOJAMIENTO.md`. **No contratado.** `render.yaml` crea todo sin escribir claves.
+- Costo de la prueba: **≈ USD 13,55/mes** (precios publicados en render.com: web Starter 7 + disco 1 GB 0,25 + Postgres 256 MB 6 + 1 GB de base 0,30; respaldos incluidos; correo no necesario) **+ impuestos argentinos** (estimado USD 16–21/mes, a confirmar con el banco).
+- Los planes gratuitos de Render no sirven (sin disco, la base gratuita se borra a los 30+14 días).
+- Uso real estimado: USD 35–65/mes + dominio + correo (no verificado).
+- Primera prueba sin correo: invitaciones y restablecimientos por enlace; `scripts/reset-link.ts` para la cuenta profesional.
 
 ## 10. Condiciones antes de usar datos reales
 
@@ -158,9 +163,10 @@ Ver `docs/DESPLIEGUE.md`. Resumen (estimaciones, **precios no verificados en las
 
 ## 11. Bloqueos y siguiente acción concreta
 
-Bloqueos externos (requieren al dueño):
-- Autorización y cuenta para **publicar** un entorno de prueba accesible (proveedor, dominio, costo).
-- Credenciales SMTP si se quiere correo.
-- Repositorio remoto (GitHub) para subir el código; hoy está en un repositorio git local.
+Bloqueos que dependen del dueño:
+1. **Autorizar el gasto y crear la cuenta en Render** (pasos en `docs/ALOJAMIENTO.md`).
+2. **Red del entorno de Claude:** permitir `world.openfoodfacts.org`, `static.openfoodfacts.org`, `bancos.salud.gob.ar`, `iah.msal.gov.ar`, `datos.salud.gob.ar`, `ri.conicet.gov.ar`, `render.com` (o, en su defecto, adjuntar el PDF de SARA 2).
+3. **Permisos:** ARGENFOODS (UNLu) — autorización escrita; SARA 2 — confirmar licencia y pedir permiso de uso comercial al Ministerio de Salud.
+4. **Validación de una nutricionista** (lista en `docs/CATALOGO.md`, punto 6).
 
-Siguiente acción técnica sugerida: desplegar en el proveedor elegido con `docker-compose.yml` + Caddy, configurar respaldo diario (`scripts/backup.sh` vía cron) y luego implementar Web Push (VAPID) para recordatorios de comidas/agua/turnos con la app cerrada.
+Siguiente acción técnica, en cuanto haya acceso: importar productos argentinos de Open Food Facts (validar → informe → `--aplicar`), convertir SARA 2 a la planilla normalizada y verificar una muestra contra el PDF; luego publicar en Render con la demo.

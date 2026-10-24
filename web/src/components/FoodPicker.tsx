@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
 import { api } from '../lib/api';
-import { num, VERIFICATION } from '../lib/format';
+import { num, ORIGIN, VERIFICATION } from '../lib/format';
 import { ALLERGENS } from '@shared/nutrition';
 import { Badge, Input, Loading, Modal, Select, Toggle } from './ui';
 
-export function FoodBadges({ f }: { f: { verification: string; is_demo?: boolean; kind: string; state?: string | null } }) {
+export function FoodBadges({ f }: { f: { verification: string; is_demo?: boolean; kind: string; state?: string | null; origin_country?: string | null; dataset?: string | null } }) {
   const v = VERIFICATION[f.verification];
+  const o = f.origin_country ? ORIGIN[f.origin_country] : null;
   return (
     <>
+      {o ? <Badge tone={o.tone} title={o.help}>{o.label}</Badge> : null}
+      {f.dataset && !['Propio', 'Demo', 'USDA SR28', 'Recetas base NutriAR'].includes(f.dataset) ? <Badge tone="info" title={`Conjunto de datos: ${f.dataset}`}>{f.dataset}</Badge> : null}
       {f.kind === 'producto' ? <Badge tone="accent">Producto</Badge> : f.kind === 'receta' ? <Badge tone="info">Receta</Badge> : null}
       {f.state ? <Badge>{f.state === 'listo_para_consumir' ? 'listo' : f.state}</Badge> : null}
       {v ? <Badge tone={v.tone} title={v.help}>{v.label}</Badge> : null}
@@ -21,6 +24,7 @@ export function FoodPicker({ title, onPick, onClose, patientAllergens = [] }: { 
   const [kind, setKind] = useState('');
   const [category, setCategory] = useState('');
   const [demo, setDemo] = useState(false);
+  const [origin, setOrigin] = useState('');
   const [rows, setRows] = useState<any[] | null>(null);
   const [cats, setCats] = useState<string[]>([]);
   useEffect(() => {
@@ -30,12 +34,12 @@ export function FoodPicker({ title, onPick, onClose, patientAllergens = [] }: { 
     const t = setTimeout(() => {
       setRows(null);
       api
-        .get(`/api/foods?search=${encodeURIComponent(search)}&kind=${kind}&category=${encodeURIComponent(category)}&include_demo=${demo ? 1 : 0}`)
+        .get(`/api/foods?search=${encodeURIComponent(search)}&kind=${kind}&category=${encodeURIComponent(category)}&include_demo=${demo ? 1 : 0}&origin=${origin}`)
         .then(setRows)
         .catch(() => setRows([]));
     }, 200);
     return () => clearTimeout(t);
-  }, [search, kind, category, demo]);
+  }, [search, kind, category, demo, origin]);
   return (
     <Modal title={title} onClose={onClose} wide>
       <div className="grid-3">
@@ -51,7 +55,15 @@ export function FoodPicker({ title, onPick, onClose, patientAllergens = [] }: { 
           {cats.map((c) => <option key={c}>{c}</option>)}
         </Select>
       </div>
-      <Toggle label="Incluir datos ficticios de demostración" checked={demo} onChange={setDemo} />
+      <div className="row">
+        <Select value={origin} onChange={(e) => setOrigin(e.target.value)} aria-label="Origen de los datos" style={{ maxWidth: 260 }}>
+          <option value="">Todos los orígenes</option>
+          <option value="AR">Solo datos argentinos</option>
+          <option value="US">Solo datos de EE.UU. (USDA)</option>
+          <option value="sin">Sin origen informado (propios)</option>
+        </Select>
+        <Toggle label="Incluir datos ficticios de demostración" checked={demo} onChange={setDemo} />
+      </div>
       {!rows ? (
         <Loading />
       ) : rows.length ? (

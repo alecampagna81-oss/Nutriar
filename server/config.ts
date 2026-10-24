@@ -14,7 +14,8 @@ export const config = {
   isProd,
   isTest: env.NODE_ENV === 'test',
   appName: env.APP_NAME || 'NutriAR',
-  appUrl: (env.APP_URL || 'http://localhost:3000').replace(/\/$/, ''),
+  // En Render, RENDER_EXTERNAL_URL es la dirección pública asignada (https://<servicio>.onrender.com).
+  appUrl: (env.APP_URL || env.RENDER_EXTERNAL_URL || 'http://localhost:3000').replace(/\/$/, ''),
   port: Number(env.PORT || 3000),
   databaseUrl: env.DATABASE_URL || 'postgres://postgres@127.0.0.1:5432/nutriar',
   sessionSecret: sessionSecret(),

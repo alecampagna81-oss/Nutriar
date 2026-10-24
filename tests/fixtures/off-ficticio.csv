@@ -1,0 +1,10 @@
+code	product_name	product_name_es	brands	quantity	countries_tags	categories_tags	allergens_tags	serving_size	last_modified_t	data_quality_errors_tags	nutrition_data_per	energy-kcal_100g	energy-kj_100g	proteins_100g	carbohydrates_100g	fat_100g	fiber_100g	sodium_100g
+7790000000017	Galletitas de prueba	Galletitas de prueba integrales	MarcaPrueba	300 g	en:argentina	en:biscuits	en:gluten,en:milk	30 g	1760000000		100g	430		9	65	14	6	0.6
+7790000000024	Gaseosa de prueba		MarcaPrueba	1.5 l	en:argentina,en:uruguay	en:beverages,en:sodas		200 ml	1760000000		100ml	42		0	10.5	0		0.01
+7790000000031	Producto de otro país		MarcaX	100 g	en:spain	en:biscuits			1760000000			400		8	70	10		0.5
+7790000000048	Sin marca			100 g	en:argentina				1760000000			100		1	20	1		
+7790000000055	Energía absurda		MarcaPrueba	100 g	en:argentina				1760000000			900		1	5	1		
+7790000000062	Solo kJ		MarcaPrueba	500 g	en:argentina	en:pastas	en:gluten		1760000000				1500	12	72	1.5	3	0
+7790000000017	Duplicado		MarcaPrueba	300 g	en:argentina				1760000000			430		9	65	14	6	0.6
+7790000000079	Con error de calidad		MarcaPrueba	1 kg	en:argentina				1760000000	en:nutrition-value-total-over-105		300		50	60	10		
+123	Código inválido		MarcaPrueba	1 kg	en:argentina				1760000000			100		1	1	1		

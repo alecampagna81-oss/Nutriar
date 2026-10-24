@@ -1,5 +1,7 @@
 # Despliegue
 
+> Recomendación actual para la prueba: **Render** con `render.yaml` (ver `docs/ALOJAMIENTO.md`). Lo que sigue es la alternativa con un servidor propio.
+
 ## Opción A — un servidor (VPS) con Docker Compose (recomendada por costo)
 1. Servidor Linux con Docker. Copiar el repositorio.
 2. `cp .env.example .env` y completar (`SESSION_SECRET=$(openssl rand -hex 32)`, `POSTGRES_PASSWORD`, `APP_URL=https://tu-dominio`, `ALLOW_PROFESSIONAL_SIGNUP=0`, `DEMO_MODE=0`).

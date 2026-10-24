@@ -20,5 +20,11 @@ export const VERIFICATION: Record<string, { label: string; tone: string; help: s
   sin_verificar: { label: 'Sin verificar', tone: 'warn', help: 'Cargado manualmente por una profesional; no fue verificado.' },
   calculado: { label: 'Calculado', tone: 'info', help: 'Calculado a partir de los ingredientes y el rendimiento declarado.' },
   demo: { label: 'DEMO ficticio', tone: 'danger', help: 'Dato ficticio para demostración. No usar clínicamente.' },
+  colaborativo: { label: 'Colaborativo', tone: 'warn', help: 'Datos de etiqueta cargados por voluntarios en Open Food Facts. Validados automáticamente (rangos y coherencia), no revisados por una profesional.' },
 };
 export const MEAL_STATUS: Record<string, string> = { cumplida: 'Cumplida', parcial: 'Parcial', no_cumplida: 'No cumplida', fuera_del_plan: 'Fuera del plan' };
+
+export const ORIGIN: Record<string, { label: string; tone: string; help: string }> = {
+  AR: { label: 'Argentina', tone: 'ok', help: 'Datos de una fuente argentina o de un producto comercializado en Argentina.' },
+  US: { label: 'Datos de EE.UU.', tone: 'neutral', help: 'Composición de la tabla del Departamento de Agricultura de EE.UU. (USDA). Puede diferir del alimento que se consigue en Argentina.' },
+};

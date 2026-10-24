@@ -38,6 +38,8 @@ const foodSchema = z.object({
   source: z.string().trim().min(3, 'Indicá la fuente de los datos (p. ej. "Etiqueta del envase")').max(300),
   source_ref: z.string().trim().max(120).nullable().optional(),
   source_date: dateStr.nullable().optional(),
+  origin_country: z.string().regex(/^[A-Z]{2}$/, 'País inválido (código de 2 letras, ej. AR)').nullable().optional(),
+  carbs_basis: z.enum(['totales', 'disponibles']).nullable().optional(),
 });
 
 function checkFood(b: z.infer<typeof foodSchema>) {
@@ -59,16 +61,19 @@ foodsRouter.get('/', async (req, res) => {
   const category = String(req.query.category ?? '');
   const includeDemo = req.query.include_demo === '1';
   const mine = req.query.mine === '1';
+  const origin = String(req.query.origin ?? '');
+  const originCond = origin === 'AR' || origin === 'US' ? `and f.origin_country = '${origin}'` : origin === 'sin' ? 'and f.origin_country is null' : '';
   const words = search.split(/\s+/).filter(Boolean).slice(0, 5);
   const conds = words.map((_, i) => `translate(f.search, 'áéíóúü', 'aeiouu') like '%' || translate($${i + 5}, 'áéíóúü', 'aeiouu') || '%'`);
   const rows = await q(
     `select f.id, f.kind, f.name, f.brand, f.category, f.presentation, f.state, f.basis_amount, f.basis_unit, f.energy_kcal, f.protein_g, f.carbs_g, f.fat_g,
-            f.verification, f.is_demo, f.source, f.owner_id is not null as own, f.allergens, f.edible_portion_pct,
+            f.verification, f.is_demo, f.source, f.owner_id is not null as own, f.allergens, f.edible_portion_pct, f.origin_country, f.dataset, f.carbs_basis,
             (select json_agg(json_build_object('id', m.id, 'name', m.name, 'amount', m.amount, 'unit', m.unit) order by m.amount) from food_measures m where m.food_id=f.id) as measures
        from foods f
       where ${visibleTo('f', '$1')} and f.archived_at is null
         and ($2 = '' or f.kind = $2) and ($3 = '' or f.category = $3) and ($4 or not f.is_demo)
         ${mine ? 'and f.owner_id = $1' : ''}
+        ${originCond}
         ${conds.length ? 'and ' + conds.join(' and ') : ''}
       order by (f.owner_id is not null) desc, f.is_demo, ${words.length ? 'length(f.name),' : ''} f.name limit 60`,
     [u.id, kind, category, includeDemo, ...words],
@@ -108,9 +113,9 @@ foodsRouter.post('/', async (req, res) => {
   checkFood(b);
   const row = await one(
     `insert into foods(kind, name, brand, category, presentation, state, edible_portion_pct, basis_amount, basis_unit, energy_kcal, protein_g, carbs_g, fat_g, fiber_g, sodium_mg,
-                       density_g_per_ml, allergens, label_data, source, source_ref, source_date, verification, owner_id, visibility, created_by)
-     values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,'sin_verificar',$22,'privado',$22) returning *`,
-    [b.kind, b.name, b.brand ?? null, b.category, b.presentation ?? null, b.state ?? null, b.edible_portion_pct ?? null, b.basis_amount, b.basis_unit, b.energy_kcal, b.protein_g, b.carbs_g, b.fat_g, b.fiber_g ?? null, b.sodium_mg ?? null, b.density_g_per_ml ?? null, b.allergens, b.label_data ?? null, b.source, b.source_ref ?? null, b.source_date ?? null, u.id],
+                       density_g_per_ml, allergens, label_data, source, source_ref, source_date, verification, owner_id, visibility, created_by, dataset, origin_country, carbs_basis)
+     values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,'sin_verificar',$22,'privado',$22,'Propio',$23,$24) returning *`,
+    [b.kind, b.name, b.brand ?? null, b.category, b.presentation ?? null, b.state ?? null, b.edible_portion_pct ?? null, b.basis_amount, b.basis_unit, b.energy_kcal, b.protein_g, b.carbs_g, b.fat_g, b.fiber_g ?? null, b.sodium_mg ?? null, b.density_g_per_ml ?? null, b.allergens, b.label_data ?? null, b.source, b.source_ref ?? null, b.source_date ?? null, u.id, b.origin_country ?? null, b.carbs_basis ?? null],
   );
   await audit(u.id, 'alimento_creado', 'alimento', row.id);
   res.status(201).json(row);
@@ -123,9 +128,10 @@ foodsRouter.put('/:id', async (req, res) => {
   checkFood(b);
   const row = await one(
     `update foods set kind=$2, name=$3, brand=$4, category=$5, presentation=$6, state=$7, edible_portion_pct=$8, basis_amount=$9, basis_unit=$10, energy_kcal=$11, protein_g=$12,
-            carbs_g=$13, fat_g=$14, fiber_g=$15, sodium_mg=$16, density_g_per_ml=$17, allergens=$18, label_data=$19, source=$20, source_ref=$21, source_date=$22, updated_at=now()
+            carbs_g=$13, fat_g=$14, fiber_g=$15, sodium_mg=$16, density_g_per_ml=$17, allergens=$18, label_data=$19, source=$20, source_ref=$21, source_date=$22,
+            origin_country=$23, carbs_basis=$24, updated_at=now()
       where id=$1 returning *`,
-    [f.id, b.kind, b.name, b.brand ?? null, b.category, b.presentation ?? null, b.state ?? null, b.edible_portion_pct ?? null, b.basis_amount, b.basis_unit, b.energy_kcal, b.protein_g, b.carbs_g, b.fat_g, b.fiber_g ?? null, b.sodium_mg ?? null, b.density_g_per_ml ?? null, b.allergens, b.label_data ?? null, b.source, b.source_ref ?? null, b.source_date ?? null],
+    [f.id, b.kind, b.name, b.brand ?? null, b.category, b.presentation ?? null, b.state ?? null, b.edible_portion_pct ?? null, b.basis_amount, b.basis_unit, b.energy_kcal, b.protein_g, b.carbs_g, b.fat_g, b.fiber_g ?? null, b.sodium_mg ?? null, b.density_g_per_ml ?? null, b.allergens, b.label_data ?? null, b.source, b.source_ref ?? null, b.source_date ?? null, b.origin_country ?? null, b.carbs_basis ?? null],
   );
   await recomputeRecipesUsing(f.id);
   await audit(user(req).id, 'alimento_editado', 'alimento', f.id);
@@ -183,7 +189,7 @@ async function saveRecipe(req: any, id: string | null) {
     let rid = id;
     if (!rid) {
       const f = await one(
-        "insert into foods(kind, name, category, state, basis_amount, basis_unit, source, verification, owner_id, visibility, created_by) values ('receta',$1,$2,'listo_para_consumir',100,'g','Calculado a partir de los ingredientes y el rendimiento declarado','calculado',$3,'privado',$3) returning id",
+        "insert into foods(kind, name, category, state, basis_amount, basis_unit, source, verification, owner_id, visibility, created_by, dataset) values ('receta',$1,$2,'listo_para_consumir',100,'g','Calculado a partir de los ingredientes y el rendimiento declarado','calculado',$3,'privado',$3,'Propio') returning id",
         [b.name, b.category, u.id],
         c,
       );
@@ -300,6 +306,8 @@ foodsRouter.post('/import', async (req, res) => {
       allergens: g('alergenos') ? g('alergenos').split(/[|/]/).map((a) => a.trim().toLowerCase()).filter(Boolean) : [],
       source: g('fuente'),
       source_date: g('fecha_fuente') || null,
+      origin_country: idx('pais_origen') >= 0 && g('pais_origen') ? g('pais_origen').toUpperCase() : null,
+      carbs_basis: idx('criterio_carbohidratos') >= 0 && g('criterio_carbohidratos') ? g('criterio_carbohidratos').toLowerCase() : null,
     };
     const r2 = foodSchema.safeParse(candidate);
     if (!r2.success) errs.push(...r2.error.issues.map((x) => `${x.path.join('.') || 'fila'}: ${x.message}`));
@@ -318,9 +326,9 @@ foodsRouter.post('/import', async (req, res) => {
     await tx(async (c) => {
       for (const f of valid) {
         await q(
-          `insert into foods(kind, name, brand, category, presentation, state, basis_amount, basis_unit, energy_kcal, protein_g, carbs_g, fat_g, fiber_g, sodium_mg, allergens, source, source_date, verification, owner_id, visibility, created_by)
-           values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,'sin_verificar',$18,'privado',$18)`,
-          [f.kind, f.name, f.brand, f.category, f.presentation, f.state, f.basis_amount, f.basis_unit, f.energy_kcal, f.protein_g, f.carbs_g, f.fat_g, f.fiber_g ?? null, f.sodium_mg ?? null, f.allergens, f.source, f.source_date ?? null, u.id],
+          `insert into foods(kind, name, brand, category, presentation, state, basis_amount, basis_unit, energy_kcal, protein_g, carbs_g, fat_g, fiber_g, sodium_mg, allergens, source, source_date, verification, owner_id, visibility, created_by, dataset, origin_country, carbs_basis)
+           values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,'sin_verificar',$18,'privado',$18,'Propio',$19,$20)`,
+          [f.kind, f.name, f.brand, f.category, f.presentation, f.state, f.basis_amount, f.basis_unit, f.energy_kcal, f.protein_g, f.carbs_g, f.fat_g, f.fiber_g ?? null, f.sodium_mg ?? null, f.allergens, f.source, f.source_date ?? null, u.id, f.origin_country ?? null, f.carbs_basis ?? null],
           c,
         );
       }
