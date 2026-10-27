@@ -76,7 +76,7 @@ Frontend con recarga en caliente (opcional): `npm run dev:web` (puerto 5173, red
 
 ## 4. Variables de entorno (sin secretos; ver `.env.example`)
 
-`DATABASE_URL`, `SESSION_SECRET` (≥32 caracteres, obligatorio en producción), `APP_URL`, `APP_NAME`, `PORT`, `STORAGE_DIR`, `MAX_UPLOAD_MB` (10), `TRUST_PROXY`, `SECURE_COOKIES`, `ALLOW_PROFESSIONAL_SIGNUP` (1 en desarrollo, 0 por defecto en producción), `DEMO_MODE`, `SMTP_URL`, `MAIL_FROM`, `SEED_CATALOG_ON_START` (1 por defecto: carga idempotente del catálogo al arrancar), `SEED_DEMO_IF_EMPTY` (con `DEMO_MODE=1`, crea la demo si no existe), `RENDER_EXTERNAL_URL` (la define Render; se usa si falta `APP_URL`).
+`DATABASE_URL`, `SESSION_SECRET` (≥32 caracteres, obligatorio en producción), `APP_URL`, `APP_NAME`, `PORT`, `STORAGE_DIR`, `MAX_UPLOAD_MB` (10), `TRUST_PROXY`, `SECURE_COOKIES`, `ALLOW_PROFESSIONAL_SIGNUP` (1 en desarrollo, 0 por defecto en producción), `DEMO_MODE`, `SMTP_URL`, `MAIL_FROM`, `STORAGE_BACKEND` (`disk` por defecto o `database` para guardar fotos y documentos en PostgreSQL, usado en la prueba gratuita), `SEED_CATALOG_ON_START` (1 por defecto: carga idempotente del catálogo al arrancar), `SEED_DEMO_IF_EMPTY` (con `DEMO_MODE=1`, crea la demo si no existe), `RENDER_EXTERNAL_URL` (la define Render; se usa si falta `APP_URL`).
 
 ## 5. Migraciones y base
 
@@ -167,6 +167,7 @@ Recomendación: **Render** (aplicación + PostgreSQL gestionado + disco privado)
 Resuelto el 27/10/2026: acceso de red habilitado; SARA 2 y Open Food Facts incorporados; precios de Render verificados.
 
 Pendiente del dueño:
+0. **Prueba gratuita en Render** (sin tarjeta) con `render-prueba-gratis.yaml`: probar desde el celular con la nutricionista y anotar cambios antes de pagar.
 1. **Autorizar el gasto y crear la cuenta en Render** (pasos en `docs/ALOJAMIENTO.md`). Con eso se publica la versión de prueba.
 2. **Permisos:** pedir al Ministerio de Salud autorización de uso comercial de SARA 2; pedir a la UNLu autorización para ARGENFOODS.
 3. **Validación de una nutricionista** (lista en `docs/CATALOGO.md`, punto 6), incluida una muestra de productos de Open Food Facts.

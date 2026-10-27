@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { one, q } from '../db.js';
 import { HttpError, notFound, param, user } from '../lib/http.js';
-import { readStream } from '../lib/storage.js';
+import { openStream } from '../lib/storage.js';
 
 export const commonRouter = Router();
 
@@ -18,16 +18,18 @@ commonRouter.get('/files/:id', async (req, res) => {
   );
   const allowed = f && (u.role === 'professional' ? f.professional_id === u.id : f.patient_user_id === u.id && (f.uploaded_by === u.id || f.shared_with_patient));
   if (!allowed) throw notFound('Archivo');
+  let s;
+  try {
+    s = await openStream(f.storage_key);
+  } catch {
+    throw notFound('Archivo');
+  }
   res.setHeader('Content-Type', f.mime);
   res.setHeader('Cache-Control', 'private, no-store');
   res.setHeader('X-Content-Type-Options', 'nosniff');
   const disposition = req.query.download === '1' || f.mime === 'application/pdf' ? 'attachment' : 'inline';
   res.setHeader('Content-Disposition', `${disposition}; filename="${encodeURIComponent(f.original_name ?? 'archivo')}"`);
-  const s = readStream(f.storage_key);
-  s.on('error', () => {
-    if (!res.headersSent) res.status(404).json({ error: 'Archivo no disponible' });
-    else res.end();
-  });
+  s.on('error', () => res.end());
   s.pipe(res);
 });
 

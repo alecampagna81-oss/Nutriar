@@ -1,0 +1,47 @@
+# Render — PRUEBA GRATUITA (sin tarjeta). Para usar este archivo, en Render elegir New → Blueprint y,
+# en "Blueprint Path", escribir: render-prueba-gratis.yaml
+# Límites del plan gratuito (render.com/docs/free, 27/10/2026):
+#  - la app se apaga tras 15 min sin uso y tarda ~1 min en volver a encender;
+#  - la base gratuita (1 GB) vence a los 30 días y Render la borra 14 días después si no se pasa a un plan pago;
+#  - sin disco: las fotos y documentos se guardan dentro de la base (STORAGE_BACKEND=database).
+# Solo para probar con datos FICTICIOS.
+services:
+  - type: web
+    name: nutriar-prueba
+    runtime: node
+    plan: free
+    region: virginia
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeployTrigger: commit
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: nutriar-prueba-db
+          property: connectionString
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: STORAGE_BACKEND
+        value: database
+      - key: MAX_UPLOAD_MB
+        value: "5"
+      - key: TRUST_PROXY
+        value: "1"
+      - key: SECURE_COOKIES
+        value: "1"
+      - key: ALLOW_PROFESSIONAL_SIGNUP
+        value: "0"
+      - key: DEMO_MODE
+        value: "1"
+      - key: SEED_DEMO_IF_EMPTY
+        value: "1"
+
+databases:
+  - name: nutriar-prueba-db
+    plan: free
+    region: virginia
+    postgresMajorVersion: "16"
+    ipAllowList: []

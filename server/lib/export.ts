@@ -1,7 +1,7 @@
 import { ZipArchive } from 'archiver';
 import type { Response } from 'express';
 import { one, q } from '../db.js';
-import { readStream } from './storage.js';
+import { readFile } from './storage.js';
 
 /**
  * Exportación de los datos de un paciente.
@@ -42,6 +42,9 @@ export async function streamExportZip(res: Response, patientId: string, full: bo
   const zip = new ZipArchive({ zlib: { level: 6 } });
   zip.pipe(res);
   zip.append(JSON.stringify(data, null, 2), { name: 'datos.json' });
-  for (const f of files) zip.append(readStream(f.storage_key), { name: `archivos/${f.id}.${f.mime === 'application/pdf' ? 'pdf' : 'jpg'}` });
+  for (const f of files) {
+    const buf = await readFile(f.storage_key).catch(() => null);
+    if (buf) zip.append(buf, { name: `archivos/${f.id}.${f.mime === 'application/pdf' ? 'pdf' : 'jpg'}` });
+  }
   await zip.finalize();
 }

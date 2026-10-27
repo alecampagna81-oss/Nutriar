@@ -13,6 +13,19 @@ Por qué:
 - **Costo fijo y previsible.**
 - No la elegí por ser la más barata. Un servidor propio (VPS) cuesta menos, pero exige mantener el sistema operativo, la seguridad y los respaldos.
 
+## Prueba gratuita antes de pagar (recomendada como primer paso)
+
+Render permite probar **sin tarjeta**: según su documentación, si se supera el uso gratuito y no hay medio de pago, suspende el servicio en lugar de cobrar.
+- **Configuración:** `render-prueba-gratis.yaml`. En Render: *New* → *Blueprint* → repositorio `nutriar` → en **Blueprint Path** escribir `render-prueba-gratis.yaml` → *Apply*.
+- Las fotos y documentos se guardan **dentro de la base** (`STORAGE_BACKEND=database`), porque el plan gratuito no tiene disco y borra los archivos sueltos en cada reinicio. Probado: una foto subida sigue disponible después de reiniciar la app desde cero.
+- **Límites** (render.com/docs/free, 27/10/2026):
+  - la app se apaga tras 15 minutos sin uso y tarda alrededor de 1 minuto en volver a encender;
+  - 750 horas por mes;
+  - la base gratuita (1 GB) **vence a los 30 días** y se borra 14 días después si no se pasa a un plan pago.
+- Archivos de hasta 5 MB, para no llenar la base.
+- **Solo datos ficticios.**
+- **Para pasar al plan pago:** crear otra vez con `render.yaml` (base nueva y disco). Los datos de la prueba no se migran: son ficticios.
+
 ## Servicios y cuentas
 
 | Servicio | Para qué | ¿Hace falta ahora? |

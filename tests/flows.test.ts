@@ -488,6 +488,7 @@ describe('11. aislamiento entre profesionales y pacientes', () => {
     expect(exp.status).toBe(200);
     const { execFileSync } = await import('node:child_process');
     const fs = await import('node:fs');
+    fs.mkdirSync('storage-test', { recursive: true });
     fs.writeFileSync('storage-test/exp.zip', exp.body as Buffer);
     const json = execFileSync('unzip', ['-p', 'storage-test/exp.zip', 'datos.json']).toString();
     expect(json).toContain('Indicaciones compartidas');

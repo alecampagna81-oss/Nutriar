@@ -20,6 +20,7 @@ export const config = {
   databaseUrl: env.DATABASE_URL || 'postgres://postgres@127.0.0.1:5432/nutriar',
   sessionSecret: sessionSecret(),
   storageDir: path.resolve(env.STORAGE_DIR || './storage'),
+  storageBackend: env.STORAGE_BACKEND === 'database' ? 'database' : 'disk',
   maxUploadMb: Number(env.MAX_UPLOAD_MB || 10),
   smtpUrl: env.SMTP_URL || '',
   mailFrom: env.MAIL_FROM || '',
