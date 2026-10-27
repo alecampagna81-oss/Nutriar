@@ -1,0 +1,9 @@
+{
+  "dataset": "SARA 2",
+  "source": "Ministerio de Salud de la Nación. Dirección de Salud Perinatal y Niñez. “SARA 2: Tabla de composición química de alimentos para Argentina. Compilación para ENNyS 2”. Buenos Aires, 2022. ISBN 978-950-38-0313-4. https://iah.msal.gov.ar/doc/720.pdf",
+  "license": "CC BY-NC-SA 2.5 Argentina según el registro del Repositorio Institucional CONICET (hdl.handle.net/11336/258411, dc.rights.uri consultado el 27/10/2026). Uso no comercial, con atribución y compartiendo bajo la misma licencia. El uso comercial requiere autorización del Ministerio de Salud de la Nación.",
+  "source_date": "2022-07-01",
+  "origin_country": "AR",
+  "carbs_basis": "disponibles",
+  "verification": "fuente_secundaria"
+}

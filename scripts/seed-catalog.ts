@@ -6,6 +6,9 @@ import { fileURLToPath } from 'node:url';
 import { pool, q, one, tx } from '../server/db.js';
 import { migrate } from '../server/migrate.js';
 import { recomputeRecipe } from '../server/lib/foods.js';
+import crypto from 'node:crypto';
+import { importTable } from '../server/importers/table.js';
+import { importOff, readOffExport } from '../server/importers/off.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SOURCE = 'USDA SR28';
@@ -65,7 +68,41 @@ export async function seedCatalog(log = true) {
       await recomputeRecipe(f.id, c);
     });
   }
-  if (log) console.log(`Catálogo: ${sr.items.length} alimentos USDA SR28, ${rec.recipes.length} recetas base.`);
+  // Importaciones versionadas: solo se rehacen si cambia el archivo de origen.
+  const version = (file: string) => crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex').slice(0, 16);
+  const already = async (name: string, v: string) => !!(await one('select 1 from catalog_imports where name=$1 and version=$2', [name, v]));
+  const mark = (name: string, v: string, summary: unknown) =>
+    q('insert into catalog_imports(name, version, summary) values ($1,$2,$3) on conflict (name) do update set version=excluded.version, summary=excluded.summary, imported_at=now()', [name, v, JSON.stringify(summary)]);
+
+  // SARA 2 (Argentina). Licencia no comercial: se puede desactivar con CATALOG_SARA2=0.
+  let sara = 'desactivado';
+  if (process.env.CATALOG_SARA2 !== '0') {
+    const dir = path.join(root, 'data/catalog/sara2');
+    const file = path.join(dir, 'sara2_2022.csv');
+    const v = version(file);
+    if (await already('SARA 2', v)) sara = 'sin cambios';
+    else {
+      const r = await importTable(fs.readFileSync(file, 'utf8'), JSON.parse(fs.readFileSync(path.join(dir, 'ficha.json'), 'utf8')), true, { skipInvalid: true });
+      await mark('SARA 2', v, { importados: r.inserted + r.updated, excluidos: r.errors });
+      sara = `${r.inserted + r.updated} alimentos (${r.errors.length} excluidos por inconsistencias de la tabla original)`;
+    }
+  }
+  // Open Food Facts (productos vendidos en Argentina, ODbL). Se puede desactivar con CATALOG_OFF=0.
+  let off = 'desactivado';
+  if (process.env.CATALOG_OFF !== '0') {
+    const dir = path.join(root, 'data/catalog/off');
+    const file = fs.readdirSync(dir).filter((f) => f.endsWith('.csv.gz')).sort().pop();
+    if (file) {
+      const v = version(path.join(dir, file));
+      if (await already('Open Food Facts', v)) off = 'sin cambios';
+      else {
+        const r = await importOff(readOffExport(path.join(dir, file)), true);
+        await mark('Open Food Facts', v, { archivo: file, leidos: r.read, aceptados: r.accepted, rechazados: r.rejected, motivos: r.reasons });
+        off = `${r.accepted} productos aceptados de ${r.read}`;
+      }
+    }
+  }
+  if (log) console.log(`Catálogo: ${sr.items.length} alimentos USDA SR28, ${rec.recipes.length} recetas base; SARA 2: ${sara}; Open Food Facts: ${off}.`);
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {

@@ -49,7 +49,7 @@ export async function newPatientWithAccount(pro: Client, first = 'Ana', last = '
 }
 
 export async function foodId(name: string) {
-  return (await one('select id from foods where name=$1 and owner_id is null', [name])).id as string;
+  return (await one("select id from foods where name=$1 and owner_id is null and dataset in ('USDA SR28','Recetas base NutriAR')", [name])).id as string;
 }
 export async function measureId(foodIdValue: string, prefix: string) {
   return (await one('select id from food_measures where food_id=$1 and name like $2', [foodIdValue, prefix + '%'])).id as string;

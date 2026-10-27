@@ -24,13 +24,13 @@ Por qué:
 
 ## Costo mensual de la prueba
 
-Precios publicados en render.com, consultados el 24/10/2026 mediante un buscador limitado a ese sitio. Las páginas no se pudieron abrir directamente desde este entorno, así que conviene verificarlos al crear la cuenta.
+Precios **verificados directamente en render.com/pricing el 27/10/2026**.
 
 | Concepto | Plan | USD/mes |
 |---|---|---|
-| Aplicación web | Starter (0,5 CPU, 512 MB, siempre encendida) | 7,00 |
+| Aplicación web | `0.5c-512mb` (0,5 CPU, 512 MB, siempre encendida) | 7,00 |
 | Disco para fotos y documentos | 1 GB × 0,25 | 0,25 |
-| Base de datos PostgreSQL | 256 MB (`0.1c-256mb`, antes `basic-256mb`) | 6,00 |
+| Base de datos PostgreSQL | `0.1c-256mb` (256 MB) | 6,00 |
 | Almacenamiento de la base | 1 GB × 0,30 | 0,30 |
 | Workspace | Hobby | 0,00 |
 | Respaldos | Incluidos (recuperación de 3 días + copia diaria del disco) | 0,00 |

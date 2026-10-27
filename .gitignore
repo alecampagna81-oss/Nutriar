@@ -8,3 +8,4 @@ test-results/
 storage-e2e/
 backups/
 videos-demo/
+__pycache__/

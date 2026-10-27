@@ -75,7 +75,7 @@ foodsRouter.get('/', async (req, res) => {
         ${mine ? 'and f.owner_id = $1' : ''}
         ${originCond}
         ${conds.length ? 'and ' + conds.join(' and ') : ''}
-      order by (f.owner_id is not null) desc, f.is_demo, ${words.length ? 'length(f.name),' : ''} f.name limit 60`,
+      order by (f.owner_id is not null) desc, f.is_demo, (f.origin_country = 'AR') desc nulls last, (f.kind = 'producto'), ${words.length ? 'length(f.name),' : ''} f.name limit 60`,
     [u.id, kind, category, includeDemo, ...words],
   );
   res.json(rows);

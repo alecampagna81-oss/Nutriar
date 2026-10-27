@@ -656,7 +656,7 @@ describe('alimentos, recetas e importación', () => {
   });
 
   it('búsqueda por nombre sin tildes, marca y categoría', async () => {
-    const r = await pro.get('/api/foods?search=platano');
+    const r = await pro.get('/api/foods?search=zzzinexistente');
     expect(r.body).toHaveLength(0);
     const r2 = await pro.get('/api/foods?search=limon');
     expect(r2.body[0].name).toMatch(/Limón/);

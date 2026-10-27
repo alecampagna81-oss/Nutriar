@@ -1,6 +1,6 @@
 # ESTADO DEL PROYECTO — NutriAR
 
-Archivo de continuidad. Leelo primero al retomar el trabajo. Última actualización: 24/10/2026 (2.ª sesión: alojamiento y catálogo argentino).
+Archivo de continuidad. Leelo primero al retomar el trabajo. Última actualización: 27/10/2026 (catálogo argentino incorporado: SARA 2 + Open Food Facts; precios de Render verificados).
 
 Repositorio privado: https://github.com/alecampagna81-oss/nutriar (rama `main`).
 
@@ -120,7 +120,7 @@ Frontend con recarga en caliente (opcional): `npm run dev:web` (puerto 5173, red
 
 - **Notificaciones push**: no implementadas. Con la app cerrada solo llegan correos (si se configura SMTP). Recordatorios de comidas y agua: **no implementados** (requieren Web Push; ver próxima acción).
 - **Correo**: integración lista (`SMTP_URL`, `MAIL_FROM`) pero **no probada contra un servidor SMTP real**; sin SMTP la app informa “no configurado” y no simula envíos.
-- **Catálogo**: hoy solo 121 genéricos de EE.UU. (USDA SR28, marcados “Datos de EE.UU.”) + 6 recetas base. **Todavía no hay datos argentinos cargados**: las fuentes están bloqueadas desde el entorno y/o requieren permiso. Importadores listos y probados (Open Food Facts y tablas oficiales). Detalle completo en `docs/CATALOGO.md`.
+- **Catálogo**: 905 genéricos argentinos (SARA 2, Ministerio de Salud 2022, **licencia no comercial**) + 2.064 productos de marca vendidos en Argentina (Open Food Facts, ODbL, colaborativos: validar antes de uso clínico) + 121 genéricos de EE.UU. (marcados). Sin ARGENFOODS (requiere autorización escrita). Detalle en `docs/CATALOGO.md`.
 - Carbohidratos: cada alimento guarda su criterio (`totales` USDA / `disponibles` etiquetas argentinas); el editor avisa si un día mezcla ambos.
 - Alérgenos de los alimentos: etiquetas orientativas cargadas manualmente; no reemplazan la revisión profesional.
 - Recetas no pueden contener otras recetas.
@@ -132,6 +132,7 @@ Frontend con recarga en caliente (opcional): `npm run dev:web` (puerto 5173, red
 
 ## 8. Pruebas ejecutadas y resultados (24/10/2026)
 
+- 27/10/2026: `npm test` **58/58 OK** y `npm run test:e2e` **17/17 OK** con el catálogo argentino cargado. Conversión de SARA 2 verificada (cotejo independiente de texto, conteo por grupo, coherencia energética). Simulación de arranque tipo Render y `render.yaml` validado contra la especificación oficial de Blueprints.
 - `npm test` (Vitest, PostgreSQL real, base `nutriar_test` recreada en cada corrida): **57/57 OK** (incluye `tests/importers.test.ts`: importadores de Open Food Facts y de tablas oficiales con datos ficticios — validaciones, rechazos con motivo, vacío ≠ cero, conversión kJ→kcal y sodio, reimportación sin duplicar ni borrar).
   - `tests/nutrition.test.ts`: cálculos verificables a mano (USDA SR28), medidas, densidad, peso bruto, faltante ≠ cero, recetas por rendimiento, lista de compras, IMC, zonas horarias, ciclo de semanas.
   - `tests/flows.test.ts`: las 13 comprobaciones obligatorias vía API, incluidas solicitudes directas de otra profesional y otro paciente a recursos y archivos ajenos, eliminación de EXIF, PDF (texto extraído) vs. lista de compras, versiones e historial, persistencia tras cerrar sesión, errores (archivo inválido, tamaño, validaciones, plan vacío, CSRF, borrado con confirmación) y auditoría.
@@ -145,7 +146,7 @@ Frontend con recarga en caliente (opcional): `npm run dev:web` (puerto 5173, red
 ## 9. Alojamiento y costos
 
 Recomendación: **Render** (aplicación + PostgreSQL gestionado + disco privado) — detalle, fuentes y pasos en `docs/ALOJAMIENTO.md`. **No contratado.** `render.yaml` crea todo sin escribir claves.
-- Costo de la prueba: **≈ USD 13,55/mes** (precios publicados en render.com: web Starter 7 + disco 1 GB 0,25 + Postgres 256 MB 6 + 1 GB de base 0,30; respaldos incluidos; correo no necesario) **+ impuestos argentinos** (estimado USD 16–21/mes, a confirmar con el banco).
+- Costo de la prueba: **USD 13,55/mes, verificado en render.com/pricing el 27/10/2026** (web 0.5c-512mb 7 + disco 1 GB 0,25 + Postgres 0.1c-256mb 6 + 1 GB de base 0,30; recuperación de base de 3 días y copia diaria del disco incluidas; correo no necesario) **+ impuestos argentinos** (estimado USD 16–21/mes, a confirmar con el banco).
 - Los planes gratuitos de Render no sirven (sin disco, la base gratuita se borra a los 30+14 días).
 - Uso real estimado: USD 35–65/mes + dominio + correo (no verificado).
 - Primera prueba sin correo: invitaciones y restablecimientos por enlace; `scripts/reset-link.ts` para la cuenta profesional.
@@ -163,10 +164,11 @@ Recomendación: **Render** (aplicación + PostgreSQL gestionado + disco privado)
 
 ## 11. Bloqueos y siguiente acción concreta
 
-Bloqueos que dependen del dueño:
-1. **Autorizar el gasto y crear la cuenta en Render** (pasos en `docs/ALOJAMIENTO.md`).
-2. **Red del entorno de Claude:** permitir `world.openfoodfacts.org`, `static.openfoodfacts.org`, `bancos.salud.gob.ar`, `iah.msal.gov.ar`, `datos.salud.gob.ar`, `ri.conicet.gov.ar`, `render.com` (o, en su defecto, adjuntar el PDF de SARA 2).
-3. **Permisos:** ARGENFOODS (UNLu) — autorización escrita; SARA 2 — confirmar licencia y pedir permiso de uso comercial al Ministerio de Salud.
-4. **Validación de una nutricionista** (lista en `docs/CATALOGO.md`, punto 6).
+Resuelto el 27/10/2026: acceso de red habilitado; SARA 2 y Open Food Facts incorporados; precios de Render verificados.
 
-Siguiente acción técnica, en cuanto haya acceso: importar productos argentinos de Open Food Facts (validar → informe → `--aplicar`), convertir SARA 2 a la planilla normalizada y verificar una muestra contra el PDF; luego publicar en Render con la demo.
+Pendiente del dueño:
+1. **Autorizar el gasto y crear la cuenta en Render** (pasos en `docs/ALOJAMIENTO.md`). Con eso se publica la versión de prueba.
+2. **Permisos:** pedir al Ministerio de Salud autorización de uso comercial de SARA 2; pedir a la UNLu autorización para ARGENFOODS.
+3. **Validación de una nutricionista** (lista en `docs/CATALOGO.md`, punto 6), incluida una muestra de productos de Open Food Facts.
+
+Siguiente acción técnica: publicar en Render en cuanto se autorice y verificar la app en el celular; después, Web Push para recordatorios con la app cerrada.

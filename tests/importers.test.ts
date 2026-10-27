@@ -24,6 +24,14 @@ describe('Open Food Facts', () => {
     expect(r.inserted).toBe(0); // solo validación
   });
 
+  it('cuenta la energía del alcohol e infiere 100 ml en líquidos', () => {
+    const beer = normalizeOff({ code: '7790000000109', product_name: 'Cerveza de prueba', brands: 'Marca', countries_tags: 'en:argentina', quantity: '473 ml', 'energy-kcal_100g': '43', proteins_100g: '0.4', carbohydrates_100g: '3.6', fat_100g: '0', alcohol_100g: '5' });
+    expect(beer.reasons).toEqual([]);
+    expect(beer.food!.basis_unit).toBe('ml');
+    const dry = normalizeOff({ code: '7790000000116', product_name: 'Fideos de prueba', brands: 'Marca', countries_tags: 'en:argentina', quantity: '500 g', 'energy-kcal_100g': '350', proteins_100g: '12', carbohydrates_100g: '72', fat_100g: '1.5' });
+    expect(dry.food!.basis_unit).toBe('g');
+  });
+
   it('convierte unidades de forma documentada', () => {
     const { food } = normalizeOff({ code: '7790000000062', product_name: 'Producto', brands: 'Marca', countries_tags: 'en:argentina', 'energy-kj_100g': '1500', proteins_100g: '12', carbohydrates_100g: '72', fat_100g: '1.5', fiber_100g: '3', sodium_100g: '0.25' });
     expect(food!.energy_kcal).toBeCloseTo(1500 / 4.184, 1);
@@ -54,9 +62,10 @@ describe('Open Food Facts', () => {
     const j = await importOff(readOffExport('tests/fixtures/off-ficticio.jsonl'), true);
     expect(j.inserted).toBe(1);
     expect(j.rejected).toBe(1); // línea no JSON
-    const count = await one("select count(*)::int as n from foods where dataset='Open Food Facts'");
+    const fixture = "source_ref in ('EAN 7790000000017','EAN 7790000000024','EAN 7790000000062','EAN 7790000000086')";
+    const count = await one(`select count(*)::int as n from foods where dataset='Open Food Facts' and ${fixture}`);
     expect(count.n).toBe(4);
-    await q("delete from foods where dataset='Open Food Facts'");
+    await q(`delete from foods where ${fixture}`);
   });
 
   it('rechaza un archivo que no es una exportación de Open Food Facts', async () => {

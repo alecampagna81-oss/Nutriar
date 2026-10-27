@@ -24,6 +24,19 @@ const num = (s: string | undefined): number | null | 'error' => {
   return Number.isFinite(n) ? n : 'error';
 };
 
+/** La columna fuente_original puede traer texto o un objeto JSON con el detalle por nutriente. */
+function parseDetail(s: string | null) {
+  if (!s) return null;
+  if (s.startsWith('{')) {
+    try {
+      return JSON.parse(s);
+    } catch {
+      return s;
+    }
+  }
+  return s;
+}
+
 export function validateMeta(m: any): TableMeta {
   const missing = ['dataset', 'source', 'license', 'source_date', 'origin_country', 'carbs_basis', 'verification'].filter((k) => !m?.[k]);
   if (missing.length) throw new Error(`Faltan datos en la ficha de la fuente: ${missing.join(', ')}`);
@@ -31,7 +44,8 @@ export function validateMeta(m: any): TableMeta {
   return m;
 }
 
-export async function importTable(csv: string, metaRaw: unknown, apply: boolean) {
+/** skipInvalid: importa las filas válidas y deja afuera las inválidas (quedan en el informe). Por defecto, todo o nada. */
+export async function importTable(csv: string, metaRaw: unknown, apply: boolean, opts: { skipInvalid?: boolean } = {}) {
   const meta = validateMeta(metaRaw);
   const rows = parseCsv(csv.replace(/^﻿/, ''));
   const header = rows[0].map((h) => h.trim().toLowerCase());
@@ -70,7 +84,7 @@ export async function importTable(csv: string, metaRaw: unknown, apply: boolean)
   let inserted = 0;
   let updated = 0;
   if (apply) {
-    if (errors.length) throw new Error(`Hay ${errors.length} filas con errores: no se importó nada`);
+    if (errors.length && !opts.skipInvalid) throw new Error(`Hay ${errors.length} filas con errores: no se importó nada`);
     await tx(async (c) => {
       for (const v of valid) {
         const r = await q(
@@ -84,7 +98,7 @@ export async function importTable(csv: string, metaRaw: unknown, apply: boolean)
            returning (xmax = 0) as inserted`,
           [
             v.name, v.cat, v.estado, v.vals.porcion_comestible_pct, meta.basis_amount ?? 100, v.vals.energia_kcal, v.vals.proteinas_g, v.vals.carbohidratos_g, v.vals.grasas_g, v.vals.fibra_g, v.vals.sodio_mg,
-            { license: meta.license, original_source: v.original, carbs_note: meta.carbs_basis === 'disponibles' ? 'Carbohidratos disponibles (sin fibra)' : 'Carbohidratos totales (incluyen fibra)' },
+            { license: meta.license, original_source: parseDetail(v.original), carbs_note: meta.carbs_basis === 'disponibles' ? 'Carbohidratos disponibles (sin fibra)' : 'Carbohidratos totales (incluyen fibra)' },
             meta.source, `${meta.dataset} ${v.code}`, meta.source_date, meta.verification, meta.origin_country, meta.dataset, meta.carbs_basis,
           ],
           c,

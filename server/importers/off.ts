@@ -55,6 +55,7 @@ const num = (v: unknown): number | null => {
   const n = Number(String(v).replace(',', '.'));
   return Number.isFinite(n) ? n : null;
 };
+const r2 = (v: number | null) => (v === null ? null : Math.round(v * 100) / 100);
 const tags = (v: unknown): string[] => (Array.isArray(v) ? v.map(String) : String(v ?? '').split(',').map((s) => s.trim()).filter(Boolean));
 
 /** Normaliza y valida un registro de Open Food Facts. Devuelve el alimento o los motivos de rechazo. */
@@ -92,9 +93,11 @@ export function normalizeOff(r: Record<string, any>): { food?: OffFood; reasons:
   if (kcal !== null && (kcal < 0 || kcal > 900)) reasons.push(`energía fuera de rango (${Math.round(kcal)} kcal/100)`);
   if ((p ?? 0) + (c ?? 0) + (f ?? 0) > 102) reasons.push('la suma de macronutrientes supera 100 g');
   if (sodiumG !== null && (sodiumG < 0 || sodiumG > 40)) reasons.push('sodio fuera de rango');
-  // Coherencia energía-macronutrientes (factores de Atwater 4/4/9 y 2 para fibra), tolerancia 25 %.
+  // Coherencia energía-macronutrientes (Atwater 4/4/9, 2 para fibra y 7 para alcohol), tolerancia 25 %.
+  // alcohol_100g está en % vol.; 1 ml de etanol = 0,789 g.
+  const alcoholG = (num(get('alcohol_100g')) ?? 0) * 0.789;
   if (kcal !== null && p !== null && c !== null && f !== null) {
-    const est = 4 * p + 4 * c + 9 * f + 2 * (fiber ?? 0);
+    const est = 4 * p + 4 * c + 9 * f + 2 * (fiber ?? 0) + 7 * alcoholG;
     const ref = Math.max(est, kcal);
     if (ref > 20 && Math.abs(est - kcal) / ref > 0.25) reasons.push(`energía inconsistente con los macronutrientes (declara ${Math.round(kcal)} kcal, se esperan ~${Math.round(est)})`);
   }
@@ -103,7 +106,10 @@ export function normalizeOff(r: Record<string, any>): { food?: OffFood; reasons:
   const category = CATEGORY_RULES.find(([re]) => re.test(cats))?.[1] ?? 'Otros';
   const allergens = [...new Set(tags(r.allergens_tags ?? r.allergens).map((a) => ALLERGEN_MAP[a]).filter(Boolean))];
   const lm = num(r.last_modified_t);
-  const per = String(r.nutrition_data_per ?? '').toLowerCase();
+  // Open Food Facts expresa los valores cada 100 g o cada 100 ml (líquidos). Si la exportación no lo indica,
+  // se infiere de la unidad de la presentación (ml, cl, l → 100 ml).
+  const quantity = String(r.quantity ?? '');
+  const per = String(r.nutrition_data_per ?? '').toLowerCase() || (/\d\s*(ml|cl|l|lt|lts|litros?)\b/i.test(quantity) ? '100ml' : '100g');
   return {
     reasons,
     food: {
@@ -111,7 +117,7 @@ export function normalizeOff(r: Record<string, any>): { food?: OffFood; reasons:
       presentation: String(r.quantity ?? '').trim().slice(0, 120) || null,
       basis_unit: per === '100ml' ? 'ml' : 'g',
       energy_kcal: Math.round(kcal! * 10) / 10,
-      protein_g: p, carbs_g: c, fat_g: f, fiber_g: fiber,
+      protein_g: r2(p), carbs_g: r2(c), fat_g: r2(f), fiber_g: r2(fiber),
       sodium_mg: sodiumG === null ? null : Math.round(sodiumG * 1000 * 10) / 10,
       allergens,
       serving_size: String(r.serving_size ?? '').trim().slice(0, 60) || null,

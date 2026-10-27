@@ -1,0 +1,82 @@
+{
+ "filas": 906,
+ "omitidos": [],
+ "problemas": [
+  {
+   "pagina": 97,
+   "motivo": "sin parte B (sodio) en el PDF: Salmón blanco, crudo"
+  },
+  {
+   "pagina": 105,
+   "motivo": "parte B de \"Azúcar blanca molida\" con número de tabla 16 en el PDF (la A es 12); se unieron por nombre"
+  },
+  {
+   "pagina": 105,
+   "motivo": "parte B de \"Azúcar impalpable\" con número de tabla 16 en el PDF (la A es 12); se unieron por nombre"
+  },
+  {
+   "pagina": 105,
+   "motivo": "parte B de \"Azúcar morena / azúcar mascabo\" con número de tabla 16 en el PDF (la A es 12); se unieron por nombre"
+  },
+  {
+   "pagina": 105,
+   "motivo": "parte B de \"Dulce de batata\" con número de tabla 16 en el PDF (la A es 12); se unieron por nombre"
+  },
+  {
+   "pagina": 105,
+   "motivo": "parte B de \"Dulce de batata light\" con número de tabla 16 en el PDF (la A es 12); se unieron por nombre"
+  },
+  {
+   "pagina": 105,
+   "motivo": "parte B de \"Dulce de leche\" con número de tabla 16 en el PDF (la A es 12); se unieron por nombre"
+  },
+  {
+   "pagina": 105,
+   "motivo": "parte B de \"Dulce de leche light\" con número de tabla 16 en el PDF (la A es 12); se unieron por nombre"
+  },
+  {
+   "pagina": 105,
+   "motivo": "parte B de \"Dulce de membrillo\" con número de tabla 16 en el PDF (la A es 12); se unieron por nombre"
+  },
+  {
+   "pagina": 105,
+   "motivo": "parte B de \"Dulce de membrillo light\" con número de tabla 16 en el PDF (la A es 12); se unieron por nombre"
+  },
+  {
+   "pagina": 105,
+   "motivo": "parte B de \"Glucosa\" con número de tabla 16 en el PDF (la A es 12); se unieron por nombre"
+  },
+  {
+   "pagina": 105,
+   "motivo": "parte B de \"Jalea tipo membrillo\" con número de tabla 16 en el PDF (la A es 12); se unieron por nombre"
+  },
+  {
+   "pagina": 105,
+   "motivo": "parte B de \"Kero o melaza\" con número de tabla 16 en el PDF (la A es 12); se unieron por nombre"
+  },
+  {
+   "pagina": 105,
+   "motivo": "parte B de \"Mermelada de frutas\" con número de tabla 16 en el PDF (la A es 12); se unieron por nombre"
+  },
+  {
+   "pagina": 105,
+   "motivo": "parte B de \"Mermelada de frutas light\" con número de tabla 16 en el PDF (la A es 12); se unieron por nombre"
+  },
+  {
+   "pagina": 105,
+   "motivo": "parte B de \"Miel\" con número de tabla 16 en el PDF (la A es 12); se unieron por nombre"
+  }
+ ],
+ "excluidos_al_importar": [
+  {
+   "codigo": "G13-medallon-de-menta-y-chocolate",
+   "motivo": "En la tabla original proteínas + carbohidratos disponibles + lípidos = 106,1 g por 100 g (más 6,3 g de agua): valor inconsistente; no se corrige ni se importa."
+  }
+ ],
+ "excluido_grupo_26": "Suplementos nutricionales (24 renglones): expresados cada 100 unidades y fuera del alcance (la app no recomienda suplementos).",
+ "verificacion": {
+  "cotejo_texto_independiente": "renglones de una sola línea comparados con pdftotext: todos coinciden (energía, proteínas, lípidos)",
+  "conteo_por_grupo": "coincide en los 25 grupos; grupo 9 incluye 4 alimentos de una tabla sin título (pág. 99)",
+  "coherencia_energia": "4P+4C+9G+7Alc dentro de ±10 % salvo 3 productos light (ver docs/CATALOGO.md)"
+ }
+}

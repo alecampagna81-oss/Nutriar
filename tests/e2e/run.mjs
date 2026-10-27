@@ -144,7 +144,8 @@ try {
     const add = async (meal, query, name) => {
       await pro.locator('.meal-block', { hasText: meal }).getByRole('button', { name: '+ Agregar alimento' }).click();
       await pro.getByLabel('Buscar alimento').fill(query);
-      await pro.locator('.food-result', { hasText: name }).first().click();
+      // Nombre exacto: el catálogo tiene alimentos parecidos de distintas fuentes (SARA 2, USDA, Open Food Facts).
+      await pro.locator('.food-result', { has: pro.locator('.name', { hasText: new RegExp(`^${name.replace(/[()]/g, '\\$&')}$`) }) }).first().click();
       await pro.locator('.meal-block', { hasText: meal }).getByText(name).first().waitFor();
     };
     await add('Desayuno', 'leche desc', 'Leche descremada');

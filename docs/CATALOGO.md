@@ -2,15 +2,50 @@
 
 Actualizado: 24/10/2026.
 
-## 1. Qué contiene hoy la aplicación
+## 1. Qué contiene hoy la aplicación (actualizado 27/10/2026)
 
-| Conjunto (`dataset`) | Origen | Cantidad | Estado | Cómo se muestra |
+| Conjunto (`dataset`) | Origen | Cantidad | Verificación | Licencia |
 |---|---|---|---|---|
-| USDA SR28 | EE.UU. | 121 genéricos | Fuente pública, sin cotejo independiente | Insignia **“Datos de EE.UU.”** |
-| Recetas base NutriAR | Calculadas con ingredientes USDA | 6 recetas sin cocción | Calculado | “Datos de EE.UU.” + “Receta” |
-| Demo | Ficticio | 2 productos | DEMO | Ocultos por defecto |
+| **SARA 2** (Ministerio de Salud, 2022) | Argentina | **905 genéricos** | Fuente pública | CC BY-NC-SA 2.5 AR (no comercial) |
+| **Open Food Facts** | Productos vendidos en Argentina | **2.064 productos de marca** | Colaborativo | ODbL 1.0 |
+| USDA SR28 | EE.UU. | 121 genéricos | Fuente pública | Dominio público |
+| Recetas base NutriAR | Ingredientes USDA | 6 recetas | Calculado | — |
+| Demo | Ficticio | 2 productos | DEMO | — |
 
-**Todavía no hay datos argentinos cargados.** El acceso a las fuentes está bloqueado desde este entorno (ver punto 4). Los importadores ya están construidos y probados.
+En la búsqueda aparecen primero los datos argentinos, y dentro de ellos los genéricos antes que las marcas. El plan de demostración usa alimentos de SARA 2.
+
+### SARA 2: cómo se incorporó y verificó
+- PDF oficial descargado de la biblioteca del Ministerio (`iah.msal.gov.ar/doc/720.pdf`, md5 `8c49d6081ca228095c9b58e865df2176`). Lo convierte `scripts/convert_sara2.py`, que lee el texto y el **color de cada celda**. Con eso conserva para cada valor su fuente según la leyenda de la propia tabla (Argenfoods, USDA, tabla inglesa, FNDDS, rótulos u otras) y marca los “ceros asumidos”.
+- Particularidades del PDF que el conversor resuelve:
+  - copias ocultas fuera del área de la hoja;
+  - dos tablas en una misma página;
+  - una tabla sin título (pág. 99);
+  - títulos con número equivocado (16.B por 12.B; “5A” en la página de minerales);
+  - nombres de hasta cuatro renglones;
+  - notas al pie con asteriscos.
+- **Verificación:**
+  - todos los renglones de una sola línea coinciden con una lectura independiente del texto (pdftotext);
+  - la cantidad de alimentos coincide en los 25 grupos;
+  - la energía es coherente con 4P + 4C + 9G + 7 alcohol (±10 %) en todos menos 3 productos “light”, tal como figuran en la tabla.
+- **Excluidos:**
+  - grupo 26, suplementos: 24 renglones expresados cada 100 unidades;
+  - “Medallón de menta y chocolate”: sus macronutrientes suman 106 g por 100 g en el original.
+  - “Salmón blanco, crudo” no tiene sodio en el PDF; queda como dato faltante.
+- **Licencia:** el registro oficial de CONICET indica CC BY-NC-SA 2.5 Argentina. El catálogo se puede desactivar con `CATALOG_SARA2=0`. **Antes de cualquier uso comercial hace falta autorización del Ministerio de Salud.**
+
+### Open Food Facts: cómo se incorporó
+- Exportación diaria oficial del 27/10/2026: 2.117.569 productos. Filtrada por `countries_tags = en:argentina`, quedan 4.029.
+- El subconjunto se guarda en `data/catalog/off/` (ODbL).
+- **Aceptados: 2.064.** Rechazados con motivo:
+  - sin energía declarada: 1.604;
+  - sin marca: 809;
+  - sin nombre: 310;
+  - errores marcados por la propia base: 177;
+  - energía incoherente: 89;
+  - otros fuera de rango: 45.
+- Un mismo producto puede tener varios motivos de rechazo.
+- Los valores son por 100 g o por 100 ml. Se toma 100 ml cuando la presentación está en ml, cl o l.
+- Se puede desactivar con `CATALOG_OFF=0`.
 
 ### El catálogo estadounidense
 - **Fuente:** USDA National Nutrient Database for Standard Reference, Release 28 (2015), archivos `ABBREV.txt` y `FOOD_DES.txt`.
@@ -88,12 +123,12 @@ Actualizado: 24/10/2026.
 
 ## 4. Bloqueos: técnicos y de permiso
 
-| Fuente | Bloqueo técnico (en este entorno) | Permiso de reutilización |
+| Fuente | Acceso (27/10/2026) | Permiso de reutilización |
 |---|---|---|
-| SARA 2 | 403 en `iah.msal.gov.ar`, `bancos.salud.gob.ar`, `ri.conicet.gov.ar` | No comercial según CONICET (a confirmar); uso comercial con permiso |
-| ARGENFOODS | El dominio no se resuelve | Restringido sin autorización escrita |
-| ENNyS 2 (datos abiertos) | 403 en `datos.salud.gob.ar` | CC BY 4.0 (sin composición por alimento) |
-| Open Food Facts | 403 en `world.openfoodfacts.org` | ODbL: comercial permitido con atribución y compartir mejoras |
+| SARA 2 | Resuelto (red habilitada) | **No comercial** (CC BY-NC-SA 2.5 AR, confirmado en CONICET); uso comercial requiere permiso |
+| ARGENFOODS | El dominio no se resuelve | **Falta de permiso**: restringido sin autorización escrita |
+| ENNyS 2 (datos abiertos) | `datos.salud.gob.ar` no responde | CC BY 4.0 (sin composición por alimento) |
+| Open Food Facts | Resuelto (exportación oficial) | ODbL: comercial permitido con atribución y compartir mejoras |
 | Fabricantes | — | Sin licencia de datos; no se automatiza |
 
 ## 5. Cómo se incorpora cada fuente (ya construido y probado con datos ficticios)

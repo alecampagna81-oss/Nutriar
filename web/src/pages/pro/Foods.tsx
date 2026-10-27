@@ -41,7 +41,7 @@ export function Foods() {
         }
       />
       <Alert tone="info">
-        Cada alimento indica el origen de sus datos. Los 121 genéricos iniciales provienen de la tabla de EE.UU. (USDA SR28) y están marcados “Datos de EE.UU.”: pueden diferir del alimento argentino. Las fuentes argentinas se incorporan a medida que se habilitan (ver Estado del proyecto). Los alimentos que crees son privados.
+        Cada alimento indica el origen de sus datos. Argentina: genéricos de la tabla SARA 2 (Ministerio de Salud, 2022; licencia no comercial) y productos de marca de Open Food Facts (colaborativos, a validar). EE.UU.: genéricos de la tabla USDA, marcados “Datos de EE.UU.”. Los alimentos que crees son privados.
       </Alert>
       <Card>
         <div className="row" style={{ marginBottom: '0.6rem' }}>
@@ -137,6 +137,7 @@ function FoodDetail({ id, onClose, onEdit, onChanged }: { id: string; onClose: (
               </tbody>
             </table>
           </div>
+          {f.label_data?.original_source && typeof f.label_data.original_source === 'object' ? <SourceDetail d={f.label_data.original_source} /> : null}
           <h3>Fuente y trazabilidad</h3>
           <p className="small">{f.source}{f.source_ref ? ` · ${f.source_ref}` : ''}{f.source_date ? ` · ${formatDate(f.source_date)}` : ''}</p>
           <p className="small muted">Estado de verificación: {VERIFICATION[f.verification]?.label} — {VERIFICATION[f.verification]?.help}</p>
@@ -364,5 +365,32 @@ function ImportCsv({ onClose, onDone }: { onClose: () => void; onDone: () => voi
         </div>
       ) : null}
     </Modal>
+  );
+}
+
+const NUTR_LABEL: Record<string, string> = {
+  energia_kcal: 'Energía', proteinas_g: 'Proteínas', carbohidratos_g: 'Carbohidratos disponibles', grasas_g: 'Grasas', fibra_g: 'Fibra', sodio_mg: 'Sodio',
+  agua_g: 'Agua', alcohol_g: 'Alcohol', carbohidratos_totales_g: 'Carbohidratos totales',
+};
+
+/** Detalle de origen por nutriente (tablas compiladas como SARA 2). */
+function SourceDetail({ d }: { d: any }) {
+  const per: Record<string, string> = d.fuente_por_nutriente ?? {};
+  const keys = Object.keys(per).filter((k) => NUTR_LABEL[k]);
+  return (
+    <>
+      <h3>Origen de cada valor</h3>
+      <p className="small muted">Esta tabla argentina compila valores de distintas fuentes; así los identifica la propia tabla{d.paginas ? ` (páginas ${d.paginas.join(', ')} del PDF)` : ''}.</p>
+      <div className="row" style={{ gap: '0.3rem', marginBottom: '0.5rem' }}>
+        {keys.map((k) => (
+          <Badge key={k} tone={per[k] === 'Cero asumido' ? 'warn' : per[k] === 'Argenfoods' || per[k] === 'Rótulos u otras fuentes' ? 'ok' : 'neutral'}>
+            {NUTR_LABEL[k]}: {per[k]}
+          </Badge>
+        ))}
+      </div>
+      {d.ceros_asumidos?.length ? <p className="small">Valores “cero” asumidos por la tabla (el nutriente no suele estar presente): {d.ceros_asumidos.map((k: string) => NUTR_LABEL[k] ?? k).join(', ')}.</p> : null}
+      {d.carbohidratos_totales_g !== undefined && d.carbohidratos_totales_g !== null ? <p className="small muted">Carbohidratos totales (con fibra): {num(d.carbohidratos_totales_g, 1)} g.</p> : null}
+      {d.nota_pdf ? <p className="small muted">Nota de la tabla: {d.nota_pdf}.</p> : null}
+    </>
   );
 }

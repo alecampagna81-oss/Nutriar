@@ -18,10 +18,15 @@ export const DEMO = {
   patient2: 'otro.paciente@demo.nutriar.local',
 };
 
-async function food(name: string) {
-  const f = await one('select id from foods where name=$1 and owner_id is null', [name]);
+async function food(name: string, dataset = 'SARA 2') {
+  const f = await one('select id from foods where name=$1 and owner_id is null and dataset=$2', [name, dataset]);
   if (!f) throw new Error(`Falta el alimento ${name}`);
   return f.id as string;
+}
+async function firstName(pattern: string) {
+  const f = await one("select name from foods where name ilike $1 and dataset='SARA 2' order by length(name) limit 1", [pattern]);
+  if (!f) throw new Error(`Falta un alimento que coincida con ${pattern}`);
+  return f.name as string;
 }
 async function measure(foodId: string, startsWith: string) {
   const m = await one('select id from food_measures where food_id=$1 and name like $2', [foodId, startsWith + '%']);
@@ -92,42 +97,44 @@ export async function seedDemo() {
   await q("insert into invitations(patient_id, token_hash, email, created_by, expires_at) values ($1,$2,$3,$4, now() + interval '7 days')", [martin.id, hashToken('demo-invitacion-no-utilizable-' + Date.now()), 'martin@demo.nutriar.local', pro]);
 
   // Plan publicado para Lucía
+  // Plan de demostración con alimentos de la tabla argentina SARA 2 (cantidades en gramos: la tabla no trae medidas caseras).
   const ids = {
-    leche: await food('Leche descremada'),
-    avena: await food('Avena arrollada (tradicional o instantánea), cruda'),
+    leche: await food('Leche parcialmente descremada fluida, sin fortificación'),
+    avena: await food('Avena, arrollada, cruda'),
     banana: await food('Banana'),
-    pan: await food('Pan de molde integral'),
-    queso: await food('Queso crema'),
-    pollo: await food('Pechuga de pollo sin piel, asada'),
-    arroz: await food('Arroz blanco largo fino, hervido'),
-    lentejas: await food('Lentejas hervidas, sin sal'),
-    tomate: await food('Tomate rojo crudo'),
-    lechuga: await food('Lechuga de hoja verde'),
+    pan: await food('Pan francés o pan casero sin agregado de grasa o aceite'),
+    queso: await food('Queso crema entero, untable'),
+    pollo: await food('Pollo, pechuga sin piel (horno/parrilla)'),
+    arroz: await food('Arroz blanco, hervido'),
+    lentejas: await food('Lentejas, hervidas'),
+    tomate: await food('Tomate, crudo'),
+    lechuga: await food('Lechuga, cruda'),
     aceite: await food('Aceite de oliva'),
-    yogur: await food('Yogur natural descremado (sin azúcar)'),
-    manzana: await food('Manzana con cáscara'),
-    huevo: await food('Huevo duro'),
-    calabaza: await food('Calabaza (anco / butternut) cruda'),
-    ensalada: await food('Ensalada de garbanzos, tomate y cebolla'),
-    licuado: await food('Licuado de banana con leche'),
+    yogur: await food(await firstName("Yogur%descremado%")),
+    manzana: await food('Manzana con piel'),
+    huevo: await food('Huevo de gallina, entero, hervido'),
+    zapallo: await food('Zapallo, hervido'),
+    merluza: await food('Merluza'),
+    ensalada: await food('Ensalada de garbanzos, tomate y cebolla', 'Recetas base NutriAR'),
   };
   const it = (id: string, food_id: string, quantity: number, unit: PlanItem['unit'], extra: Partial<PlanItem> = {}): PlanItem => ({ id, food_id, quantity, unit, ...extra });
   const content = defaultPlanContent(1);
   content.show_nutrients = true;
   content.general_notes = 'Plan de DEMOSTRACIÓN con paciente ficticia. Tomá agua a lo largo del día.';
   content.supplements = [{ name: 'Vitamina D (ejemplo ficticio)', dose: 'según indicación', frequency: 'semanal', timing: 'con el almuerzo', notes: 'Indicación registrada por la profesional' }];
-  const aceiteCda = await measure(ids.aceite, '1 cucharada');
   for (const d of content.days) {
     d.meals.desayuno = [
-      it(`d${d.day}a`, ids.leche, 250, 'ml'),
-      it(`d${d.day}b`, ids.avena, 30, 'g', { alternatives: [{ id: `d${d.day}b1`, food_id: ids.pan, quantity: 2, unit: 'medida', measure_id: await measure(ids.pan, '1 rebanada'), note: 'con queso crema' }] }),
-      it(`d${d.day}c`, ids.banana, 1, 'medida', { measure_id: await measure(ids.banana, '1 taza') }),
+      it(`d${d.day}a`, ids.leche, 250, 'g', { note: 'una taza' }),
+      it(`d${d.day}b`, ids.avena, 30, 'g', { alternatives: [{ id: `d${d.day}b1`, food_id: ids.pan, quantity: 50, unit: 'g', note: 'con 1 cucharadita de queso crema' }] }),
+      it(`d${d.day}c`, ids.banana, 120, 'g'),
     ];
     d.meals.almuerzo = d.day % 2
-      ? [it(`a${d.day}a`, ids.pollo, 150, 'g'), it(`a${d.day}b`, ids.arroz, 1, 'medida', { measure_id: await measure(ids.arroz, '1 taza') }), it(`a${d.day}c`, ids.lechuga, 50, 'g'), it(`a${d.day}d`, ids.tomate, 100, 'g'), it(`a${d.day}e`, ids.aceite, 1, 'medida', { measure_id: aceiteCda })]
+      ? [it(`a${d.day}a`, ids.pollo, 150, 'g'), it(`a${d.day}b`, ids.arroz, 150, 'g'), it(`a${d.day}c`, ids.lechuga, 50, 'g'), it(`a${d.day}d`, ids.tomate, 100, 'g'), it(`a${d.day}e`, ids.aceite, 10, 'g', { note: 'una cucharada' })]
       : [it(`a${d.day}a`, ids.ensalada, 1, 'porcion'), it(`a${d.day}b`, ids.huevo, 50, 'g')];
-    d.meals.merienda = [it(`m${d.day}a`, ids.yogur, 170, 'g'), it(`m${d.day}b`, ids.manzana, 150, 'g', { gross: true, alternatives: [{ id: `m${d.day}b1`, food_id: ids.banana, quantity: 100, unit: 'g' }] })];
-    d.meals.cena = [it(`c${d.day}a`, ids.lentejas, 200, 'g'), it(`c${d.day}b`, ids.calabaza, 200, 'g'), it(`c${d.day}c`, ids.aceite, 1, 'medida', { measure_id: aceiteCda })];
+    d.meals.merienda = [it(`m${d.day}a`, ids.yogur, 170, 'g'), it(`m${d.day}b`, ids.manzana, 150, 'g', { alternatives: [{ id: `m${d.day}b1`, food_id: ids.banana, quantity: 100, unit: 'g' }] })];
+    d.meals.cena = d.day % 2
+      ? [it(`c${d.day}a`, ids.lentejas, 200, 'g'), it(`c${d.day}b`, ids.zapallo, 200, 'g'), it(`c${d.day}c`, ids.aceite, 10, 'g')]
+      : [it(`c${d.day}a`, ids.merluza, 150, 'g', { note: 'al horno' }), it(`c${d.day}b`, ids.zapallo, 200, 'g'), it(`c${d.day}c`, ids.aceite, 10, 'g')];
   }
   const prepared = await prepareContent(content, pro);
   const plan = await one("insert into plans(professional_id, patient_id, title) values ($1,$2,'Plan semanal - octubre') returning id", [pro, lucia.id]);

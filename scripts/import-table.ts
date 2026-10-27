@@ -11,6 +11,6 @@ if (!csvFile || !metaFile) {
   process.exit(1);
 }
 await migrate(false);
-const r = await importTable(fs.readFileSync(csvFile, 'utf8'), JSON.parse(fs.readFileSync(metaFile, 'utf8')), process.argv.includes('--aplicar'));
+const r = await importTable(fs.readFileSync(csvFile, 'utf8'), JSON.parse(fs.readFileSync(metaFile, 'utf8')), process.argv.includes('--aplicar'), { skipInvalid: process.argv.includes('--omitir-invalidas') });
 console.log(JSON.stringify({ ...r, errors: r.errors.slice(0, 50), total_errores: r.errors.length }, null, 2));
 await pool.end();
