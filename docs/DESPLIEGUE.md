@@ -1,6 +1,6 @@
 # Despliegue
 
-> Recomendación actual para la prueba: **Render** con `render.yaml` (ver `docs/ALOJAMIENTO.md`). Lo que sigue es la alternativa con un servidor propio.
+> Recomendación actual para la prueba: **Render** (prueba gratuita con `render.yaml`; versión paga con `render-pago.yaml`) (ver `docs/ALOJAMIENTO.md`). Lo que sigue es la alternativa con un servidor propio.
 
 ## Opción A — un servidor (VPS) con Docker Compose (recomendada por costo)
 1. Servidor Linux con Docker. Copiar el repositorio.

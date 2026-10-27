@@ -54,7 +54,8 @@ scripts/       seed-catalog, seed-demo, create-professional, backup.sh, restore.
 tests/         nutrition.test.ts, flows.test.ts (API), e2e/run.mjs (navegador)
 docs/          CATALOGO.md, ALOJAMIENTO.md, SEGURIDAD_Y_DATOS.md, DESPLIEGUE.md
 server/importers/  off.ts (Open Food Facts), table.ts (tablas oficiales normalizadas)
-render.yaml    configuración de Render (aplicación + base + disco), sin claves
+render.yaml         configuración de Render para la PRUEBA GRATUITA (archivo por defecto), sin claves
+render-pago.yaml    configuración de Render paga (aplicación + base + disco), sin claves
 ```
 
 ## 3. Cómo ejecutar (desarrollo)
@@ -134,7 +135,7 @@ Frontend con recarga en caliente (opcional): `npm run dev:web` (puerto 5173, red
 
 ## 8. Pruebas ejecutadas y resultados (24/10/2026)
 
-- 27/10/2026: `npm test` **58/58 OK** y `npm run test:e2e` **17/17 OK** con el catálogo argentino cargado. Conversión de SARA 2 verificada (cotejo independiente de texto, conteo por grupo, coherencia energética). Simulación de arranque tipo Render y `render.yaml` validado contra la especificación oficial de Blueprints.
+- 27/10/2026: `npm test` **58/58 OK** y `npm run test:e2e` **17/17 OK** con el catálogo argentino cargado. Conversión de SARA 2 verificada (cotejo independiente de texto, conteo por grupo, coherencia energética). Simulación de arranque tipo Render y `render-pago.yaml` validado contra la especificación oficial de Blueprints.
 - `npm test` (Vitest, PostgreSQL real, base `nutriar_test` recreada en cada corrida): **57/57 OK** (incluye `tests/importers.test.ts`: importadores de Open Food Facts y de tablas oficiales con datos ficticios — validaciones, rechazos con motivo, vacío ≠ cero, conversión kJ→kcal y sodio, reimportación sin duplicar ni borrar).
   - `tests/nutrition.test.ts`: cálculos verificables a mano (USDA SR28), medidas, densidad, peso bruto, faltante ≠ cero, recetas por rendimiento, lista de compras, IMC, zonas horarias, ciclo de semanas.
   - `tests/flows.test.ts`: las 13 comprobaciones obligatorias vía API, incluidas solicitudes directas de otra profesional y otro paciente a recursos y archivos ajenos, eliminación de EXIF, PDF (texto extraído) vs. lista de compras, versiones e historial, persistencia tras cerrar sesión, errores (archivo inválido, tamaño, validaciones, plan vacío, CSRF, borrado con confirmación) y auditoría.
@@ -147,7 +148,7 @@ Frontend con recarga en caliente (opcional): `npm run dev:web` (puerto 5173, red
 
 ## 9. Alojamiento y costos
 
-Recomendación: **Render** (aplicación + PostgreSQL gestionado + disco privado) — detalle, fuentes y pasos en `docs/ALOJAMIENTO.md`. **No contratado.** `render.yaml` crea todo sin escribir claves.
+Recomendación: **Render** (aplicación + PostgreSQL gestionado + disco privado) — detalle, fuentes y pasos en `docs/ALOJAMIENTO.md`. **No contratado.** `render-pago.yaml` crea todo sin escribir claves.
 - Costo de la prueba: **USD 13,55/mes, verificado en render.com/pricing el 27/10/2026** (web 0.5c-512mb 7 + disco 1 GB 0,25 + Postgres 0.1c-256mb 6 + 1 GB de base 0,30; recuperación de base de 3 días y copia diaria del disco incluidas; correo no necesario) **+ impuestos argentinos** (estimado USD 16–21/mes, a confirmar con el banco).
 - Los planes gratuitos de Render no sirven (sin disco, la base gratuita se borra a los 30+14 días).
 - Uso real estimado: USD 35–65/mes + dominio + correo (no verificado).
@@ -174,7 +175,7 @@ Plan acordado con el dueño (en este orden):
    - SARA 2 (uso comercial): a consultas@dinami.gov.ar (Área de Nutrición, Dirección de Salud Perinatal, Niñez y Adolescencias), con copia a dspnya@msal.gov.ar e info@iecs.org.ar. **consultas@dinami.gov.ar rebotó** (el dominio dinami.gov.ar ya no existe): la carta llegó solo a las copias. dspnya@msal.gov.ar pasa a ser el contacto principal. Si no hay respuesta en unos 15 días: reenviar o llamar al (011) 4379-9179.
    - ARGENFOODS: a informes@unlu.edu.ar, con copia a msperanza@unlu.edu.ar (contacto probable, no confirmado). Si no hay respuesta: reenviar o llamar al (02323) 423979 / 423171.
    - Hasta tener respuesta, SARA 2 se usa solo en pruebas sin fines comerciales (licencia CC BY-NC-SA 2.5 AR) y ARGENFOODS no se importa.
-3. ⏸️ **Prueba gratuita en Render** (sin tarjeta) con `render-prueba-gratis.yaml`: **es lo primero al retomar.** Guiar al dueño paso a paso (crear la cuenta con GitHub → New → Blueprint → repositorio → Blueprint Path `render-prueba-gratis.yaml` → Apply). Después probar desde el celular con la nutricionista y anotar cambios. El dueño pausó este paso por falta de tiempo.
-4. **Pagar al final:** autorizar el gasto y publicar con `render.yaml` (pasos en `docs/ALOJAMIENTO.md`). Todavía no está autorizado.
+3. ⏸️ **Prueba gratuita en Render** (sin tarjeta) con `render.yaml`: **es lo primero al retomar.** Guiar al dueño paso a paso (crear la cuenta con GitHub → New → Blueprint → repositorio → Blueprint Path vacío → Deploy Blueprint; si pide tarjeta, cerrar sin cargarla). Después probar desde el celular con la nutricionista y anotar cambios. En curso desde el 27/10/2026.
+4. **Pagar al final:** autorizar el gasto y publicar con `render-pago.yaml` (pasos en `docs/ALOJAMIENTO.md`). Todavía no está autorizado.
 
 Siguiente acción técnica: guiar la prueba gratuita en Render y aplicar los cambios que pida la nutricionista; publicar la versión paga solo cuando se autorice y verificar la app en el celular; después, Web Push para recordatorios con la app cerrada.

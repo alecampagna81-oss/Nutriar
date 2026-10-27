@@ -1,51 +1,47 @@
-# Configuración de Render (Blueprint). Render crea todo a partir de este archivo al conectar el repositorio.
-# No contiene claves: SESSION_SECRET la genera Render; SMTP se carga después en el panel (no en el chat ni en el repositorio).
-# Costo verificado en render.com/pricing el 27/10/2026: web Starter USD 7 + disco 1 GB USD 0,25
-# + Postgres 256 MB USD 6 + 1 GB de almacenamiento de base USD 0,30 ≈ USD 13,55/mes + impuestos.
+# Render — PRUEBA GRATUITA (sin tarjeta). Es el archivo por defecto: en Render, New → Blueprint → repositorio,
+# dejando vacío "Blueprint Path". La versión paga está en render-pago.yaml (Blueprint Path: render-pago.yaml).
+# Límites del plan gratuito (render.com/docs/free, 27/10/2026):
+#  - la app se apaga tras 15 min sin uso y tarda ~1 min en volver a encender;
+#  - la base gratuita (1 GB) vence a los 30 días y Render la borra 14 días después si no se pasa a un plan pago;
+#  - sin disco: las fotos y documentos se guardan dentro de la base (STORAGE_BACKEND=database).
+# Solo para probar con datos FICTICIOS.
 services:
   - type: web
-    name: nutriar
+    name: nutriar-prueba
     runtime: node
-    plan: 0.5c-512mb         # Starter, USD 7/mes. El plan gratuito no admite disco y se apaga a los 15 min sin uso
-    region: virginia         # la región de Render más cercana a Argentina
+    plan: free
+    region: virginia
     buildCommand: npm ci --include=dev && npm run build
     startCommand: npm start
     healthCheckPath: /api/health
-    autoDeployTrigger: commit  # cada cambio subido a GitHub se publica solo
-    disk:
-      name: archivos-privados
-      mountPath: /var/data
-      sizeGB: 1              # fotos y documentos; snapshot automático diario de Render
+    autoDeployTrigger: commit
     envVars:
       - key: NODE_VERSION
         value: "22"
       - key: DATABASE_URL
         fromDatabase:
-          name: nutriar-db
+          name: nutriar-prueba-db
           property: connectionString
       - key: SESSION_SECRET
         generateValue: true
-      - key: STORAGE_DIR
-        value: /var/data/storage
+      - key: STORAGE_BACKEND
+        value: database
+      - key: MAX_UPLOAD_MB
+        value: "5"
       - key: TRUST_PROXY
         value: "1"
       - key: SECURE_COOKIES
         value: "1"
       - key: ALLOW_PROFESSIONAL_SIGNUP
         value: "0"
-      - key: DEMO_MODE            # entorno de PRUEBA con datos ficticios. Poner "0" antes de usar datos reales.
+      - key: DEMO_MODE
         value: "1"
       - key: SEED_DEMO_IF_EMPTY
         value: "1"
-      - key: SMTP_URL             # opcional: se completa en el panel de Render (Environment), nunca en el repositorio
-        sync: false
-      - key: MAIL_FROM
-        sync: false
 
 databases:
-  - name: nutriar-db
-    plan: 0.1c-256mb              # USD 6/mes (256 MB)
+  - name: nutriar-prueba-db
+    plan: free
     region: virginia
     postgresMajorVersion: "16"
-    diskSizeGB: 1
-    ipAllowList: []               # sin acceso desde internet: solo la aplicación puede conectarse
+    ipAllowList: []

@@ -1,0 +1,51 @@
+# Configuración de Render (Blueprint). Render crea todo a partir de este archivo al conectar el repositorio.
+# No contiene claves: SESSION_SECRET la genera Render; SMTP se carga después en el panel (no en el chat ni en el repositorio).
+# Costo verificado en render.com/pricing el 27/10/2026: web Starter USD 7 + disco 1 GB USD 0,25
+# + Postgres 256 MB USD 6 + 1 GB de almacenamiento de base USD 0,30 ≈ USD 13,55/mes + impuestos.
+services:
+  - type: web
+    name: nutriar
+    runtime: node
+    plan: 0.5c-512mb         # Starter, USD 7/mes. El plan gratuito no admite disco y se apaga a los 15 min sin uso
+    region: virginia         # la región de Render más cercana a Argentina
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeployTrigger: commit  # cada cambio subido a GitHub se publica solo
+    disk:
+      name: archivos-privados
+      mountPath: /var/data
+      sizeGB: 1              # fotos y documentos; snapshot automático diario de Render
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: nutriar-db
+          property: connectionString
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: STORAGE_DIR
+        value: /var/data/storage
+      - key: TRUST_PROXY
+        value: "1"
+      - key: SECURE_COOKIES
+        value: "1"
+      - key: ALLOW_PROFESSIONAL_SIGNUP
+        value: "0"
+      - key: DEMO_MODE            # entorno de PRUEBA con datos ficticios. Poner "0" antes de usar datos reales.
+        value: "1"
+      - key: SEED_DEMO_IF_EMPTY
+        value: "1"
+      - key: SMTP_URL             # opcional: se completa en el panel de Render (Environment), nunca en el repositorio
+        sync: false
+      - key: MAIL_FROM
+        sync: false
+
+databases:
+  - name: nutriar-db
+    plan: 0.1c-256mb              # USD 6/mes (256 MB)
+    region: virginia
+    postgresMajorVersion: "16"
+    diskSizeGB: 1
+    ipAllowList: []               # sin acceso desde internet: solo la aplicación puede conectarse

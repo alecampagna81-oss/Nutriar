@@ -8,7 +8,7 @@ Actualizado: 24/10/2026. **Ningún servicio fue contratado.** Todo está prepara
 
 Por qué:
 - **Mantenimiento mínimo.** Render actualiza servidores y base de datos, renueva el certificado HTTPS y publica solo cada cambio que se sube a GitHub.
-- **Una sola cuenta y una sola factura.** El archivo `render.yaml` del repositorio crea todo con un clic, sin escribir claves: la clave de sesiones la genera Render.
+- **Una sola cuenta y una sola factura.** El archivo `render-pago.yaml` del repositorio crea todo con un clic, sin escribir claves: la clave de sesiones la genera Render.
 - **Respaldos incluidos.** La base tiene recuperación a un momento dado de los últimos 3 días en el plan Hobby (7 días en Pro), y el disco tiene una copia automática diaria que se conserva al menos 7 días.
 - **Costo fijo y previsible.**
 - No la elegí por ser la más barata. Un servidor propio (VPS) cuesta menos, pero exige mantener el sistema operativo, la seguridad y los respaldos.
@@ -16,7 +16,7 @@ Por qué:
 ## Prueba gratuita antes de pagar (recomendada como primer paso)
 
 Render permite probar **sin tarjeta**: según su documentación, si se supera el uso gratuito y no hay medio de pago, suspende el servicio en lugar de cobrar.
-- **Configuración:** `render-prueba-gratis.yaml`. En Render: *New* → *Blueprint* → repositorio `nutriar` → en **Blueprint Path** escribir `render-prueba-gratis.yaml` → *Apply*.
+- **Configuración:** `render.yaml` (archivo por defecto). En Render: *New* → *Blueprint* → repositorio `nutriar` → dejar vacío **Blueprint Path** → *Deploy Blueprint*. Ojo: si Render pide tarjeta, es porque está leyendo la versión paga; cerrar sin cargarla.
 - Las fotos y documentos se guardan **dentro de la base** (`STORAGE_BACKEND=database`), porque el plan gratuito no tiene disco y borra los archivos sueltos en cada reinicio. Probado: una foto subida sigue disponible después de reiniciar la app desde cero.
 - **Límites** (render.com/docs/free, 27/10/2026):
   - la app se apaga tras 15 minutos sin uso y tarda alrededor de 1 minuto en volver a encender;
@@ -24,7 +24,7 @@ Render permite probar **sin tarjeta**: según su documentación, si se supera el
   - la base gratuita (1 GB) **vence a los 30 días** y se borra 14 días después si no se pasa a un plan pago.
 - Archivos de hasta 5 MB, para no llenar la base.
 - **Solo datos ficticios.**
-- **Para pasar al plan pago:** crear otra vez con `render.yaml` (base nueva y disco). Los datos de la prueba no se migran: son ficticios.
+- **Para pasar al plan pago:** crear otra vez con `render-pago.yaml` (base nueva y disco). Los datos de la prueba no se migran: son ficticios.
 
 ## Servicios y cuentas
 
@@ -115,6 +115,6 @@ Estimación para un uso real pequeño: **USD 35 a 65 por mes** más impuestos.
 1. Entrar en render.com → *Sign up with GitHub*.
 2. Activar la verificación en dos pasos.
 3. Agregar un medio de pago.
-4. *New* → *Blueprint* → elegir el repositorio `nutriar` → *Apply*. Render crea la aplicación, la base y el disco según `render.yaml`.
+4. *New* → *Blueprint* → elegir el repositorio `nutriar` → en **Blueprint Path** escribir `render-pago.yaml` → *Apply*. Render crea la aplicación, la base y el disco según `render-pago.yaml`.
 5. Esperar unos 5–10 minutos. La dirección queda del tipo `https://nutriar-xxxx.onrender.com`, con las cuentas ficticias ya creadas.
 6. En *Billing*, poner en 0 el tope de gasto de compilación.
