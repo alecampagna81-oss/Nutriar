@@ -1,6 +1,8 @@
 # ESTADO DEL PROYECTO — NutriAR
 
-Archivo de continuidad. Leelo primero al retomar el trabajo. Última actualización: 27/10/2026 (catálogo argentino incorporado: SARA 2 + Open Food Facts; precios de Render verificados).
+Archivo de continuidad. Leelo primero al retomar el trabajo. Última actualización: 27/10/2026 (pedidos de permiso enviados; próximo paso: prueba gratuita en Render).
+
+**Nombre provisorio:** "NutriAR" es un nombre de trabajo. El dueño no lo confirmó como definitivo (puede estar registrado o en uso); se decide más adelante. En los pedidos de permiso no se usó el nombre.
 
 Repositorio privado: https://github.com/alecampagna81-oss/nutriar (rama `main`).
 
@@ -166,10 +168,13 @@ Recomendación: **Render** (aplicación + PostgreSQL gestionado + disco privado)
 
 Resuelto el 27/10/2026: acceso de red habilitado; SARA 2 y Open Food Facts incorporados; precios de Render verificados.
 
-Pendiente del dueño:
-0. **Prueba gratuita en Render** (sin tarjeta) con `render-prueba-gratis.yaml`: probar desde el celular con la nutricionista y anotar cambios antes de pagar.
-1. **Autorizar el gasto y crear la cuenta en Render** (pasos en `docs/ALOJAMIENTO.md`). Con eso se publica la versión de prueba.
-2. **Permisos:** pedir al Ministerio de Salud autorización de uso comercial de SARA 2; pedir a la UNLu autorización para ARGENFOODS.
-3. **Validación de una nutricionista** (lista en `docs/CATALOGO.md`, punto 6), incluida una muestra de productos de Open Food Facts.
+Plan acordado con el dueño (en este orden):
+1. ✅ **Validación por nutricionista:** la hace una nutricionista del entorno del dueño, durante la prueba (lista en `docs/CATALOGO.md`, punto 6, incluida una muestra de productos de Open Food Facts).
+2. ✅ **Pedidos de permiso enviados el 27/10/2026** (sin nombrar la app). Esperando respuesta:
+   - SARA 2 (uso comercial): a consultas@dinami.gov.ar (Área de Nutrición, Dirección de Salud Perinatal, Niñez y Adolescencias), con copia a dspnya@msal.gov.ar e info@iecs.org.ar. Si no hay respuesta en unos 15 días: reenviar o llamar al (011) 4379-9179.
+   - ARGENFOODS: a informes@unlu.edu.ar, con copia a msperanza@unlu.edu.ar (contacto probable, no confirmado). Si no hay respuesta: reenviar o llamar al (02323) 423979 / 423171.
+   - Hasta tener respuesta, SARA 2 se usa solo en pruebas sin fines comerciales (licencia CC BY-NC-SA 2.5 AR) y ARGENFOODS no se importa.
+3. ⏸️ **Prueba gratuita en Render** (sin tarjeta) con `render-prueba-gratis.yaml`: **es lo primero al retomar.** Guiar al dueño paso a paso (crear la cuenta con GitHub → New → Blueprint → repositorio → Blueprint Path `render-prueba-gratis.yaml` → Apply). Después probar desde el celular con la nutricionista y anotar cambios. El dueño pausó este paso por falta de tiempo.
+4. **Pagar al final:** autorizar el gasto y publicar con `render.yaml` (pasos en `docs/ALOJAMIENTO.md`). Todavía no está autorizado.
 
-Siguiente acción técnica: publicar en Render en cuanto se autorice y verificar la app en el celular; después, Web Push para recordatorios con la app cerrada.
+Siguiente acción técnica: guiar la prueba gratuita en Render y aplicar los cambios que pida la nutricionista; publicar la versión paga solo cuando se autorice y verificar la app en el celular; después, Web Push para recordatorios con la app cerrada.
