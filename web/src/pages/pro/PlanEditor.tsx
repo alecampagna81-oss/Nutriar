@@ -2,13 +2,14 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { api, download, errorText } from '../../lib/api';
 import { useApi } from '../../lib/hooks';
+import { formulaByKey } from '@shared/energy';
 import { dt, formatDate, num } from '../../lib/format';
 import { Alert, Badge, Button, Card, Confirm, ErrorBox, Field, Input, Loading, Modal, PageHeader, Select, Tabs, Textarea, Toggle, useAction, useToast } from '../../components/ui';
 import { FoodBadges, FoodPicker } from '../../components/FoodPicker';
 import { VSTATUS } from './patient/Plans';
 import {
   ALLERGENS, allergenConflicts, buildDays, dayLabel, dayTotals, describeQuantity, formatAmount, formatTotal, itemNutrients, NUTRIENT_LABELS, NUTRIENTS,
-  type FoodSnap, type PlanContent, type PlanDay, type PlanItem, type PlanItemBase,
+  type FoodSnap, type NutrientKey, type PlanContent, type PlanDay, type PlanItem, type PlanItemBase,
 } from '@shared/nutrition';
 
 const uid = () => Math.random().toString(36).slice(2, 10);
@@ -140,7 +141,10 @@ export function PlanEditor() {
   if (loading && !data) return <Loading />;
   if (error) return <ErrorBox error={error} onRetry={reload} />;
   if (!content || !day) return <Loading />;
-  const { plan, versions, version, clinical } = data;
+  const { plan, versions, version, clinical, energy } = data;
+  const target: (Record<NutrientKey, number> & { label: string }) | null = energy?.total
+    ? { energy_kcal: Number(energy.total), protein_g: energy.macros?.protein_g, carbs_g: energy.macros?.carbs_g, fat_g: energy.macros?.fat_g, label: formulaByKey(energy.formula)?.label ?? 'requerimiento' }
+    : null;
   const latest = versions[0];
   const readOnly = version.status !== 'borrador' || version.id !== latest.id;
   const totals = dayTotals(day, content.meals.map((m) => m.key));
@@ -354,10 +358,32 @@ export function PlanEditor() {
           ) : null}
           <Card title="Total del día">
             <div className="stack" style={{ gap: '0.2rem' }}>
-              {NUTRIENTS.map((k) => (
-                <div key={k} className="row-between"><span>{NUTRIENT_LABELS[k].label}</span><strong>{formatTotal(totals.total[k], NUTRIENT_LABELS[k].unit, k === 'energy_kcal' ? 0 : 1)}</strong></div>
-              ))}
+              {NUTRIENTS.map((k) => {
+                const goal = target ? target[k] : null;
+                const val = totals.total[k];
+                const tone = goal && !val.missing ? (Math.abs(val.value - goal) / goal <= 0.05 ? 'var(--primary)' : 'var(--warn)') : undefined;
+                return (
+                  <div key={k} className="row-between">
+                    <span>{NUTRIENT_LABELS[k].label}</span>
+                    <span>
+                      <strong style={{ color: tone }}>{formatTotal(val, NUTRIENT_LABELS[k].unit, k === 'energy_kcal' ? 0 : 1)}</strong>
+                      {goal ? <span className="small muted"> / {goal.toLocaleString('es-AR')}{k === 'energy_kcal' ? '' : ' g'}</span> : null}
+                    </span>
+                  </div>
+                );
+              })}
             </div>
+            {plan.patient_id ? (
+              target ? (
+                <p className="small muted" style={{ marginTop: '0.4rem' }}>
+                  Objetivo del paciente según {target.label}. En verde si está dentro del ±5 %. <Link to={`/pro/pacientes/${plan.patient_id}/requerimiento`}>Cambiar</Link>
+                </p>
+              ) : (
+                <p className="small" style={{ marginTop: '0.4rem' }}>
+                  <Link to={`/pro/pacientes/${plan.patient_id}/requerimiento`}>Definir requerimiento energético</Link> para comparar con el objetivo.
+                </p>
+              )
+            ) : null}
             {totals.total.errors.length ? <p className="small" style={{ color: 'var(--danger)' }}>{totals.total.errors.join('. ')}</p> : null}
             <p className="small muted" style={{ marginTop: '0.5rem' }}>Calculado con los datos de cada alimento. “Faltan datos” indica valores no disponibles (no se toman como cero).</p>
             {(() => {

@@ -15,6 +15,7 @@ import { deleteFile } from '../lib/storage.js';
 import { upload } from '../lib/uploads.js';
 import { MEASURE_KINDS, kindByKey } from '../../shared/measures.js';
 import { ALLERGENS } from '../../shared/nutrition.js';
+import { ACTIVITY_FACTORS, ageFromBirth, computeEnergy, FORMULAS, IOM_LEVELS, PHYSIO } from '../../shared/energy.js';
 import { agendaRouter } from './agenda.js';
 import { plansRouter } from './plans.js';
 
@@ -240,6 +241,71 @@ proRouter.post('/patients/:patientId/reset-link', async (req, res) => {
   await q("insert into password_resets(user_id, token_hash, created_by, expires_at) values ($1,$2,$3, now() + interval '24 hours')", [p.user_id, hashToken(token), user(req).id]);
   await audit(user(req).id, 'enlace_restablecimiento', 'paciente', p.id, p.id);
   res.status(201).json({ link: `${config.appUrl}/restablecer/${token}` });
+});
+
+// ---------------------------------------------------------------------------
+// Requerimiento energético
+
+const keys = <T extends { key: string }>(arr: readonly T[]) => arr.map((x) => x.key) as [string, ...string[]];
+const optNum = (min: number, max: number) => z.number().min(min).max(max).nullable();
+const energySchema = z.object({
+  formula: z.enum(keys(FORMULAS)),
+  activity: z.enum(keys(ACTIVITY_FACTORS)),
+  iom_level: z.enum(keys(IOM_LEVELS)),
+  physio: z.enum(keys(PHYSIO)),
+  adjustment_kcal: z.number().int().min(-2000).max(2000),
+  manual_kcal: z.number().int().min(300).max(8000).nullable(),
+  protein_pct: z.number().min(0).max(100),
+  fat_pct: z.number().min(0).max(100),
+  carbs_pct: z.number().min(0).max(100),
+  inputs: z.object({
+    sex: z.enum(['femenino', 'masculino']).nullable(),
+    age_years: optNum(0, 120),
+    weight_kg: optNum(1, 400),
+    height_cm: optNum(30, 250),
+    body_fat_pct: optNum(1, 75),
+  }),
+});
+
+/** Últimos peso, talla y grasa corporal cargados, edad y sexo: valores sugeridos para el cálculo. */
+async function energyDefaults(p: any) {
+  const rows = await q(
+    `select distinct on (kind) kind, value, measured_on from measurements
+      where patient_id=$1 and deleted_at is null and kind in ('peso','talla','grasa_corporal')
+      order by kind, measured_on desc, created_at desc`,
+    [p.id],
+  );
+  const by = Object.fromEntries(rows.map((r: any) => [r.kind, { value: Number(r.value), measured_on: r.measured_on }]));
+  return {
+    sex: p.sex === 'femenino' || p.sex === 'masculino' ? p.sex : null,
+    age_years: ageFromBirth(p.birth_date),
+    weight_kg: by.peso?.value ?? null,
+    height_cm: by.talla?.value ?? null,
+    body_fat_pct: by.grasa_corporal?.value ?? null,
+    measured_on: { peso: by.peso?.measured_on ?? null, talla: by.talla?.measured_on ?? null, grasa_corporal: by.grasa_corporal?.measured_on ?? null },
+  };
+}
+
+proRouter.get('/patients/:patientId/energy', async (req, res) => {
+  const p = await proPatient(req);
+  const saved = await one('select e.*, u.name as updated_by_name from energy_requirements e left join users u on u.id=e.updated_by where patient_id=$1', [p.id]);
+  res.json({ saved: saved ?? null, defaults: await energyDefaults(p) });
+});
+
+proRouter.put('/patients/:patientId/energy', async (req, res) => {
+  const p = await proPatient(req);
+  const u = user(req);
+  const b = parse(energySchema, req.body) as any;
+  const result = computeEnergy(b);
+  if (!result.ok) throw new HttpError(400, result.missing.length ? `Faltan datos para calcular: ${result.missing.join(', ')}` : 'No se pudo calcular el requerimiento: revisá los datos');
+  if (!result.macros) throw new HttpError(400, 'El reparto de macronutrientes tiene que sumar 100 %');
+  const row = await one(
+    `insert into energy_requirements(patient_id, config, result, updated_at, updated_by) values ($1,$2,$3,now(),$4)
+     on conflict (patient_id) do update set config=excluded.config, result=excluded.result, updated_at=now(), updated_by=excluded.updated_by returning *`,
+    [p.id, b, result, u.id],
+  );
+  await audit(u.id, 'requerimiento_energetico_editado', 'paciente', p.id, p.id);
+  res.json(row);
 });
 
 // ---------------------------------------------------------------------------

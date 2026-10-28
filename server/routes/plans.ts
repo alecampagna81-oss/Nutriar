@@ -86,7 +86,8 @@ plansRouter.get('/plans/:planId', async (req, res) => {
   const version = vid ? await one('select * from plan_versions where id=$1 and plan_id=$2', [vid, plan.id]) : await latestVersion(plan.id);
   if (!version) throw notFound('Versión');
   const clinical = plan.patient_id ? await one('select allergens, restriction_notes, data->>\'alimentos_rechazados\' as rejected, data->>\'intolerancias\' as intolerances, data->>\'restricciones\' as restrictions from clinical_records where patient_id=$1', [plan.patient_id]) : null;
-  res.json({ plan, versions, version, clinical, warnings: await planWarnings(version.content, plan.patient_id) });
+  const energy = plan.patient_id ? await one("select result->>'total' as total, result->'macros' as macros, config->>'formula' as formula from energy_requirements where patient_id=$1", [plan.patient_id]) : null;
+  res.json({ plan, versions, version, clinical, energy, warnings: await planWarnings(version.content, plan.patient_id) });
 });
 
 /** Guarda el borrador vigente. Las versiones publicadas no se modifican. */

@@ -1,6 +1,6 @@
 # ESTADO DEL PROYECTO — NutriAR
 
-Archivo de continuidad. Leelo primero al retomar el trabajo. Última actualización: 27/10/2026 (pedidos de permiso enviados; próximo paso: prueba gratuita en Render).
+Archivo de continuidad. Leelo primero al retomar el trabajo. Última actualización: 28/10/2026 (prueba gratuita publicada; requerimiento energético agregado a pedido de la nutricionista).
 
 **Nombre provisorio:** "NutriAR" es un nombre de trabajo. El dueño no lo confirmó como definitivo (puede estar registrado o en uso); se decide más adelante. En los pedidos de permiso no se usó el nombre.
 
@@ -176,6 +176,9 @@ Plan acordado con el dueño (en este orden):
    - ARGENFOODS: a informes@unlu.edu.ar, con copia a msperanza@unlu.edu.ar (contacto probable, no confirmado). Si no hay respuesta: reenviar o llamar al (02323) 423979 / 423171.
    - Hasta tener respuesta, SARA 2 se usa solo en pruebas sin fines comerciales (licencia CC BY-NC-SA 2.5 AR) y ARGENFOODS no se importa.
 3. ✅ **Prueba gratuita en Render publicada el 27/10/2026:** https://nutriar-prueba.onrender.com (Blueprint "Prueba", servicio `nutriar-prueba`, base `nutriar-prueba-db`, plan Free, sin tarjeta). El ingreso como nutricionista demo fue verificado por el dueño. La base gratuita vence alrededor del 26/11/2026 y Render la borra 14 días después. Cada cambio que se sube a `main` se publica solo. **Siguiente:** la nutricionista prueba la app y anota los cambios; después se aplican. (El entorno de Claude no puede acceder a onrender.com: las verificaciones las hace el dueño con capturas.)
+   - **Cambios pedidos durante la prueba:**
+     - ✅ (28/10) **Requerimiento energético** por paciente: 8 fórmulas más valor propio, factores de actividad fijos y reparto de macros en %. El objetivo se muestra en el editor de planes. Ver `docs/REQUERIMIENTO_ENERGETICO.md`; la nutricionista debe validar los coeficientes.
+     - Pendiente: botón para mostrar la contraseña al ingresar (dificultad para tipearla en el celular).
 4. **Pagar al final:** autorizar el gasto y publicar con `render-pago.yaml` (pasos en `docs/ALOJAMIENTO.md`). Todavía no está autorizado.
 
 Siguiente acción técnica: guiar la prueba gratuita en Render y aplicar los cambios que pida la nutricionista; publicar la versión paga solo cuando se autorice y verificar la app en el celular; después, Web Push para recordatorios con la app cerrada.

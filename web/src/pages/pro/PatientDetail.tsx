@@ -7,6 +7,7 @@ import { Clinical } from './patient/Clinical';
 import { Questionnaires } from './patient/Questionnaires';
 import { Consultations } from './patient/Consultations';
 import { Measurements } from './patient/Measurements';
+import { Energy } from './patient/Energy';
 import { Photos } from './patient/Photos';
 import { Plans } from './patient/Plans';
 import { Logs } from './patient/Logs';
@@ -21,6 +22,7 @@ const TABS = [
   ['cuestionarios', 'Cuestionarios'],
   ['consultas', 'Consultas'],
   ['mediciones', 'Mediciones'],
+  ['requerimiento', 'Requerimiento'],
   ['fotos', 'Fotos'],
   ['planes', 'Planes'],
   ['registros', 'Registros'],
@@ -58,6 +60,7 @@ export function PatientDetail() {
       {tab === 'cuestionarios' && <Questionnaires patientId={id} hasAccount={!!p.user_id} />}
       {tab === 'consultas' && <Consultations patientId={id} />}
       {tab === 'mediciones' && <Measurements patient={p} onSettingsChanged={reload} />}
+      {tab === 'requerimiento' && <Energy patientId={id} />}
       {tab === 'fotos' && <Photos patientId={id} />}
       {tab === 'planes' && <Plans patient={p} />}
       {tab === 'registros' && <Logs patientId={id} />}
